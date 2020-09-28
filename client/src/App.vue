@@ -55,6 +55,7 @@
             <v-d-operaciones v-if="ventanaActual === 'VDOperaciones'"></v-d-operaciones>
             <v-d-cotizaciones v-if="ventanaActual === 'VDCotizaciones'"></v-d-cotizaciones>
             <v-d-plan-pagos v-if="ventanaActual === 'VDPlanPagos'"></v-d-plan-pagos>
+            <operations v-if="ventanaActual === 'Operations'"></operations>
           </v-col>
         </v-row>
       </v-container>
@@ -63,9 +64,11 @@
 </template>
 
 <script>
-import VDOperaciones from "@/components/VDOperaciones";
-import VDCotizaciones from "@/components/VDCotizaciones";
-import VDPlanPagos from "@/components/VDPlanPagos";
+import VDOperaciones from '@/components/VDOperaciones';
+import VDCotizaciones from '@/components/VDCotizaciones';
+import VDPlanPagos from '@/components/VDPlanPagos';
+import Operations from  './components/Operations';
+
 
 export default {
   data() {
@@ -89,7 +92,8 @@ export default {
   components: {
     VDOperaciones,
     VDCotizaciones,
-    VDPlanPagos
+    VDPlanPagos,
+    Operations,
   }
 }
 </script>
