@@ -1,48 +1,35 @@
 <template>
   <div class="main-form">
-    <div class="section-header">
-      Alta - Baja - Edición de Operaciones
-    </div>
+    <div class="section-header">Alta - Baja - Edición de Operaciones</div>
     <general></general>
     <div class="section-divided">
       <div class="left-side">
-        <div class="section-header">
-          Otros Parámetros
-        </div>
+        <div class="section-header">Otros Parámetros</div>
         <otros-param></otros-param>
-        <div class="section-header">
-          Aplicar Operación
-        </div>
+        <div class="section-header">Aplicar Operación</div>
         <aplicar-op></aplicar-op>
-        <div class="section-header">
-          Comentarios
-        </div>
+        <div class="section-header">Comentarios</div>
         <comentarios></comentarios>
       </div>
       <div class="right-side">
-        <div class="section-header">
-          Financiamiento
-        </div>
+        <div class="section-header">Financiamiento</div>
         <financiamiento></financiamiento>
-        <div class="section-header">
-          Lote Autos
-        </div>
+        <div class="section-header">Lote Autos</div>
         <lote-autos></lote-autos>
-      </div><!-- right-side -->
+      </div>
+      <!-- right-side -->
     </div>
-
   </div>
 </template>
 
 <script lang="ts">
-
-import { Component, Vue } from 'vue-property-decorator';
-import General from '@/components/sections/General.vue';
-import OtrosParam from '@/components/sections/OtrosParam.vue';
-import AplicarOp from '@/components/sections/AplicarOp.vue';
-import Comentarios from '@/components/sections/Comentarios.vue';
-import Financiamiento from '@/components/sections/Financiamiento.vue';
-import LoteAutos from '@/components/sections/LoteAutos.vue';
+import { Component, Vue } from "vue-property-decorator";
+import General from "@/components/sections/General.vue";
+import OtrosParam from "@/components/sections/OtrosParam.vue";
+import AplicarOp from "@/components/sections/AplicarOp.vue";
+import Comentarios from "@/components/sections/Comentarios.vue";
+import Financiamiento from "@/components/sections/Financiamiento.vue";
+import LoteAutos from "@/components/sections/LoteAutos.vue";
 
 @Component({
   components: {
@@ -51,8 +38,8 @@ import LoteAutos from '@/components/sections/LoteAutos.vue';
     AplicarOp,
     Comentarios,
     Financiamiento,
-    LoteAutos
-  }
+    LoteAutos,
+  },
 })
 export default class MainForm extends Vue {}
 </script>
