@@ -1,7 +1,10 @@
 <template>
-  <div class="section-otros">
+  <section>
+    <div class="section-header">
+      Otros Parámetros
+    </div>
     <div class="section-subheader">Impuestos</div>
-    <div class="section-otros-impuestos">
+    <div class="section-content d-flex flex-column align-items-end">
       <div class="form-group">
         <label for="input-iva">IVA</label>
         <input id="input-iva" type="text">
@@ -12,7 +15,7 @@
       </div>
     </div>
     <div class="section-subheader">SeguroAuto</div>
-    <div class="section-otros-seguroAuto">
+    <div class="section-content d-flex flex-column align-items-end">
       <div class="form-group">
         <label for="input-comp">Compañía</label>
         <input id="input-comp" type="text">
@@ -70,7 +73,7 @@
         <input id="input-precioAsegurado" type="text">
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
@@ -79,35 +82,3 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({})
 export default class OtrosParam extends Vue {}
 </script>
-
-<style scoped>
-
-.section-subheader {
-  background: var(--gray-subnav);
-  font-size: 0.8rem;
-  font-weight: 500;
-  text-align: left;
-  padding: 0.3rem 0 0.3rem 0.65rem;
-
-}
-
-.section-otros-impuestos, .section-otros-seguroAuto {
-  display: flex;
-  align-items: flex-end;
-  flex-direction: column;
-  padding: 0.65rem;
-}
-
-label {
-  font-weight: 700;
-  text-align: left;
-  margin: 0 4px;
-}
-
-input {
-  width: 75px;
-}
-
-input[type="checkbox"] {}
-
-</style>
