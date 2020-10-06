@@ -1,8 +1,6 @@
 <template>
   <div class="main-form">
-    <div class="section-header">
-      Alta - Baja - Edición de Operaciones
-    </div>
+    <div class="section-header">Alta - Baja - Edición de Operaciones</div>
     <general></general>
     <div class="d-flex">
       <div class="left-side">
@@ -15,19 +13,17 @@
         <lote-autos></lote-autos>
       </div>
     </div>
-
   </div>
 </template>
 
 <script lang="ts">
-
-import { Component, Vue } from 'vue-property-decorator';
-import General from '@/components/sections/General.vue';
-import OtrosParam from '@/components/sections/OtrosParam.vue';
-import AplicarOp from '@/components/sections/AplicarOp.vue';
-import Comentarios from '@/components/sections/Comentarios.vue';
-import Financiamiento from '@/components/sections/Financiamiento.vue';
-import LoteAutos from '@/components/sections/LoteAutos.vue';
+import { Component, Vue } from "vue-property-decorator";
+import General from "@/components/sections/General.vue";
+import OtrosParam from "@/components/sections/OtrosParam.vue";
+import AplicarOp from "@/components/sections/AplicarOp.vue";
+import Comentarios from "@/components/sections/Comentarios.vue";
+import Financiamiento from "@/components/sections/Financiamiento.vue";
+import LoteAutos from "@/components/sections/LoteAutos.vue";
 
 @Component({
   components: {
@@ -36,8 +32,8 @@ import LoteAutos from '@/components/sections/LoteAutos.vue';
     AplicarOp,
     Comentarios,
     Financiamiento,
-    LoteAutos
-  }
+    LoteAutos,
+  },
 })
 export default class MainForm extends Vue {}
 </script>
