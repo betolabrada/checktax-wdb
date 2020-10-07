@@ -1,0 +1,104 @@
+:root {
+    --bg-primary: #eeece0;
+    --gray-nav: #4d4949;
+    --gray-subnav: #c4c4c4;
+    font-size: 12px;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background: var(--bg-primary);
+    margin: 0;
+    padding: 0;
+}
+
+label {
+    font-weight: 700;
+    margin: 0 4px;
+}
+
+input {
+    width: 75px;
+    height: 1.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.section-header {
+    background: var(--gray-nav);
+    color: #fff;
+    padding: 0.65rem 0 0.65rem 0.65rem;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.section-subheader {
+    background: var(--gray-subnav);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: left;
+    padding: 0.3rem 0 0.3rem 0.65rem;
+}
+
+.left-side {
+    width: 178px;
+    border-right: var(--gray-nav) solid 2px;
+}
+
+.right-side {
+    width: 320px;
+}
+
+.section-content {
+    padding: 0.65rem;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.d-block {
+    display: block;
+    width: 100%;
+}
+
+.d-block input {
+    width: 100%;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.align-items-end {
+    align-items: flex-end;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.justify-content-around {
+    justify-content: space-around;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.my-1 {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
