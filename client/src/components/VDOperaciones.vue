@@ -1,79 +1,84 @@
 <template>
   <div class="vd">
-    <h1>Cotizaciones</h1>
-    <table class="table-fixed">
-      <thead>
-      <tr>
-        <th>Cotización</th>
-        <th>Fecha</th>
-        <th>No.Pagos</th>
-        <th>Referencia</th>
-        <th>Cliente</th>
-        <th>Descripción</th>
-        <th>Fondeador</th>
-        <th>ValorOperación</th>
-      </tr>
-      </thead>
+    <h1>Operaciones</h1>
+    <table class="just-header table">
       <tbody>
-      <tr v-for="i in 100" :key="i">
-        <td>Cotización</td>
-        <td>Fecha</td>
-        <td>No.Pagos</td>
-        <td>Referencia</td>
-        <td>Cliente</td>
-        <td>Descripción</td>
-        <td>Fondeador</td>
-        <td>ValorOperación</td>
+      <tr>
+        <th style="width: 40px">Operación</th>
+        <th style="width: 80px">Fecha</th>
+        <th style="width: 80px">No.Pagos</th>
+        <th style="width: 80px">Referencia</th>
+        <th style="width: 80px">Cliente</th>
+        <th style="width: 80px">Descripción</th>
+        <th style="width: 80px">Fondeador</th>
+        <th style="width: 80px">ValorOperación</th>
       </tr>
       </tbody>
     </table>
+    <div class="table-wrapper">
+      <table class="table">
+        <tbody>
+        <tr v-for="i in 100" :key="i">
+          <td style="width: 40px">{{400 + i}}</td>
+          <td style="width: 80px">20-May-2020</td>
+          <td style="width: 80px">300</td>
+          <td style="width: 80px">RF</td>
+          <td style="width: 80px">GPI</td>
+          <td style="width: 80px">Auto comercial</td>
+          <td style="width: 80px">Fondeador</td>
+          <td style="width: 80px">500</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'VDOperaciones'
+  name: 'VDOperaciones',
+  data: () => ({
+    fab: false
+  }),
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .vd {
-  width: 1000px;
-  height: 600px;
+  width: 1200px;
+  height: 800px;
   background: #e5e5e5;
   margin: 16px;
+  padding: 1rem;
 }
 
-table {
+.table {
   width: 100%;
   border-spacing: 0;
-  padding: 0.8rem;
+  border-collapse: collapse;
+
+  td, th {
+    padding: 0 .75rem;
+  }
 }
 
-td {
-  border: 1px solid var(--gray-subnav);
-  background: #ffffff;
-}
-
-
-.table-fixed tbody {
-  height: 80vh;
+.table-wrapper {
+  height: 700px;
   overflow: auto;
-  width: 100%;
+  direction: rtl;
+
+  table {
+    direction: ltr;
+  }
+
+  table, table td {
+    background: #ffffff;
+    border: 1px solid var(--gray-subnav);
+  }
 }
 
-.table-fixed thead,
-.table-fixed tbody,
-.table-fixed tr,
-.table-fixed td,
-.table-fixed th {
-  display: block;
-}
-
-.table-fixed tbody td,
-.table-fixed tbody th,
-.table-fixed thead > tr > th {
-  float: left;
-  position: relative;
+th, td {
+  padding-top: 0;
+  padding-bottom: 0;
 }
 </style>
