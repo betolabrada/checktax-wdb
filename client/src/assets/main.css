@@ -53,8 +53,16 @@ input {
     padding: 0.65rem;
 }
 
+.overflow-x-auto {
+    overflow-x: auto;
+}
+
 .d-flex {
     display: flex;
+}
+
+.d-inline-flex {
+    display: inline-flex;
 }
 
 .d-block {
