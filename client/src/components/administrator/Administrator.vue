@@ -1,13 +1,16 @@
 <template>
   <div class="privilages">
-    <div class="windowTitle">
-      <h1 style="color:white;"><i class="fa fa-unlock-alt" id="windowLock"></i> Permisos de Operación</h1><br>
+    <div class="titleContainer">
+      <div class="windowTitle">
+        <h1 class="titleText"><i class="fa fa-unlock-alt" id="windowLock"></i> Permisos de Operación</h1><br>
+      </div>
     </div><br>
     <div class="search">
       <label class="sectionLabel"> Usuario</label><br>
       <input type="text" id="userField">
       <button type="button" class="btn btn-outline-success btn-lg" id="addButton"> Agregar <i class="fa fa-plus"></i></button>
     </div><br>
+    
     <div class="row ">
       <div class="col-sm">
         <div class="sectionTitle">
@@ -168,6 +171,12 @@ export default class Administrator extends Vue {}
 
 .privilageLabel{
   font-size: 1.5rem;
+}
+
+.titleText{
+  color: white;
+  margin-bottom: 1.5rem;
+  transform: translateY(50%);
 }
 
 .windowTitle{
