@@ -1,5 +1,5 @@
 <template>
-    <div class="section-body">
+    <div class="section-content">
         <div class="section-row">
             <div class="form-group">
                 <label for="input-analista">Analista</label>
@@ -67,7 +67,32 @@
             <div style="width: 75px; margin-top: 10px"><label>Investigación</label></div>
         </div>
         <div class="section-row">
-            
+            <div class="form-group">
+                <label for="input-scoreburo">Score Buró</label>
+                <input id="input-scoreburo" type="text">
+            </div>
+            <div class="form-group">
+                <input id="input-domicilio" type="checkbox">
+                <label for="input-domicilio">Domicilio</label>
+            </div>
+        </div>
+        <div class="section-row">
+            <div class="form-group">
+                <label for="input-personalidad">Personalidad</label>
+                <input id="input-personalidad" type="text">
+            </div>
+            <div class="form-group">
+                <input id="input-laboral" type="checkbox">
+                <label for="input-laboral">Laboral</label>
+        </div>
+        <div class="section-row">
+            <div class="form-group">
+                <label for="input-garante">Garante</label>
+                <input id="input-garante" type="text">
+            </div>
+            <div class="form-group">
+                <input id="input-domic/lab" type="checkbox">
+                <label for="input-domic/lab">Domic/Laboral</label>
         </div>
     </div>
 </template>
