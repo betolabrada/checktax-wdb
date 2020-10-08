@@ -1,5 +1,6 @@
 <template>
   <div class="privilages">
+    
     <div class="titleContainer">
       <div class="windowTitle">
         <h1 class="titleText"><i class="fa fa-unlock-alt" id="windowLock"></i> Permisos de Operación</h1><br>
@@ -8,7 +9,28 @@
     <div class="search">
       <label class="sectionLabel"> Usuario</label><br>
       <input type="text" id="userField">
-      <button type="button" class="btn btn-outline-success btn-lg" id="addButton"> Agregar <i class="fa fa-plus"></i></button>
+      <button @click="openModal" type="button" class="btn btn-outline-success btn-lg" id="addButton"> Agregar <i class="fa fa-plus"></i></button>
+      <b-modal ref="my-modal" size="xl" hide-footer title="Datos generales del usuario">
+        <form>
+          <div>
+            <label for="name">Nombre</label><br>
+            <input type="text" class="form-control" id="name">
+          </div><br>
+          <div>
+            <label for="lastName">Apellido</label>
+            <input type="text" class="form-control" id="lastName">
+          </div><br>
+          <div>
+            <label for="userEmail">Dirección email</label>
+            <input type="email" class="form-control" id="userEmail"  placeholder="Email">
+          </div><br>
+          <div>
+            <label for="password">Contraseña</label>
+            <input type="password" class="form-control" id="password"  placeholder="* * * * * * * * * *">
+          </div><br>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </b-modal>
     </div><br>
     
     <div class="row ">
@@ -141,6 +163,14 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component({
   components: {
+  },
+  methods:{
+    openModal() {
+      this.$refs['my-modal'].show()
+    }, 
+    closeModal() {
+      this.$refs['my-modal'].hide()
+    }
   },
 })
 export default class Administrator extends Vue {}
