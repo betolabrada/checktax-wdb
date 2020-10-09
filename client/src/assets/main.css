@@ -53,8 +53,16 @@ input {
     padding: 0.65rem;
 }
 
+.overflow-x-auto {
+    overflow-x: auto;
+}
+
 .d-flex {
     display: flex;
+}
+
+.d-inline-flex {
+    display: inline-flex;
 }
 
 .d-block {
@@ -76,6 +84,14 @@ input {
 
 .justify-content-center {
     justify-content: center;
+}
+
+.justify-content-start {
+    justify-content: flex-start;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
 }
 
 .justify-content-between {
@@ -101,4 +117,8 @@ input {
 .my-1 {
     margin-bottom: 1rem;
     margin-top: 1rem;
+}
+
+.w-100 {
+    width: 100%;
 }
