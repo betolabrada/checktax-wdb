@@ -99,4 +99,10 @@ export default class Credito extends Vue {}
 .form-group{
     margin: 0px;
 }
+input[type="checkbox"] {
+  width: 15px;
+  margin: 0;
+  padding: 0;
+  align-self: flex-start;
+}
 </style>
