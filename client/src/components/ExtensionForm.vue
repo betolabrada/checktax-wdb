@@ -30,11 +30,55 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Garantia from "@/components/ExtensionForm/Garantia";
-import Cobranza from "@/components/ExtensionForm/Cobranza";
-import Credito from "@/components/ExtensionForm/Credito";
-import Otros from "@/components/ExtensionForm/Otros";
+import Garantia from "@/components/ExtensionForm/Garantia.vue";
+import Cobranza from "@/components/ExtensionForm/Cobranza.vue";
+import Credito from "@/components/ExtensionForm/Credito.vue";
+import Otros from "@/components/ExtensionForm/Otros.vue";
 
-@Component({})
+@Component({components: {
+    Garantia,
+    Cobranza,
+    Credito,
+    Otros,
+},})
 export default class ExtensionForm extends Vue {}
 </script>
+
+<style scoped>
+
+.main-form {
+  width: 360px;
+  background: #e5e5e5;
+  margin: 16px;
+}
+
+.section-divided {
+  display: flex;
+}
+
+.left-side {
+    width: 180px;
+}
+
+.right-side {
+  width: 180px;
+}
+
+.section-header{
+    background: #32463B;
+}
+
+.main-form{
+    background: #AEC4B8;
+}
+
+input{
+    background-color: #D7E2DB; 
+}
+
+.section-header-1{
+    background: #000000;
+    color: #ffffff;
+}
+
+</style>

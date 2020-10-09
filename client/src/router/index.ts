@@ -30,6 +30,11 @@ const routes: Array<RouteConfig> = [
     name: "Log in",
     component: () => import("../views/Log-in.vue"),
   },
+  {
+    path: "/extension",
+    name: "Extension",
+    component: () => import("../views/Extension.vue"),
+  }
 ];
 
 const router = new VueRouter({

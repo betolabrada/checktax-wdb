@@ -1,5 +1,5 @@
 <template>
-    <div class="section-content">
+    <div class="section-content d-flex flex-column align-items-end">
         <div class="form-group">
             <label for="input-saldoInicial">Saldo Inicial</label>
             <input id="input-saldoInicial" type="text">
@@ -46,5 +46,12 @@ label {
 }
 input {
   width: 75px;
+}
+.section-content{
+    align-content: center;
+}
+
+.form-group{
+    margin: 0px;
 }
 </style>
