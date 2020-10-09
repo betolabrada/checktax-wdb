@@ -7,28 +7,28 @@
       <div class="search">
         <label class="sectionLabel"> Usuario</label><br>
         <input type="text" id="userField">
-        <button @click="openModal" type="button" class="btn btn-outline-success btn-lg" id="addButton"> Agregar <i class="fa fa-plus"></i></button>
-        <b-modal ref="my-modal" size="xl" hide-footer title="Datos generales del usuario">
-          <form>
-            <div>
-              <label for="name">Nombre</label><br>
-              <input type="text" class="form-control" id="name">
-            </div><br>
-            <div>
-              <label for="lastName">Apellido</label>
-              <input type="text" class="form-control" id="lastName">
-            </div><br>
-            <div>
-              <label for="userEmail">Dirección email</label>
-              <input type="email" class="form-control" id="userEmail"  placeholder="Email">
-            </div><br>
-            <div>
-              <label for="password">Contraseña</label>
-              <input type="password" class="form-control" id="password"  placeholder="* * * * * * * * * *">
-            </div><br>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </form>
-        </b-modal>
+<!--        <button @click="openModal" type="button" class="btn btn-outline-success btn-lg" id="addButton"> Agregar <i class="fa fa-plus"></i></button>-->
+<!--        <b-modal ref="my-modal" size="xl" hide-footer title="Datos generales del usuario">-->
+<!--          <form>-->
+<!--            <div>-->
+<!--              <label for="name">Nombre</label><br>-->
+<!--              <input type="text" class="form-control" id="name">-->
+<!--            </div><br>-->
+<!--            <div>-->
+<!--              <label for="lastName">Apellido</label>-->
+<!--              <input type="text" class="form-control" id="lastName">-->
+<!--            </div><br>-->
+<!--            <div>-->
+<!--              <label for="userEmail">Dirección email</label>-->
+<!--              <input type="email" class="form-control" id="userEmail"  placeholder="Email">-->
+<!--            </div><br>-->
+<!--            <div>-->
+<!--              <label for="password">Contraseña</label>-->
+<!--              <input type="password" class="form-control" id="password"  placeholder="* * * * * * * * * *">-->
+<!--            </div><br>-->
+<!--            <button type="submit" class="btn btn-primary">Guardar</button>-->
+<!--          </form>-->
+<!--        </b-modal>-->
       </div>
       <div class="row d-flex">
         <div class="col-sm section-content">
@@ -319,6 +319,7 @@ input[type="checkbox"] {
   margin: 0;
   padding: 0;
   align-self: flex-start;
+}
 
 .titleText{
   color: white;
@@ -327,8 +328,6 @@ input[type="checkbox"] {
 }
 
 .windowTitle{
-  margin-left: 2rem;
-  margin-right: 2rem;
   padding-left: 1.2rem;
   background: var(--gray-nav);
 
