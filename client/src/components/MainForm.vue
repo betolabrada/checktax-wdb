@@ -1,6 +1,6 @@
 <template>
   <div class="main-form">
-    <div class="section-header">Alta - Baja - Edición de Operaciones</div>
+    <div class="section-header" @click="$emit('clickHeader')">Alta - Baja - Edición de Operaciones</div>
     <general></general>
     <div class="d-flex">
       <div class="left-side">
@@ -42,7 +42,7 @@ export default class MainForm extends Vue {}
 .main-form {
   width: 500px;
   background: #e5e5e5;
-  margin: 16px;
+  margin: 16px 0 16px 16px;
 }
 a {
   color: #42b983;

@@ -4,13 +4,13 @@
     <i class="fas fa-bars d-flex justify-content-center align-items-center"></i>
   </div>
   <ul class="fab-options d-flex flex-column align-items-end" :class="{ visible: navActive }">
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('operaciones')">
       <span class="fab-label">Operaciones</span>
       <div class="fab-icon-holder">
         <i class="fas fa-file-alt d-flex justify-content-center align-items-center"></i>
       </div>
     </li>
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('cotizaciones')">
       <span class="fab-label">Cotizaciones</span>
       <div class="fab-icon-holder">
         <i class="fas fa-dollar-sign d-flex justify-content-center align-items-center"></i>
@@ -45,6 +45,11 @@ name: "VDNav",
     return {
       navActive: false
     }
+  },
+  methods: {
+    onClickItem(e) {
+      this.$emit('navChanged', e);
+    }
   }
 }
 </script>
@@ -57,6 +62,9 @@ name: "VDNav",
 
 .fab-container {
   width: 70px;
+  position: relative;
+  z-index: 999;
+  left: 30px;
 }
 
 .fab-icon-holder {
