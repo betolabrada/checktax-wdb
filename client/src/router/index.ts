@@ -34,6 +34,11 @@ const routes: Array<RouteConfig> = [
     path: "/extension",
     name: "Extension",
     component: () => import("../views/Extension.vue"),
+  },
+  {
+    path: "/alta",
+    name: "Alta Cliente",
+    component: () => import("../views/AltaCliente.vue"),
   }
 ];
 
