@@ -320,6 +320,8 @@ input[type="checkbox"] {
   padding: 0;
   align-self: flex-start;
 
+}
+
 .titleText{
   color: white;
   margin-bottom: 1.5rem;
