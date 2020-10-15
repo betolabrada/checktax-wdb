@@ -1,7 +1,7 @@
 <template>
     <div class="main-form">
         <div class="section-header-1">
-            Más 
+            Más
         </div>
         <div class="section-divided">
             <div class="left-side">
@@ -49,7 +49,7 @@ export default class ExtensionForm extends Vue {}
 .main-form {
   width: 360px;
   background: #e5e5e5;
-  margin: 16px;
+  margin: 16px 0;
 }
 
 .section-divided {
