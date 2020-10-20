@@ -24,6 +24,10 @@ input {
     box-sizing: border-box;
 }
 
+input.phone-input {
+    width: 90px;
+}
+
 .section-header {
     background: var(--gray-nav);
     color: #fff;
@@ -34,7 +38,6 @@ input {
 
 .section-subheader {
     background: var(--gray-subnav);
-    font-size: 0.8rem;
     font-weight: 500;
     text-align: left;
     padding: 0.3rem 0 0.3rem 0.65rem;
@@ -110,6 +113,10 @@ input {
     text-align: left;
 }
 
+.text-center {
+    text-align: center;
+}
+
 .mb-1 {
     margin-bottom: 1rem;
 }
@@ -119,6 +126,18 @@ input {
     margin-top: 1rem;
 }
 
+.mr-50 {
+    margin-right: 0.5rem;
+}
+
+.m-0 {
+    margin: 0;
+}
+
 .w-100 {
     width: 100%;
+}
+
+.bordered {
+    border: #000000 solid 4px;
 }

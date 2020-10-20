@@ -8,7 +8,7 @@
         <input id="config-buro-clave">
       </div>
       <div class="d-flex justify-content-center">
-        <div class="input-group">
+        <div class="input-group mr-50">
           <label class="d-block" for="config-buro-diasMin">DíasMínimo</label>
           <input id="config-buro-diasMin">
         </div>

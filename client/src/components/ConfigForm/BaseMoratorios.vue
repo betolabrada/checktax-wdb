@@ -2,23 +2,23 @@
   <section>
     <div class="section-header">Base De Moratorios</div>
     <div class="section-content">
-      <div class="d-flex">
+      <div class="d-flex justify-content-between">
         <div class="input-group">
-          <label for="config-morat-fondeador">Fondeador</label>
+          <label class="d-block" for="config-morat-fondeador">Fondeador</label>
           <input id="config-morat-fondeador">
         </div>
         <div class="input-group">
-          <label for="config-morat-tasaMensual">Tasa Mensual</label>
+          <label class="d-block" for="config-morat-tasaMensual">TasaMensual</label>
           <input id="config-morat-tasaMensual">
         </div>
       </div>
-      <div class="d-flex mb-1">
+      <div class="d-flex justify-content-between mb-1">
         <div class="input-group">
-          <label for="config-morat-diasMargen">Días Margen</label>
+          <label class="d-block" for="config-morat-diasMargen">Días Margen</label>
           <input id="config-morat-diasMargen">
         </div>
         <div class="input-group">
-          <label for="config-morat-gtsCobranza">GtsCobranza</label>
+          <label class="d-block" for="config-morat-gtsCobranza">GtsCobranza</label>
           <input id="config-morat-gtsCobranza">
         </div>
       </div>

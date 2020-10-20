@@ -8,18 +8,18 @@
         <input id="config-loteAutos-sucursal">
       </div>
       <div class="d-flex justify-content-center">
-        <div class="input-group">
+        <div class="input-group mr-50">
           <label class="d-block" for="config-loteAutos-comision">Comisión</label>
           <input id="config-loteAutos-comision">
         </div>
         <div class="input-group text-align-left">
           <label class="d-block" for="config-loteAutos-tel">Teléfono</label>
-          <input id="config-loteAutos-tel">
+          <input id="config-loteAutos-tel" class="phone-input">
         </div>
       </div>
       <div class="input-group">
         <label class="d-block" for="config-loteAutos-tel2">Teléfono</label>
-        <input id="config-loteAutos-tel2">
+        <input id="config-loteAutos-tel2" class="phone-input">
       </div>
     </div>
     <div class="form-group">

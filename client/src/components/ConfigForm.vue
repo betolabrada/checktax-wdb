@@ -10,7 +10,7 @@
           <div class="left-side">
             <aplicar-pagos></aplicar-pagos>
             <base-moratorios></base-moratorios>
-            <ref-bancarias></ref-bancarias>
+            <ref-bancarias style="margin-bottom: 1.75px"></ref-bancarias>
             <estatus-cartera></estatus-cartera>
           </div>
           <div class="right-side">
@@ -45,11 +45,14 @@
 }
 
 .section-config {
-  border-right: #000000 solid 4px;
+  border: #000000 solid 4px;
+  border-right: #000000 solid 2px;
 }
 
 .section-users {
   width: 100%;
+  border: #000000 solid 4px;
+  border-left: #000000 solid 2px;
 }
 
 </style>
