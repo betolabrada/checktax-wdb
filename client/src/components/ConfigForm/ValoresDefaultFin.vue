@@ -34,8 +34,8 @@
     </div>
     <div class="form-group d-flex flex-column align-items-end my-1">
       <div class="d-flex">
-        <div class="input-checkbox-header">Fin</div>
-        <div class="input-text-header">Importe</div>
+        <label class="d-block input-checkbox-header m-0">Fin</label>
+        <label class="d-block input-text-header m-0 text-center">Importe</label>
       </div>
       <div class="input-group d-flex">
         <label for="config-defaults-finAdmon">Admon</label>
