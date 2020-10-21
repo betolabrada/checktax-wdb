@@ -72,7 +72,8 @@ name: "VDNav",
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background: #2c3e50;
+  border: #2c3e50 solid 3px;
+  background: #ffffff;
 
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
@@ -83,7 +84,7 @@ name: "VDNav",
 
 .fab-icon-holder i {
   font-size: 25px;
-  color: #ffffff;
+  color: #2c3e50;
   height: inherit;
 }
 

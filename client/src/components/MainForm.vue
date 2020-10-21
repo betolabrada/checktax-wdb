@@ -1,5 +1,5 @@
 <template>
-  <div class="main-form">
+  <div class="main-form bordered">
     <div class="section-header" @click="$emit('clickHeader')">Alta - Baja - Edición de Operaciones</div>
     <general></general>
     <div class="d-flex">
