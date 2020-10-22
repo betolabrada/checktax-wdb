@@ -313,7 +313,9 @@ export default class Administrator extends Vue {
   color: orange;
 }
 
-
+label {
+  white-space: nowrap;
+}
 input[type="checkbox"] {
   width: 15px;
   margin: 0;
