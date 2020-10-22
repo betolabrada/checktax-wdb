@@ -131,7 +131,8 @@ router.patch('/update', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
 
     const operacion = await Finanzas.findOne({operacion: req.body.operacion});
-    if(!operacion) return res.status(400).send('Esta operación no existe');
+    if(!operacion) return res.status(400).send('Esta operación no existe.');
+    if(operacion.id!==req.body.operacion) return res.status(400).send("No puedes cambiar el número de operación.")
 
     try {
         await Finanzas.findOneAndUpdate(operacion.id ,req.body);
