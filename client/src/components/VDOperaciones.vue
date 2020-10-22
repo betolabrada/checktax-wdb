@@ -4,12 +4,12 @@
     <table class="just-header table">
       <tbody>
       <tr>
-        <th style="width: 40px">Operación</th>
-        <th style="width: 80px">Fecha</th>
-        <th style="width: 80px">No.Pagos</th>
-        <th style="width: 80px">Referencia</th>
-        <th style="width: 80px">Cliente</th>
-        <th style="width: 80px">Descripción</th>
+        <th style="width: 20px">Operación</th>
+        <th style="width: 40px">Fecha</th>
+        <th style="width: 40px">No.Pagos</th>
+        <th style="width: 60px">Referencia</th>
+        <th style="width: 100px">Cliente</th>
+        <th style="width: 100px">Descripción</th>
         <th style="width: 80px">Fondeador</th>
         <th style="width: 80px">ValorOperación</th>
       </tr>
@@ -18,15 +18,15 @@
     <div class="table-wrapper">
       <table class="table">
         <tbody>
-        <tr v-for="i in 100" :key="i">
-          <td style="width: 40px">{{400 + i}}</td>
-          <td style="width: 80px">20-May-2020</td>
-          <td style="width: 80px">300</td>
-          <td style="width: 80px">RF</td>
-          <td style="width: 80px">GPI</td>
-          <td style="width: 80px">Auto comercial</td>
-          <td style="width: 80px">Fondeador</td>
-          <td style="width: 80px">500</td>
+        <tr v-for="i in this.finanzas" :key="i._id">
+          <td style="width: 20px">{{i.operacion}}</td>
+          <td style="width: 40px">{{dateInFormat(i.fecha)}}</td>
+          <td style="width: 40px">{{i.noPagos}}</td>
+          <td style="width: 60px">{{i.referencia}}</td>
+          <td style="width: 100px">{{i.dePara}}</td>
+          <td style="width: 100px">{{i.descripcion}}</td>
+          <td style="width: 80px">{{i.fondeador}}</td>
+          <td style="width: 80px">{{i.valorOperacion}}</td>
         </tr>
         </tbody>
       </table>
@@ -35,11 +35,33 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 export default {
   name: 'VDOperaciones',
   data: () => ({
     fab: false
   }),
+  computed: {
+    ...mapState(['finanzas']),
+  },
+  methods: {
+    ...mapActions(['fetchFinanzas']),
+    dateInFormat(date) {
+      const dateObj = new Date(date);
+      console.log(dateObj);
+
+      const day = dateObj.getDate();
+      const month = months[dateObj.getMonth()];
+      const year = dateObj.getFullYear();
+
+      return day + '-' + month + '-' + year;
+    }
+  },
+  created() {
+    this.fetchFinanzas();
+    console.log(this.finanzas);
+  }
 };
 </script>
 

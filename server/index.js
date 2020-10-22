@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
+
+app.use(cors());
 
 //Import routes
 const authRoute = require('./routes/auth');
@@ -26,4 +29,4 @@ app.use('/api/user', authRoute);
 app.use('/api/finanzas', finanzasRoute);
 app.use('/api/clients', clientsRoute);
 
-app.listen(3000, () => console.log("Server up and running"));
+app.listen(3000, () => console.log("Server up and running at port 3000"));
