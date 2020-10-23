@@ -1,13 +1,17 @@
 <template>
   <div class="section-content">
     <div class="d-flex">
-      <div class="form-group">
+      <div class="form-group" @click="handleClickInputOperacion()">
         <label for="input-operacion">Operación</label>
-        <input id="input-operacion" type="text" value="{{state.operacion.operacion}}">
+        <input id="input-operacion"
+               type="number"
+               v-model="numOperacion"
+               @keyup.enter="findOperacion()"
+               :disabled="foundOperacion">
       </div>
       <div class="form-group">
         <label for="input-fecha">Fecha</label>
-        <input id="input-fecha" type="text" value="{{state.operacion.fecha}}">
+        <input id="input-fecha" type="text" v-model="operacion.fecha">
       </div>
       <div class="form-group">
         <label for="input-folio">Folio Com.</label>
@@ -21,40 +25,92 @@
     <div class="d-flex">
       <div class="form-group d-block">
         <label for="input-cliente">Cliente</label>
-        <input id="input-cliente" type="text">
+        <input id="input-cliente" type="text" v-model="operacion.cliente">
       </div>
     </div>
     <div class="d-flex">
       <div class="form-group">
         <label for="input-persona">Persona</label>
-        <input id="input-persona" type="text">
+        <input id="input-persona" type="text" v-model="operacion.persona">
       </div>
       <div class="form-group d-block">
         <label for="input-personaDesc">Descripción</label>
-        <input id="input-personaDesc" type="text">
+        <input id="input-personaDesc" type="text" v-model="operacion.descripcion">
       </div>
     </div>
     <div class="d-flex">
       <div class="form-group d-block">
         <label for="input-asesor">Asesor</label>
-        <input id="input-asesor" type="text">
+        <input id="input-asesor" type="text" v-model="operacion.asesor">
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+<script>
 import { mapState, mapActions } from 'vuex';
-
 export default {
-  name: 'VDOperaciones',
+  data() {
+    return {
+      foundOperacion: false,
+      numOperacion: 0,
+      operacion: {
+        numero: '',
+        fecha: '',
+        folioCom: '',
+        refPagos: '',
+        cliente: '',
+        persona: '',
+        descripcion: '',
+        asesor: '',
+      },
+    }
+  },
   computed: {
-    ...mapState(['operacion']),
+    ...mapState(['finanzas', 'finanza']),
   },
   methods: {
-    ...mapActions(['postOperacion'])
-  }
+    ...mapActions(['fetchFinanza']),
+    clearContent() {
+      this.operacion = {};
+    },
+    findOperacion() {
+      const operacionExiste = this.finanzas.find((fin) => fin.operacion === parseInt(this.numOperacion));
+      if (operacionExiste) {
+        // fill form
+        console.log('Found operacion: ', operacionExiste);
+        const {
+          numero,
+          fecha,
+          folio,
+          refPagos,
+          dePara,
+          persona,
+          descripcion,
+          asesor
+        } = operacionExiste;
+        this.operacion = {
+          numero,
+          fecha,
+          folioCom: folio,
+          refPagos,
+          cliente: dePara,
+          persona,
+          descripcion,
+          asesor
+        }
+        this.foundOperacion = true;
+      } else {
+        this.foundOperacion = false;
+      }
+    },
+    handleClickInputOperacion() {
+      this.clearContent();
+      if (this.foundOperacion) {
+        this.foundOperacion = false;
+      }
+    }
+  },
 }
 </script>
 

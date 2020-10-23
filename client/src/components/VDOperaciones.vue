@@ -49,7 +49,6 @@ export default {
     ...mapActions(['fetchFinanzas']),
     dateInFormat(date) {
       const dateObj = new Date(date);
-      console.log(dateObj);
 
       const day = dateObj.getDate();
       const month = months[dateObj.getMonth()];
@@ -60,7 +59,6 @@ export default {
   },
   created() {
     this.fetchFinanzas();
-    console.log(this.finanzas);
   }
 };
 </script>

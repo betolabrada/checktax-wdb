@@ -9,6 +9,7 @@
       <v-d-operaciones v-if="currentVD === 'operaciones'"></v-d-operaciones>
       <v-d-cotizaciones v-if="currentVD === 'cotizaciones'"></v-d-cotizaciones>
       <alta-cliente v-if="currentVD === 'altaCliente'"></alta-cliente>
+      <manejo-cliente v-if="currentVD === 'manejoCliente'"></manejo-cliente>
     </div>
   </div>
 </template>
@@ -21,9 +22,11 @@ import VDOperaciones from '@/components/VDOperaciones.vue';
 import VDCotizaciones from '@/components/VDCotizaciones.vue';
 import ExtensionForm from '@/components/ExtensionForm.vue'; // @ is an alias to /src
 import AltaCliente from '@/components/AltaCliente.vue';
+import ManejoCliente from '@/views/ManejoCliente.vue';
 
 @Component({
   components: {
+    ManejoCliente,
     ExtensionForm,
     VDCotizaciones,
     VDOperaciones,
