@@ -1,15 +1,15 @@
 <template>
   <div class="main-form bordered">
     <div class="section-header" @click="$emit('clickHeader')">Alta - Baja - Edición de Operaciones</div>
-    <general></general>
+    <general></general> <!-- Alta - Baja - Edición de Operaciones -->
     <div class="d-flex">
       <div class="left-side">
-        <otros-param></otros-param>
+        <otros-param></otros-param> <!-- Otros Parámetros -->
         <aplicar-op></aplicar-op>
         <comentarios></comentarios>
       </div>
       <div class="right-side">
-        <financiamiento></financiamiento>
+        <financiamiento></financiamiento> <!-- Financiamiento -->
         <lote-autos></lote-autos>
       </div>
     </div>

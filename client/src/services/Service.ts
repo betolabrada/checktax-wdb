@@ -17,4 +17,5 @@ export default {
 
     getFinanzas: () => apiClient.get('/finanzas/getAll'),
     getFinanza: (num: number) => apiClient.get('/finanzas/get', { params: { operacion: num } } ),
+    postOperacion: (data: any) => apiClient.post('/finanzas/post', data)
 }
