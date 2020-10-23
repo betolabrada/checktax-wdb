@@ -3,11 +3,16 @@
     <div class="d-flex">
       <div class="form-group">
         <label for="input-operacion">Operación</label>
-        <input id="input-operacion" type="number" v-model="numOperacion">
+        <input id="input-operacion"
+               type="number"
+               v-model="numOperacion"
+               @keyup.enter="findOperacion()"
+               @click="handleClickInputOperacion()"
+               :disabled="foundOperacion">
       </div>
       <div class="form-group">
         <label for="input-fecha">Fecha</label>
-        <input id="input-fecha" type="text">
+        <input id="input-fecha" type="text" v-model="operacion.fecha">
       </div>
       <div class="form-group">
         <label for="input-folio">Folio Com.</label>
@@ -44,16 +49,65 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 export default {
   data() {
     return {
-      numOperacion: 0
+      foundOperacion: false,
+      numOperacion: 0,
+      operacion: {
+        numero: '',
+        fecha: '',
+        folioCom: '',
+        refPagos: '',
+        cliente: '',
+        persona: '',
+        descripcion: '',
+        asesor: '',
+      },
     }
   },
   computed: {
-    ...mapState(['finanzas']),
-  }
+    ...mapState(['finanzas', 'finanza']),
+  },
+  methods: {
+    ...mapActions(['fetchFinanza']),
+    findOperacion() {
+      const operacionExiste = this.finanzas.find((fin) => fin.operacion === parseInt(this.numOperacion));
+      if (operacionExiste) {
+        // fill form
+        console.log('Found operacion: ', operacionExiste);
+        const {
+          numero,
+          fecha,
+          folioCom,
+          refPagos,
+          cliente,
+          persona,
+          descripcion,
+          asesor
+        } = operacionExiste;
+        this.operacion = {
+          numero,
+          fecha,
+          folioCom,
+          refPagos,
+          cliente,
+          persona,
+          descripcion,
+          asesor
+        }
+        this.foundOperacion = true;
+      } else {
+        this.foundOperacion = false;
+      }
+    },
+    handleClickInputOperacion() {
+      if (this.foundOperacion) {
+        this.foundOperacion = false;
+      }
+    }
+  },
 }
 </script>
 
