@@ -5,43 +5,44 @@
         <label for="input-operacion">Operación</label>
         <input id="input-operacion"
                type="text"
-               v-model="numOperacion"
+               :value="numOperacion"
+               @input="update('operacion', $event)"
                @keyup.enter="findOperacion()"
                :disabled="foundOperacion">
       </div>
       <div class="form-group">
         <label for="input-fecha">Fecha</label>
-        <input id="input-fecha" type="text" v-model="operacion.fecha">
+        <input id="input-fecha" type="text" :value="operacion.fecha" @input="update('fecha', $event)">
       </div>
       <div class="form-group">
         <label for="input-folio">Folio Com.</label>
-        <input id="input-folio" type="text" v-model="operacion.folio">
+        <input id="input-folio" type="text" :value="operacion.folio" @input="update('folio', $event)">
       </div>
       <div class="form-group d-block">
         <label for="input-refPagos">Referencia Pagos</label>
-        <input id="input-refPagos" type="text" v-model="operacion.refPagos">
+        <input id="input-refPagos" type="text" :value="operacion.referencia" @input="update('referencia', $event)">
       </div>
     </div>
     <div class="d-flex">
       <div class="form-group d-block">
         <label for="input-cliente">Cliente</label>
-        <input id="input-cliente" type="text" v-model="operacion.cliente">
+        <input id="input-cliente" type="text" :value="operacion.dePara" @input="update('dePara', $event)">
       </div>
     </div>
     <div class="d-flex">
       <div class="form-group">
         <label for="input-persona">Persona</label>
-        <input id="input-persona" type="text" v-model="operacion.persona">
+        <input id="input-persona" type="text" :value="operacion.persona" @input="update('persona', $event)">
       </div>
       <div class="form-group d-block">
         <label for="input-personaDesc">Descripción</label>
-        <input id="input-personaDesc" type="text" v-model="operacion.descripcion">
+        <input id="input-personaDesc" type="text" :value="operacion.descripcion" @input="update('descripcion', $event)">
       </div>
     </div>
     <div class="d-flex">
       <div class="form-group d-block">
         <label for="input-asesor">Asesor</label>
-        <input id="input-asesor" type="text" v-model="operacion.asesor">
+        <input id="input-asesor" type="text" :value="operacion.promotor" @input="update('promotor', $event)">
       </div>
     </div>
   </div>
@@ -54,24 +55,30 @@ export default {
   data() {
     return {
       foundOperacion: false,
-      numOperacion: '',
       operacion: {
         fecha: '',
-        folioCom: '',
-        refPagos: '',
-        cliente: '',
+        folio: '',
+        referencia: '',
+        dePara: '',
         persona: '',
         descripcion: '',
-        asesor: '',
+        promotor: '',
       },
     }
   },
   computed: {
-    ...mapState(['finanzas', 'finanza', 'operacionOp']),
+    ...mapState(['finanzas']),
+    numOperacion() {
+      return this.$store.state.operacionPost.operacion;
+    }
   },
   methods: {
     ...mapMutations(['setOperacionPost','operacionClear']),
-    ...mapActions(['fetchFinanza','postOperacion']),
+    ...mapActions(['postOperacion']),
+    update(key, event) {
+      this.operacion[key] = event.target.value;
+      this.setOperacionPost({ [key]: event.target.value });
+    },
     clearContent() {
       this.operacion = {};
     },
@@ -84,41 +91,30 @@ export default {
           numero,
           fecha,
           folio,
-          refPagos,
+          referencia,
           dePara,
           persona,
           descripcion,
-          asesor
+          promotor
         } = operacionExiste;
         this.operacion = {
           numero,
           fecha,
-          folioCom: folio,
-          refPagos,
-          cliente: dePara,
+          folio,
+          referencia,
+          dePara,
           persona,
           descripcion,
-          asesor
+          promotor
         }
         this.foundOperacion = true;
       } else {
         this.foundOperacion = false;
-        
-        this.setOperacionPost({operacion:this.numOperacion});
-        this.setOperacionPost({fecha:this.operacion.fecha});
-        this.setOperacionPost({folio:this.operacion.folioCom});
-        this.setOperacionPost({referencia:this.operacion.refPagos});
-        this.setOperacionPost({dePara:this.operacion.cliente});
-        this.setOperacionPost({persona:this.operacion.persona});
-        this.setOperacionPost({descripcion:this.operacion.descripcion});
-        this.setOperacionPost({promotor:this.operacion.asesor});
-
-        console.log(this.postOperacion());
+        this.clearContent();
         this.operacionClear();
       }
     },
     handleClickInputOperacion() {
-      //this.clearContent();
       if (this.foundOperacion) {
         this.foundOperacion = false;
       }
