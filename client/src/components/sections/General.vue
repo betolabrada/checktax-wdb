@@ -4,7 +4,7 @@
       <div class="form-group" @click="handleClickInputOperacion()">
         <label for="input-operacion">Operación</label>
         <input id="input-operacion"
-               type="number"
+               type="text"
                v-model="numOperacion"
                @keyup.enter="findOperacion()"
                :disabled="foundOperacion">
@@ -15,11 +15,11 @@
       </div>
       <div class="form-group">
         <label for="input-folio">Folio Com.</label>
-        <input id="input-folio" type="text" value="{{state.operacion.folio}}">
+        <input id="input-folio" type="text" v-model="operacion.folio">
       </div>
       <div class="form-group d-block">
         <label for="input-refPagos">Referencia Pagos</label>
-        <input id="input-refPagos" type="text" value="{{state.operacion.referencia}}">
+        <input id="input-refPagos" type="text" v-model="operacion.refPagos">
       </div>
     </div>
     <div class="d-flex">
@@ -48,14 +48,14 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex';
 export default {
+  name: 'General',
   data() {
     return {
       foundOperacion: false,
-      numOperacion: 0,
+      numOperacion: '',
       operacion: {
-        numero: '',
         fecha: '',
         folioCom: '',
         refPagos: '',
@@ -67,10 +67,11 @@ export default {
     }
   },
   computed: {
-    ...mapState(['finanzas', 'finanza']),
+    ...mapState(['finanzas', 'finanza', 'operacionOp']),
   },
   methods: {
-    ...mapActions(['fetchFinanza']),
+    ...mapMutations(['setOperacionPost','operacionClear']),
+    ...mapActions(['fetchFinanza','postOperacion']),
     clearContent() {
       this.operacion = {};
     },
@@ -102,10 +103,22 @@ export default {
         this.foundOperacion = true;
       } else {
         this.foundOperacion = false;
+        
+        this.setOperacionPost({operacion:this.numOperacion});
+        this.setOperacionPost({fecha:this.operacion.fecha});
+        this.setOperacionPost({folio:this.operacion.folioCom});
+        this.setOperacionPost({referencia:this.operacion.refPagos});
+        this.setOperacionPost({dePara:this.operacion.cliente});
+        this.setOperacionPost({persona:this.operacion.persona});
+        this.setOperacionPost({descripcion:this.operacion.descripcion});
+        this.setOperacionPost({promotor:this.operacion.asesor});
+
+        console.log(this.postOperacion());
+        this.operacionClear();
       }
     },
     handleClickInputOperacion() {
-      this.clearContent();
+      //this.clearContent();
       if (this.foundOperacion) {
         this.foundOperacion = false;
       }
