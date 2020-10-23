@@ -1,7 +1,7 @@
 <template>
   <div class="home d-inline-flex">
     <div class="main-form-container d-flex justify-content-center">
-      <main-form @clickHeader="extensionActive = !extensionActive"></main-form>
+      <main-form @clickHeader="handleNavEvent($event)"></main-form>
       <extension-form v-if="extensionActive"></extension-form>
     </div>
     <v-d-nav @navChanged="currentVD = $event"></v-d-nav>
@@ -23,6 +23,7 @@ import VDCotizaciones from '@/components/VDCotizaciones.vue';
 import ExtensionForm from '@/components/ExtensionForm.vue'; // @ is an alias to /src
 import AltaCliente from '@/components/AltaCliente.vue';
 import ManejoCliente from '@/views/ManejoCliente.vue';
+import { mapActions } from 'vuex';
 
 @Component({
   components: {
@@ -34,10 +35,23 @@ import ManejoCliente from '@/views/ManejoCliente.vue';
     MainForm,
     AltaCliente
   },
+  methods: {
+    ...mapActions(['postOperacion'])
+  }
 })
 export default class Home extends Vue {
   private currentVD = 'operaciones';
   private extensionActive = false;
+  postOperacion!: () => any;
+
+  handleNavEvent($event: string) {
+    if ($event === 'expand') {
+      this.extensionActive = !this.extensionActive;
+    } else if ($event === 'save') {
+      // POST or PUT
+      this.postOperacion();
+    }
+  }
 }
 </script>
 
