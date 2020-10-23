@@ -8,6 +8,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     finanzas: [],
+    operacion: {},
     privileges: [
       {
         view: "Cotizaciones",
@@ -24,13 +25,18 @@ export default new Vuex.Store({
   mutations: {
     setFinanzas(state, data) {      
       state.finanzas = data;
-    }
+    },
   },
   actions: {
     // Fetch finanzas array
     async fetchFinanzas({ commit }) {
       const res = await Service.getFinanzas();
       commit('setFinanzas', res.data);
+    },
+    // Post operacion
+    async postOperacion() {
+      const res = await Service.postOperacion(this.state.operacion);
+      return res.data;
     }
   },
   modules: {},
