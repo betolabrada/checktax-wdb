@@ -1,6 +1,6 @@
 <template>
     <div class="Financiamiento">
-        <financiamiento></financiamiento>
+        <financiamientos></financiamientos>
     </div>
 </template>
 
