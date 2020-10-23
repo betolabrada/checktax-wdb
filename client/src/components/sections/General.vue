@@ -3,7 +3,7 @@
     <div class="d-flex">
       <div class="form-group">
         <label for="input-operacion">Operación</label>
-        <input id="input-operacion" type="text">
+        <input id="input-operacion" type="number" v-model="numOperacion">
       </div>
       <div class="form-group">
         <label for="input-fecha">Fecha</label>
@@ -43,11 +43,18 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-
-@Component({})
-export default class General extends Vue {}
+<script>
+import { mapState } from 'vuex';
+export default {
+  data() {
+    return {
+      numOperacion: 0
+    }
+  },
+  computed: {
+    ...mapState(['finanzas']),
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
