@@ -1,13 +1,12 @@
 <template>
   <div class="section-content">
     <div class="d-flex">
-      <div class="form-group">
+      <div class="form-group" @click="handleClickInputOperacion()">
         <label for="input-operacion">Operación</label>
         <input id="input-operacion"
                type="number"
                v-model="numOperacion"
                @keyup.enter="findOperacion()"
-               @click="handleClickInputOperacion()"
                :disabled="foundOperacion">
       </div>
       <div class="form-group">
@@ -26,23 +25,23 @@
     <div class="d-flex">
       <div class="form-group d-block">
         <label for="input-cliente">Cliente</label>
-        <input id="input-cliente" type="text">
+        <input id="input-cliente" type="text" v-model="operacion.cliente">
       </div>
     </div>
     <div class="d-flex">
       <div class="form-group">
         <label for="input-persona">Persona</label>
-        <input id="input-persona" type="text">
+        <input id="input-persona" type="text" v-model="operacion.persona">
       </div>
       <div class="form-group d-block">
         <label for="input-personaDesc">Descripción</label>
-        <input id="input-personaDesc" type="text">
+        <input id="input-personaDesc" type="text" v-model="operacion.descripcion">
       </div>
     </div>
     <div class="d-flex">
       <div class="form-group d-block">
         <label for="input-asesor">Asesor</label>
-        <input id="input-asesor" type="text">
+        <input id="input-asesor" type="text" v-model="operacion.asesor">
       </div>
     </div>
   </div>
@@ -72,6 +71,9 @@ export default {
   },
   methods: {
     ...mapActions(['fetchFinanza']),
+    clearContent() {
+      this.operacion = {};
+    },
     findOperacion() {
       const operacionExiste = this.finanzas.find((fin) => fin.operacion === parseInt(this.numOperacion));
       if (operacionExiste) {
@@ -80,9 +82,9 @@ export default {
         const {
           numero,
           fecha,
-          folioCom,
+          folio,
           refPagos,
-          cliente,
+          dePara,
           persona,
           descripcion,
           asesor
@@ -90,9 +92,9 @@ export default {
         this.operacion = {
           numero,
           fecha,
-          folioCom,
+          folioCom: folio,
           refPagos,
-          cliente,
+          cliente: dePara,
           persona,
           descripcion,
           asesor
@@ -103,6 +105,7 @@ export default {
       }
     },
     handleClickInputOperacion() {
+      this.clearContent();
       if (this.foundOperacion) {
         this.foundOperacion = false;
       }
