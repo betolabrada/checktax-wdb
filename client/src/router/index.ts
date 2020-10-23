@@ -46,7 +46,7 @@ const routes: Array<RouteConfig> = [
     component: () => import("../views/ManejoCliente.vue"),
   },
   {
-    path: "financiamiento",
+    path: "/financiamiento",
     name: "Financiamiento",
     component: () => import("../views/Financiamiento.vue"),
   }
