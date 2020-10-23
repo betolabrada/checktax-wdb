@@ -3,19 +3,19 @@
     <div class="d-flex">
       <div class="form-group">
         <label for="input-operacion">Operación</label>
-        <input id="input-operacion" type="text">
+        <input id="input-operacion" type="text" value="{{state.operacion.operacion}}">
       </div>
       <div class="form-group">
         <label for="input-fecha">Fecha</label>
-        <input id="input-fecha" type="text">
+        <input id="input-fecha" type="text" value="{{state.operacion.fecha}}">
       </div>
       <div class="form-group">
         <label for="input-folio">Folio Com.</label>
-        <input id="input-folio" type="text">
+        <input id="input-folio" type="text" value="{{state.operacion.folio}}">
       </div>
       <div class="form-group d-block">
         <label for="input-refPagos">Referencia Pagos</label>
-        <input id="input-refPagos" type="text">
+        <input id="input-refPagos" type="text" value="{{state.operacion.referencia}}">
       </div>
     </div>
     <div class="d-flex">
@@ -45,9 +45,17 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapState, mapActions } from 'vuex';
 
-@Component({})
-export default class General extends Vue {}
+export default {
+  name: 'VDOperaciones',
+  computed: {
+    ...mapState(['operacion']),
+  },
+  methods: {
+    ...mapActions(['postOperacion'])
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

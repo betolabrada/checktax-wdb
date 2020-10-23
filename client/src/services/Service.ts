@@ -16,5 +16,5 @@ export default {
     removeData: () => apiClient.delete(''),
 
     getFinanzas: () => apiClient.get('/finanzas/getAll'),
-    postOperacion: (data:any) => apiClient.post('/finanzas/post', data)
+    postOperacion: (data: any) => apiClient.post('/finanzas/post', data)
 }
