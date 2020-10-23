@@ -39,6 +39,16 @@ const routes: Array<RouteConfig> = [
     path: "/alta",
     name: "Alta Cliente",
     component: () => import("../views/AltaCliente.vue"),
+  },
+  {
+    path: "/manejocliente",
+    name: "Manejo Cliente",
+    component: () => import("../views/ManejoCliente.vue"),
+  },
+  {
+    path: "financiamiento",
+    name: "Financiamiento",
+    component: () => import("../views/Financiamiento.vue"),
   }
 ];
 
