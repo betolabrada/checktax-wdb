@@ -1,15 +1,16 @@
 <template>
   <div class="main-form bordered">
-    <div class="section-header" @click="$emit('clickHeader')">Alta - Baja - Edición de Operaciones</div>
-    <general></general>
+    <main-form-nav @clickedNav="$emit('clickHeader', $event)"></main-form-nav>
+<!--    <div class="section-header" @click="$emit('clickHeader')">Alta - Baja - Edición de Operaciones</div>-->
+    <general></general> <!-- Alta - Baja - Edición de Operaciones -->
     <div class="d-flex">
       <div class="left-side">
-        <otros-param></otros-param>
+        <otros-param></otros-param> <!-- Otros Parámetros -->
         <aplicar-op></aplicar-op>
         <comentarios></comentarios>
       </div>
       <div class="right-side">
-        <financiamiento></financiamiento>
+        <financiamiento></financiamiento> <!-- Financiamiento -->
         <lote-autos></lote-autos>
       </div>
     </div>
@@ -24,9 +25,11 @@ import AplicarOp from "@/components/sections/AplicarOp.vue";
 import Comentarios from "@/components/sections/Comentarios.vue";
 import Financiamiento from "@/components/sections/Financiamiento.vue";
 import LoteAutos from "@/components/sections/LoteAutos.vue";
+import MainFormNav from '@/components/nav/MainFormNav.vue';
 
 @Component({
   components: {
+    MainFormNav,
     General,
     OtrosParam,
     AplicarOp,

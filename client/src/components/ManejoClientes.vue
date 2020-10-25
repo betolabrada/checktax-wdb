@@ -1,5 +1,5 @@
 <template>
-    <div class="main-form">
+    <div class="main-form section-content">
         <div class="d-flex justify-content-between">
             <h2>Corrección Nombre Clientes</h2>
             <div class="align-items-end">
@@ -139,7 +139,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Vue } from 'vue-property-decorator';
 
 export default class ManejoClientes extends Vue{}   
 </script>

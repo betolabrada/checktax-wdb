@@ -1,6 +1,5 @@
 <template>
-  <div class="p-5 row">
-    <div class="col"></div>
+  <div class="log-in-content p-5 d-flex justify-content-center">
     <div class="col">
       <form>
         <div class="form-group">
@@ -24,11 +23,15 @@
         </div>
       </form>
     </div>
-    <div class="col"></div>
   </div>
 </template>
 
 <style scoped>
+
+.log-in-content {
+  background: aqua;
+}
+
 #email {
   text-align: center;
 }
