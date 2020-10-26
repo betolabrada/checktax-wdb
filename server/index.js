@@ -2,14 +2,18 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+
+const bodyParser = require('body-parser');
 const cors = require('cors');
 
+app.use(bodyParser.json());
 app.use(cors());
 
 //Import routes
 const authRoute = require('./routes/auth');
 const finanzasRoute = require('./routes/finanzas')
 const clientsRoute = require('./routes/clients.js')
+const sqlTesting = require('./routes/sqlTesting.js')
 
 dotenv.config();
 
@@ -28,5 +32,6 @@ app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api/finanzas', finanzasRoute);
 app.use('/api/clients', clientsRoute);
+app.use('/api/sqlTesting',sqlTesting);
 
 app.listen(3000, () => console.log("Server up and running at port 3000"));
