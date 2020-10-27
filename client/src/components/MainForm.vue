@@ -44,8 +44,11 @@ export default class MainForm extends Vue {}
 <style>
 .main-form {
   width: 500px;
+  height: 780px;
   background: #e5e5e5;
   margin: 16px 0 16px 16px;
+  overflow: hidden;
+
 }
 a {
   color: #42b983;

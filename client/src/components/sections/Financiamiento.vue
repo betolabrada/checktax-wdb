@@ -32,7 +32,7 @@
         <label for="input-tasaAnual">Tasa Anual</label>
         <input id="input-tasaAnual" type="text">
       </div>
-      <div style="width: 75px; margin-top: 10px"><label>Importe</label></div>
+      <div style="width: 75px; margin-top: 10px; text-align: center;"><label>Importe</label></div>
       <div class="form-group">
         <label for="input-anticipo">Anticipo</label>
         <input id="input-anticipo" type="text">
@@ -87,7 +87,7 @@
         <label for="input-impDescuento"></label>
         <input id="input-impDescuento" type="text">
       </div>
-      <hr style="border-top: #000000 solid 1px; width: 300px">
+      <div style="text-align: right;"><hr style="border-top: #000000 solid 1px; width: 75px"></div>
       <div class="form-group">
         <label for="input-total">Total Primer Pago</label>
         <input id="input-total" type="text">

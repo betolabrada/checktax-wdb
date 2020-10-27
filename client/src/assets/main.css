@@ -2,6 +2,12 @@
     --bg-primary: #eeece0;
     --gray-nav: #4d4949;
     --gray-subnav: #c4c4c4;
+    --bg-green: #AEC4B8;
+    --input-green: #D7E2DB;
+    --bg-vd: #cecec4;
+    --color-header-vd: #4e4b3a;
+    --color-th-vd: #5f3b39;
+    --color-td-vd: #84643c;
     font-size: 12px;
     font-family: Roboto, Helvetica, Arial, sans-serif;
 }
@@ -45,7 +51,8 @@ input.phone-input {
 
 .left-side {
     width: 178px;
-    border-right: var(--gray-nav) solid 2px;
+    height: 700px;
+    border-right: #000000 solid 2px;
 }
 
 .right-side {
@@ -85,6 +92,10 @@ input.phone-input {
     align-items: flex-end;
 }
 
+.align-self-center {
+    align-self: center;
+}
+
 .justify-content-center {
     justify-content: center;
 }
@@ -117,6 +128,10 @@ input.phone-input {
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .mb-1 {
     margin-bottom: 1rem;
 }
@@ -134,6 +149,10 @@ input.phone-input {
     margin: 0;
 }
 
+.p-1 {
+    padding: 1rem;
+}
+
 .w-100 {
     width: 100%;
 }
@@ -141,3 +160,87 @@ input.phone-input {
 .bordered {
     border: #000000 solid 4px;
 }
+
+.bordered-top {
+    border-top: #000000 solid 4px;
+}
+
+.bordered-right {
+    border-right: #000000 solid 4px;
+}
+
+.bordered-bottom {
+    border-bottom: #000000 solid 4px;
+}
+
+.bordered-left {
+    border-left: #000000 solid 4px;
+}
+
+.input-group.green input[type="text"], .input-group.green textarea {
+    background: var(--input-green);
+    border-radius: 2px;
+    border: 1px solid rgb(118, 118, 118);
+}
+
+.input-group.green input[type="checkbox"] {
+    width: 15px;
+    margin: 0;
+    padding: 0;
+    align-self: flex-start;
+}
+
+/* Ventanas dinámicas */
+.vd {
+    width: 1200px;
+    height: 800px;
+    background: var(--bg-vd);
+    margin: 16px;
+    padding: 1rem;
+    box-sizing: content-box;
+    color: var(--color-header-vd);
+    border: 4px solid #000;
+}
+.table-wrapper {
+    height: 700px;
+    overflow: auto;
+    direction: rtl;
+}
+
+.table-wrapper th {
+    position: sticky;
+    top: -1px;
+    z-index: 1;
+    background: var(--bg-vd);
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    direction: ltr;
+    table-layout: fixed;
+}
+
+table, table td {
+    background: #ffffff;
+    border: 1px solid var(--gray-subnav);
+}
+
+th, td {
+    padding: 0 0.75rem;
+}
+
+th {
+    padding-bottom: 2px;
+    color: var(--color-th-vd);
+}
+
+td {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: var(--color-td-vd);
+}
+
+

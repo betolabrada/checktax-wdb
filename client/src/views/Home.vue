@@ -10,6 +10,8 @@
       <v-d-cotizaciones v-if="currentVD === 'cotizaciones'"></v-d-cotizaciones>
       <alta-cliente v-if="currentVD === 'altaCliente'"></alta-cliente>
       <manejo-cliente v-if="currentVD === 'manejoCliente'"></manejo-cliente>
+      <v-d-plan-pagos v-if="currentVD === 'planPagos'"></v-d-plan-pagos>
+      <v-d-operaciones-sin-plan v-if="currentVD === 'operacionesSinPlan'"></v-d-operaciones-sin-plan>
     </div>
   </div>
 </template>
@@ -24,13 +26,17 @@ import ExtensionForm from '@/components/ExtensionForm.vue'; // @ is an alias to 
 import AltaCliente from '@/components/AltaCliente.vue';
 import ManejoCliente from '@/views/ManejoCliente.vue';
 import { mapActions } from 'vuex';
+import VDOperacionesSinPlan from '@/components/OperacionesSinPlan.vue';
+import VDPlanPagos from '@/components/VDPlanPagos.vue';
 
 @Component({
   components: {
+    VDOperacionesSinPlan,
     ManejoCliente,
     ExtensionForm,
     VDCotizaciones,
     VDOperaciones,
+    VDPlanPagos,
     VDNav,
     MainForm,
     AltaCliente

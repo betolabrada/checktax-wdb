@@ -16,7 +16,7 @@
         <i class="fas fa-dollar-sign d-flex justify-content-center align-items-center"></i>
       </div>
     </li>
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('planPagos')">
       <span class="fab-label">PlanPagos</span>
       <div class="fab-icon-holder">
         <i class="fas fa-tasks d-flex justify-content-center align-items-center"></i>

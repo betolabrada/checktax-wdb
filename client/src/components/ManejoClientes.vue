@@ -1,5 +1,5 @@
 <template>
-    <div class="main-form section-content">
+    <div class="main-form section-content bordered">
         <div class="d-flex justify-content-between">
             <h2>Corrección Nombre Clientes</h2>
             <div class="align-items-end">
