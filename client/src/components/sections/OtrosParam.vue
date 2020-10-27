@@ -29,39 +29,39 @@
         <input id="input-formaPago" type="text">
       </div>
       <div class="form-group">
-        <label for="input-noPoliza">noPoliza</label>
+        <label for="input-noPoliza">NoPoliza</label>
         <input id="input-noPoliza" type="text">
       </div>
-      <div class="form-group">
-        <label for="input-financiado">financiado</label>
+      <div class="form-group d-flex">
+        <label class="align-self-center m-0" for="input-financiado">Financiado</label>
         <input id="input-financiado" type="checkbox">
       </div>
       <div class="form-group">
-        <label for="input-fechaInicio">fechaInicio</label>
+        <label for="input-fechaInicio">FechaInicio</label>
         <input id="input-fechaInicio" type="text">
       </div>
       <div class="form-group">
-        <label for="input-fechaFinal">fechaFinal</label>
+        <label for="input-fechaFinal">FechaFinal</label>
         <input id="input-fechaFinal" type="text">
       </div>
       <div class="form-group">
-        <label for="input-tipoUnidad">tipoUnidad</label>
+        <label for="input-tipoUnidad">TipoUnidad</label>
         <input id="input-tipoUnidad" type="text">
       </div>
       <div class="form-group">
-        <label for="input-fechaPago">fechaPago</label>
+        <label for="input-fechaPago">FechaPago</label>
         <input id="input-fechaPago" type="text">
       </div>
       <div class="form-group">
-        <label for="input-relacionPago">relacionPago</label>
+        <label for="input-relacionPago">RelaciónPago</label>
         <input id="input-relacionPago" type="text">
       </div>
       <div class="form-group">
-        <label for="input-siniestros">siniestros</label>
+        <label for="input-siniestros">Siniestros</label>
         <input id="input-siniestros" type="text">
       </div>
       <div class="form-group">
-        <label for="input-cantPolizas">cantPolizas</label>
+        <label for="input-cantPolizas">CantPolizas</label>
         <input id="input-cantPolizas" type="text">
       </div>
       <div class="form-group">

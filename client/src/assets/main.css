@@ -2,6 +2,8 @@
     --bg-primary: #eeece0;
     --gray-nav: #4d4949;
     --gray-subnav: #c4c4c4;
+    --bg-green: #AEC4B8;
+    --input-green: #D7E2DB;
     font-size: 12px;
     font-family: Roboto, Helvetica, Arial, sans-serif;
 }
@@ -45,6 +47,7 @@ input.phone-input {
 
 .left-side {
     width: 178px;
+    height: 700px;
     border-right: #000000 solid 2px;
 }
 
@@ -83,6 +86,10 @@ input.phone-input {
 
 .align-items-end {
     align-items: flex-end;
+}
+
+.align-self-center {
+    align-self: center;
 }
 
 .justify-content-center {
@@ -134,6 +141,10 @@ input.phone-input {
     margin: 0;
 }
 
+.p-1 {
+    padding: 1rem;
+}
+
 .w-100 {
     width: 100%;
 }
@@ -142,6 +153,33 @@ input.phone-input {
     border: #000000 solid 4px;
 }
 
+.bordered-top {
+    border-top: #000000 solid 4px;
+}
+
+.bordered-right {
+    border-right: #000000 solid 4px;
+}
+
 .bordered-bottom {
     border-bottom: #000000 solid 4px;
 }
+
+.bordered-left {
+    border-left: #000000 solid 4px;
+}
+
+.input-group.green input[type="text"], .input-group.green textarea {
+    background: var(--input-green);
+    border-radius: 2px;
+    border: 1px solid rgb(118, 118, 118);
+}
+
+.input-group.green input[type="checkbox"] {
+    width: 15px;
+    margin: 0;
+    padding: 0;
+    align-self: flex-start;
+}
+
+

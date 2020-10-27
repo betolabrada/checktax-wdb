@@ -48,17 +48,19 @@ export default class ExtensionForm extends Vue {}
 
 .ext-form {
   width: 360px;
-  height: 750px;
-  background: #e5e5e5;
+  height: 780px;
+  border-left: none;
+  background: #AEC4B8;
   margin: 16px 0;
 }
 
-.section-divided {
+.ext-form .section-divided {
   display: flex;
 }
 
 .left-side {
     width: 180px;
+    height: auto;
 }
 
 .right-side {
