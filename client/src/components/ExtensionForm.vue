@@ -1,5 +1,5 @@
 <template>
-    <div class="main-form">
+    <div class="ext-form bordered">
         <div class="section-header-1">
             Más
         </div>
@@ -46,8 +46,9 @@ export default class ExtensionForm extends Vue {}
 
 <style scoped>
 
-.main-form {
+.ext-form {
   width: 360px;
+  height: 750px;
   background: #e5e5e5;
   margin: 16px 0;
 }
@@ -70,10 +71,6 @@ export default class ExtensionForm extends Vue {}
 
 .main-form{
     background: #AEC4B8;
-}
-
-input{
-    background-color: #D7E2DB; 
 }
 
 .section-header-1{

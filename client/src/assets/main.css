@@ -45,7 +45,7 @@ input.phone-input {
 
 .left-side {
     width: 178px;
-    border-right: var(--gray-nav) solid 2px;
+    border-right: #000000 solid 2px;
 }
 
 .right-side {
@@ -140,4 +140,8 @@ input.phone-input {
 
 .bordered {
     border: #000000 solid 4px;
+}
+
+.bordered-bottom {
+    border-bottom: #000000 solid 4px;
 }
