@@ -108,6 +108,7 @@ export default {
           promotor
         }
         this.foundOperacion = true;
+        this.setOperacionPost(this.operacion);
       } else {
         this.foundOperacion = false;
         this.clearContent();
