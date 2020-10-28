@@ -1,14 +1,31 @@
 <template>
   <div class="section-content">
     <div class="d-flex">
-      <div class="main-input-group" @click="handleClickInputOperacion()">
-        <label for="input-operacion">Operación</label>
-        <input id="input-operacion"
-               type="text"
-               :value="numOperacion"
-               @input="update('operacion', $event)"
-               @keyup.enter="findOperacion()"
-               :disabled="foundOperacion">
+      <div class="d-flex flex-column mr-2">
+        <label for="input-operacion" class="d-block">Operación
+          <span class="fas fa-info-circle"
+                v-b-tooltip.hover.right="'Buscar operación por número, si no existe, crea uno nuevo'"
+          ></span>
+        </label>
+        <div class="main-input-group input-group input-group-sm">
+          <input id="input-operacion"
+                type="text"
+                :value="numOperacion"
+                @input="update('operacion', $event)"
+                @keyup.enter="findOperacion()"
+                :disabled="foundOperacion">
+          <div class="input-group-append">
+            <b-button
+              type="button" 
+              @click="findOperacion()"
+              id="button-search"
+              style="height: 1.5rem;"
+              variant="secondary"
+            >
+              <i class="fas fa-check"></i>
+            </b-button>
+          </div>
+        </div>
       </div>
       <div class="main-input-group">
         <label for="input-fecha">Fecha</label>
@@ -54,6 +71,7 @@ export default {
   name: 'General',
   data() {
     return {
+      numOperacionDisabled: false,
       foundOperacion: false,
       operacion: {
         fecha: '',
@@ -83,6 +101,10 @@ export default {
       this.operacion = {};
     },
     findOperacion() {
+      if (this.foundOperacion) {
+        this.foundOperacion = !this.foundOperacion;
+        return;
+      }
       const operacionExiste = this.finanzas.find((fin) => fin.operacion === parseInt(this.numOperacion));
       if (operacionExiste) {
         // fill form
@@ -108,16 +130,18 @@ export default {
           promotor
         }
         this.foundOperacion = true;
+        this.numOperacionDisabled = true;
         this.setOperacionPost(this.operacion);
       } else {
         this.foundOperacion = false;
-        this.clearContent();
-        this.operacionClear();
+        this.numOperacionDisabled = false;
       }
     },
     handleClickInputOperacion() {
+      console.log('click in input...');
       if (this.foundOperacion) {
         this.foundOperacion = false;
+        this.numOperacionDisabled = false;
       }
     }
   },
@@ -132,12 +156,12 @@ label {
   text-align: left;
 }
 
-.main-input-group:not(:last-child) {
-  margin-right: 4px;
+.main-input-group {
+  flex-wrap: nowrap;
 }
 
-.main-input-group input {
-  width: 80px;
+.main-input-group:not(:last-child) {
+  margin-right: 4px;
 }
 
 .main-input-group:nth-child(3) input {
@@ -155,5 +179,11 @@ label {
 
 a {
   color: #42b983;
+}
+
+i {
+  position: relative;
+  top: -2px;
+  color: #fff;
 }
 </style>
