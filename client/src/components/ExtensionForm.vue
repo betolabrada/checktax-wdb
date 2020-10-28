@@ -48,7 +48,7 @@ export default class ExtensionForm extends Vue {}
 
 .ext-form {
   width: 360px;
-  height: 780px;
+  height: 800px;
   border-left: none;
   background: #AEC4B8;
   margin: 16px 0;

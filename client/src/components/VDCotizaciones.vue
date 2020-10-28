@@ -2,12 +2,12 @@
   <div class="vd">
     <h1>Cotizaciones</h1>
     <div class="table-wrapper">
-      <table class="table">
+      <table class="table table-sm">
         <thead>
           <tr>
-            <th style="width: 20px;">Cotización</th>
+            <th style="width: 30px;">Cotización</th>
             <th style="width: 40px">Fecha</th>
-            <th style="width: 20px">No.Pagos</th>
+            <th style="width: 30px">No.Pagos</th>
             <th style="width: 100px">Referencia</th>
             <th style="width: 150px">Cliente</th>
             <th style="width: 100px">Descripción</th>
@@ -52,5 +52,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.vd, th {
+  color: #145A32
+}
+td {
+  color: #138D75;
+}
 </style>

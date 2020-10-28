@@ -1,0 +1,86 @@
+[
+    {
+        "id": 1,
+        "concepto": "RP"
+    },
+    {
+        "id": 2,
+        "concepto": "ICM"
+    },
+    {
+        "id": 3,
+        "concepto": "GDA"
+    },
+    {
+        "id": 4,
+        "concepto": "Costos"
+    },
+    {
+        "id": 5,
+        "concepto": "RecPropio"
+    },
+    {
+        "id": 6,
+        "concepto": "Renta"
+    },
+    {
+        "id": 7,
+        "concepto": "CFE"
+    },
+    {
+        "id": 8,
+        "concepto": "Celulares"
+    },
+    {
+        "id": 9,
+        "concepto": "Internet"
+    },
+    {
+        "id": 10,
+        "concepto": "Gasolina"
+    },
+    {
+        "id": 11,
+        "concepto": "Autos"
+    },
+    {
+        "id": 12,
+        "concepto": "Uniformes"
+    },
+    {
+        "id": 13,
+        "concepto": "Comestibles"
+    },
+    {
+        "id": 14,
+        "concepto": "ComBanco"
+    },
+    {
+        "id": 15,
+        "concepto": "Siapa"
+    },
+    {
+        "id": 16,
+        "concepto": "Varios"
+    },
+    {
+        "id": 17,
+        "concepto": "Comisiones"
+    },
+    {
+        "id": 18,
+        "concepto": "Gas LP"
+    },
+    {
+        "id": 19,
+        "concepto": "Caja Chica"
+    },
+    {
+        "id": 20,
+        "concepto": "Impuestos"
+    },
+    {
+        "id": 21,
+        "concepto": "Adeudos"
+    }
+]

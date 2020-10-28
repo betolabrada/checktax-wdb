@@ -177,19 +177,19 @@ input.phone-input {
     border-left: #000000 solid 4px;
 }
 
-.input-group.green input[type="text"], .input-group.green textarea {
+.green input[type="text"], .green textarea {
     background: var(--input-green);
     border-radius: 2px;
     border: 1px solid rgb(118, 118, 118);
 }
 
-.input-group.green input[type="checkbox"] {
+.green input[type="checkbox"] {
     width: 15px;
     margin: 0;
     padding: 0;
     align-self: flex-start;
 }
-
+/* ================================================================================================== */
 /* Ventanas dinámicas */
 .vd {
     width: 1200px;
@@ -202,7 +202,7 @@ input.phone-input {
     border: 4px solid #000;
 }
 .table-wrapper {
-    height: 700px;
+    height: 600px;
     overflow: auto;
     direction: rtl;
 }
@@ -234,6 +234,7 @@ th, td {
 th {
     padding-bottom: 2px;
     color: var(--color-th-vd);
+    text-align: center;
 }
 
 td {

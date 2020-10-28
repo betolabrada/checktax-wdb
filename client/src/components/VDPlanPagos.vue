@@ -16,33 +16,9 @@
     </div>
     <div class="d-flex justify-content-center">
       <p><strong>Totales</strong></p>
-      <div class="input-group">
-        <label for="" class="d-block">Total</label>
-        <input disabled>
-      </div>
-      <div class="input-group">
-        <label for="" class="d-block">Total</label>
-        <input disabled>
-      </div>
-      <div class="input-group">
-        <label for="" class="d-block">Total</label>
-        <input disabled>
-      </div>
-      <div class="input-group">
-        <label for="" class="d-block">Total</label>
-        <input disabled>
-      </div>
-      <div class="input-group">
-        <label for="" class="d-block">Total</label>
-        <input disabled>
-      </div>
-      <div class="input-group">
-        <label for="" class="d-block">Total</label>
-        <input disabled>
-      </div>
     </div>
     <div class="table-wrapper">
-      <table class="table">
+      <table class="table table-sm">
         <thead>
           <tr>
             <th style="width: 20px;">Fecha</th>

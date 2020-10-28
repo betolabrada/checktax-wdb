@@ -16,7 +16,7 @@
       </tbody>
     </table>
     <div class="table-wrapper">
-      <table class="table">
+      <table class="table table-sm">
         <tbody>
         <tr v-for="i in 100" :key="i">
           <td style="width: 40px">{{400 + i}}</td>
