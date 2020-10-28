@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { restart } = require('nodemon');
+const { update } = require('../model/Finanzas');
 const Finanzas = require('../model/Finanzas');
 const {finanzasValidation, operacionFinanzasValidation} = require('../validation/validationFinanzas');
 
@@ -9,7 +10,20 @@ router.post('/post', async (req,res) => {
     if(error) return res.status(400).send(error.details[0].message);
 
     const operacionExist = await Finanzas.findOne({operacion: req.body.operacion});
-    if(operacionExist) return res.status(400).send('Esta operación ya existe');
+    if(operacionExist) {
+        const {error} = operacionFinanzasValidation(req.body);
+        if(error) return res.status(400).send(error.details[0].message);
+
+        const operacion = await Finanzas.findOne({operacion: req.body.operacion});
+        if(!operacion) return res.status(400).send('Esta operación no existe.');
+
+        try {
+            await Finanzas.findOneAndUpdate(operacion.id ,req.body);
+            return res.send({operacion: operacion.operacion});
+        } catch (err) {
+            return res.status(400).send(err);
+        }
+    };
 
     const operacion = new Finanzas({
         operacion:req.body.operacion,
@@ -132,7 +146,6 @@ router.patch('/update', async (req, res) => {
 
     const operacion = await Finanzas.findOne({operacion: req.body.operacion});
     if(!operacion) return res.status(400).send('Esta operación no existe.');
-    if(operacion.id!==req.body.operacion) return res.status(400).send("No puedes cambiar el número de operación.")
 
     try {
         await Finanzas.findOneAndUpdate(operacion.id ,req.body);
@@ -141,5 +154,26 @@ router.patch('/update', async (req, res) => {
         res.status(400).send(err);
     }
 });
+
+router.get('/producto', async (req,res) => {
+    const producto = {
+        "producto": "auto",
+        "tipo": "GlobalAuto",
+        "tasa": 24,
+        "anticipo": 30,
+        "apertura": 2.59,
+        "deposito": 0,
+        "tfrescate": false,
+        "tfadmon": false,
+        "gps": 171.55,
+        "tfgps": false,
+        "tfseguroauto": false,
+        "segurodeuda": 34.4827586,
+        "tfsegurodeuda": false,
+        "liquidacion": 20,
+        "pptipo": "mensualidad"
+    };
+    res.send(producto);
+})
 
 module.exports = router;

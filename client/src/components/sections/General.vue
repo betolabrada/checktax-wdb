@@ -131,6 +131,7 @@ export default {
         }
         this.foundOperacion = true;
         this.numOperacionDisabled = true;
+        this.setOperacionPost(this.operacion);
       } else {
         this.foundOperacion = false;
         this.numOperacionDisabled = false;
