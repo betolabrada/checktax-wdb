@@ -2,6 +2,9 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import Service from '@/services/Service';
+import productos from '@/services/models/productos.json';
+import operaciones from '@/services/models/operaciones-query.json';
+
 
 Vue.use(Vuex);
 
@@ -177,8 +180,8 @@ export default new Vuex.Store({
   actions: {
     // Fetch finanzas array
     async fetchFinanzas({ commit }) {
-      const res = await Service.getFinanzas();
-      commit('setFinanzas', res.data);
+      const res = operaciones;
+      commit('setFinanzas', res);
     },
     // Post operacion
     async postOperacion({ commit }) {
