@@ -181,12 +181,14 @@ router.get('/cliente', async (req, res) => {
     const cliente = {
         "nombre": "Diego Hernandez"
     }
+    res.send(cliente);
 });
 
 router.get('/asesor', async (req, res) => {
     const asesor = {
         "nombre": "Fernando Suarez"
     }
+    res.send(asesor);
 });
 
 module.exports = router;
