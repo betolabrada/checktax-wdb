@@ -8,6 +8,9 @@ router.patch('/update/:id', async (req, res) => {
     const {error} = operacionFinanzasValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
+    const document = await Finanzas.findOne({ operacion: req.params.id });
+    if (!document) return res.status(400).json({ message: 'Operación no encontrada' });
+
     try {
         const updated = await Finanzas.findOneAndUpdate({operacion: req.params.id} ,req.body);
         res.send(updated);

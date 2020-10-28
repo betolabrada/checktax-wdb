@@ -28,14 +28,24 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
 name: "MainFormNav",
+computed: {
+  ...mapState(['operacionPost', 'finanzas'])
+},
 methods: {
-  ...mapActions(['postOperacion']),
+  ...mapActions(['updateOperacion', 'postOperacion']),
   save() {
     console.log('saving....');
-    this.postOperacion();
+    console.log(this.operacionPost.operacion);
+    const operacionExiste = this.finanzas.find((fin) => fin.operacion === parseInt(this.operacionPost.operacion));
+    if (operacionExiste) {
+      this.updateOperacion();
+    } else {
+      this.postOperacion();
+    }
+    
   }
 }
 }

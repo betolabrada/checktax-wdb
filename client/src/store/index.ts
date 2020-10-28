@@ -211,12 +211,20 @@ export default new Vuex.Store({
       commit('setFinanzas', res.data);
     },
     // Post operacion
-    async postOperacion({ commit }) {
+    async postOperacion({ commit, dispatch }) {
       const res = await Service.postOperacion(this.state.operacionPost);
       if(res.data){
-        commit('addOperacion');
+        dispatch('fetchFinanzas');
       }
       return res.data;
+    },
+    async updateOperacion({ commit, dispatch }) {
+      const res = await Service.updateOperacion(this.state.operacionPost.operacion, this.state.operacionPost);
+      console.log('res: ', res);
+      if (res.data) {
+        dispatch('fetchFinanzas');
+      }
+      
     },
     async fetchProducto({ commit }){
       const res = await Service.getProducto();

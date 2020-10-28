@@ -49,7 +49,12 @@
     <div class="d-flex">
       <div class="main-input-group">
         <label for="input-persona">Persona</label>
-        <input id="input-persona" type="text" :value="operacion.persona" @input="update('persona', $event)">
+        <b-select 
+          size="sm" 
+          id="input-persona" type="text" :value="operacion.persona" @input="update('persona', $event)">
+          <b-select-option>Física</b-select-option>
+          <b-select-option>Moral</b-select-option>
+        </b-select>
       </div>
       <div class="main-input-group d-block">
         <label for="input-personaDesc">Descripción</label>
