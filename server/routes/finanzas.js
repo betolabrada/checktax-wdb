@@ -1,30 +1,26 @@
 const router = require('express').Router();
 const { restart } = require('nodemon');
-const { update } = require('../model/Finanzas');
 const Finanzas = require('../model/Finanzas');
 const {finanzasValidation, operacionFinanzasValidation} = require('../validation/validationFinanzas');
+
+//Update operacion
+router.patch('/update/:id', async (req, res) => {
+    const {error} = operacionFinanzasValidation(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    try {
+        const updated = await Finanzas.findOneAndUpdate({operacion: req.params.id} ,req.body);
+        res.send(updated);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
 
 //Add new operacion
 router.post('/post', async (req,res) => {
     const {error} = finanzasValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
-
-    const operacionExist = await Finanzas.findOne({operacion: req.body.operacion});
-    if(operacionExist) {
-        const {error} = operacionFinanzasValidation(req.body);
-        if(error) return res.status(400).send(error.details[0].message);
-
-        const operacion = await Finanzas.findOne({operacion: req.body.operacion});
-        if(!operacion) return res.status(400).send('Esta operación no existe.');
-
-        try {
-            await Finanzas.findOneAndUpdate(operacion.id ,req.body);
-            return res.send({operacion: operacion.operacion});
-        } catch (err) {
-            return res.status(400).send(err);
-        }
-    };
-
+    
     const operacion = new Finanzas({
         operacion:req.body.operacion,
         fecha:req.body.fecha,
@@ -139,20 +135,25 @@ router.delete('/delete', async (req, res) => {
     }
 });
 
-//Update operacion
-router.patch('/update', async (req, res) => {
-    const {error} = operacionFinanzasValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
-
-    const operacion = await Finanzas.findOne({operacion: req.body.operacion});
-    if(!operacion) return res.status(400).send('Esta operación no existe.');
-
-    try {
-        await Finanzas.findOneAndUpdate(operacion.id ,req.body);
-        res.send({operacion: operacion.operacion});
-    } catch (err) {
-        res.status(400).send(err);
-    }
-});
+router.get('/producto', async (req,res) => {
+    const producto = {
+        "producto": "auto",
+        "tipo": "GlobalAuto",
+        "tasa": 24,
+        "anticipo": 30,
+        "apertura": 2.59,
+        "deposito": 0,
+        "tfrescate": false,
+        "tfadmon": false,
+        "gps": 171.55,
+        "tfgps": false,
+        "tfseguroauto": false,
+        "segurodeuda": 34.4827586,
+        "tfsegurodeuda": false,
+        "liquidacion": 20,
+        "pptipo": "mensualidad"
+    };
+    res.send(producto);
+})
 
 module.exports = router;
