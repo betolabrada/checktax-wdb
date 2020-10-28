@@ -3,23 +3,28 @@ const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 app.use(cors());
+app.use(bodyParser.json());
 
 //Import routes
 const authRoute = require('./routes/auth');
-const finanzasRoute = require('./routes/finanzas')
-const clientsRoute = require('./routes/clients.js')
+const finanzasRoute = require('./routes/finanzas');
+const clientsRoute = require('./routes/clients');
+const defaultRoute = require('./routes/Default');
 
 dotenv.config();
 
 //Connect to DB
+/*
 mongoose.connect(
     process.env.DB_CONNECT,
     { useUnifiedTopology: true,  useNewUrlParser: true },
     () => console.log('Connected to db')
 );
 mongoose.set('useFindAndModify', false);
+*/
 
 //Middleware
 app.use(express.json());
@@ -28,5 +33,6 @@ app.use(express.json());
 app.use('/api/user', authRoute);
 app.use('/api/finanzas', finanzasRoute);
 app.use('/api/clients', clientsRoute);
+app.use('/api/default', defaultRoute);
 
 app.listen(3000, () => console.log("Server up and running at port 3000"));
