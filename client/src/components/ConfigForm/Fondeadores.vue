@@ -5,19 +5,19 @@
     </div>
     <div class="section-content">
       <div class="d-flex">
-        <div class="input-group">
+        <div class="main-input-group">
           <label for="config-fondeador">Fondeador</label>
           <input id="config-fondeador">
         </div>
-        <div class="input-group">
+        <div class="main-input-group">
           <label for="config-prcFondeo">% Fondeo</label>
           <input id="config-prcFondeo">
         </div>
-        <div class="input-group">
+        <div class="main-input-group">
           <label for="config-chequera">Chequera</label>
           <input id="config-chequera">
         </div>
-        <div class="input-group">
+        <div class="main-input-group">
           <label for="config-comPromotor">Com. Promotor</label>
           <input id="config-comPromotor">
         </div>
@@ -44,15 +44,15 @@ label {
   display: block;
 }
 
-.input-group:not(:last-child) {
+.main-input-group:not(:last-child) {
   margin-right: 4px;
 }
 
-.input-group:first-child {
+.main-input-group:first-child {
   margin-right: auto;
 }
 
-.input-group:last-child, .input-group:last-child input {
+.main-input-group:last-child, .main-input-group:last-child input {
   width: 100px;
 }
 </style>

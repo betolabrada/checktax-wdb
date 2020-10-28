@@ -58,6 +58,7 @@ name: "VDNav",
 * {
   margin: 0;
   padding: 0;
+  box-sizing: content-box;
 }
 
 .fab-container {

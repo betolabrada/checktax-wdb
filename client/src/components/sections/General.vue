@@ -1,7 +1,7 @@
 <template>
   <div class="section-content">
     <div class="d-flex">
-      <div class="form-group" @click="handleClickInputOperacion()">
+      <div class="main-input-group" @click="handleClickInputOperacion()">
         <label for="input-operacion">Operación</label>
         <input id="input-operacion"
                type="text"
@@ -10,37 +10,37 @@
                @keyup.enter="findOperacion()"
                :disabled="foundOperacion">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-fecha">Fecha</label>
         <input id="input-fecha" type="text" :value="operacion.fecha" @input="update('fecha', $event)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-folio">Folio Com.</label>
         <input id="input-folio" type="text" :value="operacion.folio" @input="update('folio', $event)">
       </div>
-      <div class="form-group d-block">
+      <div class="main-input-group d-block">
         <label for="input-refPagos">Referencia Pagos</label>
         <input id="input-refPagos" type="text" :value="operacion.referencia" @input="update('referencia', $event)">
       </div>
     </div>
     <div class="d-flex">
-      <div class="form-group d-block">
+      <div class="main-input-group d-block">
         <label for="input-cliente">Cliente</label>
         <input id="input-cliente" type="text" :value="operacion.dePara" @input="update('dePara', $event)">
       </div>
     </div>
     <div class="d-flex">
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-persona">Persona</label>
         <input id="input-persona" type="text" :value="operacion.persona" @input="update('persona', $event)">
       </div>
-      <div class="form-group d-block">
+      <div class="main-input-group d-block">
         <label for="input-personaDesc">Descripción</label>
         <input id="input-personaDesc" type="text" :value="operacion.descripcion" @input="update('descripcion', $event)">
       </div>
     </div>
     <div class="d-flex">
-      <div class="form-group d-block">
+      <div class="main-input-group d-block">
         <label for="input-asesor">Asesor</label>
         <input id="input-asesor" type="text" :value="operacion.promotor" @input="update('promotor', $event)">
       </div>
@@ -131,15 +131,15 @@ label {
   text-align: left;
 }
 
-.form-group:not(:last-child) {
+.main-input-group:not(:last-child) {
   margin-right: 4px;
 }
 
-.form-group input {
+.main-input-group input {
   width: 80px;
 }
 
-.form-group:nth-child(3) input {
+.main-input-group:nth-child(3) input {
   width: 100px;
 }
 
