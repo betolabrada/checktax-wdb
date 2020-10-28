@@ -99,7 +99,7 @@ name: "VDNav",
   margin: 0;
 
   opacity: 0;
-  display: none;
+  display: none !important;
   transition: all 0.3s ease;
 }
 
@@ -109,7 +109,7 @@ name: "VDNav",
 
 .fab-options.visible {
   opacity: 1;
-  display: flex;
+  display: flex !important;
 }
 
 .fab-label {

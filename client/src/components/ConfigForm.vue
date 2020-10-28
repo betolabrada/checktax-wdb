@@ -1,9 +1,9 @@
 <template>
-  <div class="config-form">
+  <div class="config-form d-inline-flex flex-column">
     <div class="section-header main-title">
       Configuración de Módulo de Finanzas
     </div>
-    <div class="d-inline-flex w-100 overflow-x-auto">
+    <div class="d-flex">
       <section class="section-config">
         <fondeadores></fondeadores>
         <div class="d-flex">
@@ -38,6 +38,10 @@
 
 .main-title {
   background: #000000;
+}
+
+.left-side {
+  height: 750px;
 }
 
 .right-side {

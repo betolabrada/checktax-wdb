@@ -26,25 +26,15 @@
           <td class="text-center">RP</td>
           <td class="text-right">$431,000</td>
         </tr>
-        <tr v-for="i in 100" :key="i">
-          <td class="text-center">500</td>
-          <td class="text-center">12-Sept-15</td>
-          <td class="text-center">30</td>
-          <td class="text-center">123413241234</td>
-          <td>MERCADEO SSBC SA DE SV</td>
-          <td>PRESTAMO AUTO</td>
-          <td class="text-center">RP</td>
-          <td class="text-right">$431,000</td>
-        </tr>
-        <tr v-for="i in this.finanzas" :key="i._id">
-          <td style="width: 20px">{{i.operacion}}</td>
-          <td style="width: 40px">{{dateInFormat(i.fecha)}}</td>
-          <td style="width: 40px">{{i.noPagos}}</td>
-          <td style="width: 60px">{{i.referencia}}</td>
-          <td style="width: 100px">{{i.dePara}}</td>
-          <td style="width: 100px">{{i.descripcion}}</td>
-          <td style="width: 80px">{{i.fondeador}}</td>
-          <td style="width: 80px">{{i.valorOperacion}}</td>
+        <tr v-for="i in this.finanzas" :key="i.operacion">
+          <td class="text-center">{{i.operacion}}</td>
+          <td class="text-center">{{dateInFormat(i.fecha)}}</td>
+          <td class="text-center">{{i.noPagos}}</td>
+          <td class="text-center">{{i.referencia}}</td>
+          <td>{{i.dePara}}</td>
+          <td>{{i.descripcion}}</td>
+          <td class="text-center">{{i.fondeador}}</td>
+          <td class="text-right">{{i.valorOperacion}}</td>
         </tr>
         </tbody>
       </table>

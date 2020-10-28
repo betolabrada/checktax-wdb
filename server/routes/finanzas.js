@@ -156,4 +156,25 @@ router.get('/producto', async (req,res) => {
     res.send(producto);
 })
 
+router.get('/producto', async (req,res) => {
+    const producto = {
+        "producto": "auto",
+        "tipo": "GlobalAuto",
+        "tasa": 24,
+        "anticipo": 30,
+        "apertura": 2.59,
+        "deposito": 0,
+        "tfrescate": false,
+        "tfadmon": false,
+        "gps": 171.55,
+        "tfgps": false,
+        "tfseguroauto": false,
+        "segurodeuda": 34.4827586,
+        "tfsegurodeuda": false,
+        "liquidacion": 20,
+        "pptipo": "mensualidad"
+    };
+    res.send(producto);
+})
+
 module.exports = router;
