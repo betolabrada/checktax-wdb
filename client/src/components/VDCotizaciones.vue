@@ -52,5 +52,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.vd, th {
+  color: #145A32
+}
+td {
+  color: #138D75;
+}
 </style>
