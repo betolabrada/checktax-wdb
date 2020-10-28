@@ -23,7 +23,7 @@
               style="height: 1.5rem;"
               variant="secondary"
             >
-              <i class="fas fa-check"></i>
+              <i class="fas fa-search"></i>
             </b-button>
           </div>
         </div>

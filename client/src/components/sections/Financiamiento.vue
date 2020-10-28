@@ -4,10 +4,36 @@
       Financiamiento
     </div>
     <div class="section-content d-flex flex-column align-items-end">
-      <div class="main-input-group">
-        <label for="input-producto">Producto</label>
-        <input id="input-producto" type="text" :value="financiamiento.producto" @input="update('producto',$event)">
-      </div>
+      <div class="d-flex flex-column mb-3 text-center">
+        <label for="input-producto">Producto
+          <span class="fas fa-info-circle"
+                v-b-tooltip.hover.right="'Escriba producto para buscarlo'"
+          ></span>
+        </label>
+        <div class="main-input-group input-group input-group-sm">
+          <input 
+            id="input-producto"
+            type="text"
+            :value="queryProducto"
+            @input="update('producto', $event)"
+            @blur="findProducto()"
+            @keyup.enter="findProducto()"
+            :disabled="foundProducto"
+            style="width: 100px;"
+          >
+          <div class="input-group-append">
+            <b-button
+              type="button" 
+              @click="findProducto()"
+              id="button-search"
+              style="height: 1.5rem;"
+              variant="secondary"
+            >
+              <i class="fas fa-search"></i>
+            </b-button>
+          </div>
+        </div>
+      </div><!--d-flex flex-column mr-2-->
       <div class="main-input-group">
         <label for="input-fondeador">Fondeador</label>
         <input id="input-fondeador" type="text">
@@ -144,5 +170,11 @@ export default{
 <style scoped>
 .main-input-group:first-child {
   margin-bottom: 0.75rem;
+}
+
+i {
+  position: relative;
+  top: -2px;
+  color: #fff;
 }
 </style>
