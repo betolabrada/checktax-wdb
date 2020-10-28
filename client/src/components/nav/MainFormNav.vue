@@ -2,7 +2,7 @@
   <div class="main-navbar">
     <span class="section-header">Alta - Baja - Edición de Operaciones</span>
     <ul class="main-navbar-nav">
-      <li class="main-nav-item" @click="$emit('clickedNav', 'save')" 
+      <li class="main-nav-item" @click="save()" 
         v-b-tooltip.hover.top="'Guardar'">
         <a class="main-nav-link">
           <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="save"
@@ -28,8 +28,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
-name: "MainFormNav"
+name: "MainFormNav",
+methods: {
+  ...mapActions(['postOperacion']),
+  save() {
+    console.log('saving....');
+    this.postOperacion();
+  }
+}
 }
 </script>
 

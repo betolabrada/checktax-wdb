@@ -74,6 +74,7 @@ export default {
       numOperacionDisabled: false,
       foundOperacion: false,
       operacion: {
+        operacion: 0,
         fecha: '',
         folio: '',
         referencia: '',
@@ -91,7 +92,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setOperacionPost','operacionClear']),
+    ...mapMutations(['setOperacionPost','operacionClear', 'modifyCurrentOperacion']),
     ...mapActions(['postOperacion']),
     update(key, event) {
       this.operacion[key] = event.target.value;
@@ -135,6 +136,8 @@ export default {
       } else {
         this.foundOperacion = false;
         this.numOperacionDisabled = false;
+        this.setOperacionPost(this.operacion);
+        this.postOperacion();
       }
     },
     handleClickInputOperacion() {

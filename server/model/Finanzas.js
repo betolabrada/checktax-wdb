@@ -240,6 +240,10 @@ const finazasSchema = new mongoose.Schema({
     },
     fFondeo: {
         type: Date
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now
     }
 });
 

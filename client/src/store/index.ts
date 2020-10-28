@@ -119,7 +119,7 @@ export default new Vuex.Store({
         ...prev,
         ...data
       }
-      console.log(state.operacionPost);
+      console.log('state.operacionPost', state.operacionPost);
 
     },
     operacionClear(state) {
@@ -207,8 +207,8 @@ export default new Vuex.Store({
   actions: {
     // Fetch finanzas array
     async fetchFinanzas({ commit }) {
-      const res = operaciones;
-      commit('setFinanzas', res);
+      const res = await Service.getFinanzas();
+      commit('setFinanzas', res.data);
     },
     // Post operacion
     async postOperacion({ commit }) {
