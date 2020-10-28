@@ -10,6 +10,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    asesor: '',
+    cliente: '',
     finanzas : [] as any,
     operacionPost: {
       operacion: "",
@@ -202,6 +204,14 @@ export default new Vuex.Store({
         ...data
       }
       console.log(state.producto);
+    },
+
+    setAsesor(state, asesor) {
+      state.asesor = asesor;
+    },
+
+    setCliente(state, cliente) {
+      state.cliente = cliente;
     }
   },
   actions: {
@@ -229,7 +239,17 @@ export default new Vuex.Store({
     async fetchProducto({ commit }){
       const res = await Service.getProducto();
       commit('setProducto', res.data);
-    }
+    },
+
+    async fetchAsesor({ commit }) {
+      const res = await Service.getAsesor();
+      console.log('res ASESOR: ', res);
+    },
+
+    async fetchCliente({ commit }) {
+      const res = await Service.getCliente();
+      console.log('res CLIENTE: ', res);
+    },
   },
   modules: {},
 });

@@ -12,6 +12,7 @@
                 type="text"
                 :value="numOperacion"
                 @input="update('operacion', $event)"
+                @blur="findOperacion()"
                 @keyup.enter="findOperacion()"
                 :disabled="foundOperacion">
           <div class="input-group-append">
@@ -49,12 +50,12 @@
     <div class="d-flex">
       <div class="main-input-group">
         <label for="input-persona">Persona</label>
-        <b-select 
+        <select 
           size="sm" 
           id="input-persona" type="text" :value="operacion.persona" @input="update('persona', $event)">
-          <b-select-option>Física</b-select-option>
-          <b-select-option>Moral</b-select-option>
-        </b-select>
+          <option>Física</option>
+          <option>Moral</option>
+        </select>
       </div>
       <div class="main-input-group d-block">
         <label for="input-personaDesc">Descripción</label>
