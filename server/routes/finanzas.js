@@ -177,6 +177,18 @@ router.get('/producto', async (req,res) => {
         "pptipo": "mensualidad"
     };
     res.send(producto);
-})
+});
+
+router.get('/cliente', async (req, res) => {
+    const cliente = {
+        "nombre": "Diego Hernandez"
+    }
+});
+
+router.get('/asesor', async (req, res) => {
+    const asesor = {
+        "nombre": "Fernando Suarez"
+    }
+});
 
 module.exports = router;
