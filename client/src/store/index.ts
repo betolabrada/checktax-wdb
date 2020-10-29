@@ -228,6 +228,8 @@ export default new Vuex.Store({
     },
     // Post operacion
     async postOperacion({ commit, dispatch }) {
+      this.state.operacionPost.valorOperacion = this.state.producto.valorOperacion;
+      this.state.operacionPost.fondeador = "RP";
       const res = await Service.postOperacion(this.state.operacionPost);
       if(res.data){
         dispatch('fetchFinanzas');
@@ -235,6 +237,8 @@ export default new Vuex.Store({
       return res.data;
     },
     async updateOperacion({ commit, dispatch }) {
+      this.state.operacionPost.valorOperacion = this.state.producto.valorOperacion;
+      this.state.operacionPost.fondeador = "RP";
       const res = await Service.updateOperacion(this.state.operacionPost.operacion, this.state.operacionPost);
       console.log('res: ', res);
       if (res.data) {

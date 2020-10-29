@@ -50,7 +50,7 @@
         <input id="input-valorOperacion" type="text" :value="producto.valorOperacion" @input="update('valorOperacion',$event)">
       </div>
       <div class="main-input-group">
-        <label for="input-productoTipo">producto Tipo</label>
+        <label for="input-productoTipo">Producto Tipo</label>
         <input id="input-productoTipo" type="text" :value="producto.tipo" @input="update('tipo',$event)">
       </div>
       <div class="main-input-group">
