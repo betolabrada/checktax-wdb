@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="section-header">
-      producto
+      Financiamiento
     </div>
     <div class="section-content d-flex flex-column align-items-end">
       <div class="d-flex flex-column mb-3 text-center">
@@ -35,11 +35,11 @@
       </div><!--d-flex flex-column mr-2-->
       <div class="main-input-group">
         <label for="input-fondeador">Fondeador</label>
-        <input id="input-fondeador" type="text">
+        <input id="input-fondeador" type="text" :value="producto.fondeador" @input="update('fondeador',$event)">
       </div>
       <div class="main-input-group">
         <label for="input-noPagos">No. Pagos</label>
-        <input id="input-noPagos" type="text">
+        <input id="input-noPagos" type="text" :value="producto.noPagos" @input="update('noPagos',$event)">
       </div>
       <div class="main-input-group">
         <label for="input-periodicidad">Periodicidad</label>
@@ -47,7 +47,7 @@
       </div>
       <div class="main-input-group">
         <label for="input-valorOperacion">Valor Operación</label>
-        <input id="input-valorOperacion" type="text">
+        <input id="input-valorOperacion" type="text" :value="producto.valorOperacion" @input="update('valorOperacion',$event)">
       </div>
       <div class="main-input-group">
         <label for="input-productoTipo">producto Tipo</label>
@@ -62,49 +62,49 @@
         <label for="input-anticipo">Anticipo</label>
         <input id="input-anticipo" class="text-center" type="text" :value="producto.anticipo.toFixed(2) + '%'" @input="update('anticipo',$event)">
         <label class="block-label" for="input-impAnticipo"></label>
-        <input disabled id="input-impAnticipo" type="text">
+        <input disabled id="input-impAnticipo" type="text" :value="anticipo">
       </div>
       <div class="main-input-group">
         <label for="input-seguroDeuda">SeguroDeuda</label>
-        <input id="input-seguroDeuda" class="text-center" type="text" :value="producto.segurodeuda.toFixed(2) + '%'" @input="update('segurodeuda',$event)">
+        <input id="input-seguroDeuda" class="text-center" type="text" :value="producto.segurodeuda.toFixed(2)" @input="update('segurodeuda',$event)">
         <label for="input-impSeguroDeuda"></label>
-        <input disabled id="input-impSeguroDeuda" type="text">
+        <input disabled id="input-impSeguroDeuda" type="text" :value="producto.segurodeuda.toFixed(2)">
       </div>
       <div class="main-input-group">
         <label for="input-apertura">Apertura</label>
         <input id="input-apertura" class="text-center" type="text" :value="producto.apertura.toFixed(2) + '%'" @input="update('apertura',$event)">
         <label for="input-impApertura"></label>
-        <input disabled id="input-impApertura" type="text">
+        <input disabled id="input-impApertura" type="text" :value="apertura">
       </div>
       <div class="main-input-group">
         <label for="input-deposito">Depósito</label>
         <input id="input-deposito" class="text-center" type="text" :value="producto.deposito.toFixed(2) + '%'" @input="update('deposito',$event)">
         <label for="input-impDeposito"></label>
-        <input disabled id="input-impDeposito" type="text">
+        <input disabled id="input-impDeposito" type="text" :value="deposito">
       </div>
       <div class="main-input-group">
         <label for="input-admin">Administración</label>
-        <input id="input-admin" class="text-center" type="text">
+        <input id="input-admin" class="text-center" type="text" :value="producto.administracion.toFixed(2)" @input="update('administracion',$event)">
         <label for="input-impAdmin"></label>
-        <input disabled id="input-impAdmin" type="text">
+        <input disabled id="input-impAdmin" type="text" :value="producto.administracion.toFixed(2)">
       </div>
       <div class="main-input-group">
         <label for="input-gps">GPS</label>
         <input id="input-gps" class="text-center" type="text" :value="producto.gps.toFixed(2)" @input="update('gps',$event)">
         <label for="input-impGps"></label>
-        <input disabled id="input-impGps" type="text">
+        <input disabled id="input-impGps" type="text" :value="producto.gps.toFixed(2)">
       </div>
       <div class="main-input-group">
         <label for="input-seguroAuto">SeguroAuto</label>
-        <input id="input-seguroAuto" class="text-center" type="text">
+        <input id="input-seguroAuto" class="text-center" type="text" :value="producto.seguroauto.toFixed(2)" @input="update('seguroauto',$event)">
         <label for="input-impSeguroAuto"></label>
-        <input disabled id="input-impSeguroAuto" type="text">
+        <input disabled id="input-impSeguroAuto" type="text" :value="producto.seguroauto.toFixed(2)">
       </div>
       <div class="main-input-group" style="margin-bottom: 10px;">
         <label for="input-valorRescate">ValorRescate</label>
-        <input id="input-valorRescate" class="text-center" type="text">
+        <input id="input-valorRescate" class="text-center" type="text" :value="producto.valorRescate.toFixed(2)" @input="update('valorRescate',$event)">
         <label for="input-impValorRescate"></label>
-        <input disabled id="input-impValorRescate" type="text">
+        <input disabled id="input-impValorRescate" type="text" :value="producto.valorRescate.toFixed(2)">
       </div>
       <div class="main-input-group">
         <label for="input-descuento">Descuento</label>
@@ -115,7 +115,7 @@
       <div style="text-align: right;"><hr style="border-top: #000000 solid 1px; width: 75px"></div>
       <div class="main-input-group">
         <label for="input-total">Total Primer Pago</label>
-        <input id="input-total" type="text">
+        <input id="input-total" type="text" :value="primerPago">
       </div>
     </div><!-- section-content -->
   </section>
@@ -127,17 +127,21 @@ import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default{
   name: 'producto',
-  data() {
-    return {
-      foundProducto: false,
-      fondeador: '',
-      noPagos: 0,
-      periodicidad: '',
-      valorOperacion: 0,
-    }
-  },
   computed: {
-    ...mapState(['producto'])
+    ...mapState(['producto']),
+    anticipo() {
+      return (this.producto.anticipo/100) * this.producto.valorOperacion;
+    },
+    apertura() {
+      return (this.producto.apertura/100) * this.producto.valorOperacion;
+    },
+    deposito() {
+      return (this.producto.deposito/100) * this.producto.valorOperacion;
+    },
+    primerPago() {
+      //console.log(this.anticipo);console.log(this.producto.segurodeuda);console.log(this.apertura);console.log(this.deposito);console.log(this.producto.administracion);console.log(this.producto.gps);console.log(this.producto.seguroauto);
+      return (parseFloat(this.anticipo)+parseFloat(this.producto.segurodeuda)+parseFloat(this.apertura)+parseFloat(this.deposito)+parseFloat(this.producto.administracion)+parseFloat(this.producto.gps)+parseFloat(this.producto.seguroauto)).toFixed(2);
+    }
   },
   methods: {
     ...mapActions(['fetchProducto']),
