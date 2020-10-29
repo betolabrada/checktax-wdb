@@ -5,17 +5,12 @@
         <div class="form-group">
           <label for="email">Usuario</label>
           <input type="email" class="form-control" id="email" />
-        </div>
+        </div><br>
         <div class="form-group">
           <label for="password">Contraseña</label>
           <input type="password" class="form-control" id="password" />
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" id="remember" />
-          <label class="form-check-label" for="remember"
-            >Manten mi sesión inciada</label
-          >
-        </div>
+        </div><br>
+        
         <div class="text-center">
           <button type="submit" class="btn btn-success" id="submit">
             Iniciar sesión
@@ -28,14 +23,32 @@
 
 <style scoped>
 
-.log-in-content {
-  background: aqua;
-}
-
 #email {
   text-align: center;
 }
 #password {
   text-align: center;
+}
+.col {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+}
+label{
+  font-size: 2.5rem;
+  display: inline-block;
+  width: 180px;
+  text-align: center;
+  margin-right: 2.5rem;
+}
+
+input{
+  width: 20rem !important;
+  height: 3rem !important;
+}
+
+#submit{
+  font-size: 2.5rem;
 }
 </style>
