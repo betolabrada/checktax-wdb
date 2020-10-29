@@ -17,7 +17,7 @@
         </thead>
         <tbody>
         <tr>
-          <td class="text-center">500</td>
+          <td class="text-center">00000000</td>
           <td class="text-center">12-Sept-15</td>
           <td class="text-center">30</td>
           <td class="text-center">123413241234</td>
@@ -56,6 +56,10 @@ export default {
   methods: {
     ...mapActions(['fetchFinanzas']),
     dateInFormat(date) {
+      console.log('date: ', date);
+      if (!date) {
+        return '';
+      }
       const dateObj = new Date(date);
 
       const day = dateObj.getDate();

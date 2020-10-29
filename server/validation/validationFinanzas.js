@@ -3,8 +3,8 @@ const Joi = require('@hapi/joi');
 const finanzasValidation = (data) => {
     const schema = Joi.object({
         operacion: Joi.string().required(),
-        fecha: Joi.date().allow(null),
-        noPagos: Joi.number().allow(null),
+        fecha: Joi.date().allow(null, ''),
+        noPagos: Joi.number().allow(null, ''),
         peridiocidad: Joi.string().allow(null, '').max(100),
         referencia: Joi.string().allow(null, '').max(50),
         dePara: Joi.string().allow(null, '').max(100),
@@ -67,7 +67,8 @@ const finanzasValidation = (data) => {
         empresa: Joi.string().allow(null, '').max(100),
         lineaVenta: Joi.string().allow(null, '').max(100),
         aplicaPagos: Joi.boolean().allow(null),
-        fFondeo: Joi.string().allow(null, '').max(100)
+        fFondeo: Joi.string().allow(null, '').max(100),
+        dateCreated: Joi.date()
     });
 
     return schema.validate(data);

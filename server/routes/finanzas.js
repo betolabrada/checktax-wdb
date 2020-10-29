@@ -8,6 +8,9 @@ router.patch('/update/:id', async (req, res) => {
     const {error} = operacionFinanzasValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
+    const document = await Finanzas.findOne({ operacion: req.params.id });
+    if (!document) return res.status(400).json({ message: 'Operación no encontrada' });
+
     try {
         const updated = await Finanzas.findOneAndUpdate({operacion: req.params.id} ,req.body);
         res.send(updated);
@@ -96,7 +99,6 @@ router.post('/post', async (req,res) => {
     } catch (err) {
         res.status(400).send(err);
     }
-    
 });
 
 router.get('/getAll', async (req,res) => {
@@ -151,7 +153,7 @@ router.get('/producto', async (req,res) => {
         "segurodeuda": 34.4827586,
         "tfsegurodeuda": false,
         "liquidacion": 20,
-        "pptipo": "mensualidad"
+        "pptipo": "Mensualidad"
     };
     res.send(producto);
 })
@@ -172,7 +174,7 @@ router.get('/producto', async (req,res) => {
         "segurodeuda": 34.4827586,
         "tfsegurodeuda": false,
         "liquidacion": 20,
-        "pptipo": "mensualidad"
+        "pptipo": "Mensualidad"
     };
     res.send(producto);
 });

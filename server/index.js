@@ -19,6 +19,7 @@ mongoose.connect(
     { useUnifiedTopology: true,  useNewUrlParser: true },
     () => console.log('Connected to db')
 );
+mongoose.set('useCreateIndex', true);
 mongoose.set('useFindAndModify', false);
 
 //Middleware

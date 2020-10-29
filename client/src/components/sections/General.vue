@@ -12,6 +12,7 @@
                 type="text"
                 :value="numOperacion"
                 @input="update('operacion', $event)"
+                @blur="findOperacion()"
                 @keyup.enter="findOperacion()"
                 :disabled="foundOperacion">
           <div class="input-group-append">
@@ -22,7 +23,7 @@
               style="height: 1.5rem;"
               variant="secondary"
             >
-              <i class="fas fa-check"></i>
+              <i class="fas fa-search"></i>
             </b-button>
           </div>
         </div>
@@ -49,7 +50,12 @@
     <div class="d-flex">
       <div class="main-input-group">
         <label for="input-persona">Persona</label>
-        <input id="input-persona" type="text" :value="operacion.persona" @input="update('persona', $event)">
+        <select 
+          size="sm" 
+          id="input-persona" type="text" :value="operacion.persona" @input="update('persona', $event)">
+          <option>Física</option>
+          <option>Moral</option>
+        </select>
       </div>
       <div class="main-input-group d-block">
         <label for="input-personaDesc">Descripción</label>
@@ -74,6 +80,7 @@ export default {
       numOperacionDisabled: false,
       foundOperacion: false,
       operacion: {
+        operacion: 0,
         fecha: '',
         folio: '',
         referencia: '',
@@ -91,7 +98,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['setOperacionPost','operacionClear']),
+    ...mapMutations(['setOperacionPost','operacionClear', 'modifyCurrentOperacion']),
     ...mapActions(['postOperacion']),
     update(key, event) {
       this.operacion[key] = event.target.value;
@@ -135,6 +142,8 @@ export default {
       } else {
         this.foundOperacion = false;
         this.numOperacionDisabled = false;
+        this.setOperacionPost(this.operacion);
+        this.postOperacion();
       }
     },
     handleClickInputOperacion() {
