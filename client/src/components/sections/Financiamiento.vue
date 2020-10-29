@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="section-header">
-      Financiamiento
+      producto
     </div>
     <div class="section-content d-flex flex-column align-items-end">
       <div class="d-flex flex-column mb-3 text-center">
@@ -14,17 +14,16 @@
           <input 
             id="input-producto"
             type="text"
-            :value="queryProducto"
+            :value="producto.producto"
             @input="update('producto', $event)"
-            @blur="findProducto()"
-            @keyup.enter="findProducto()"
-            :disabled="foundProducto"
+            @blur="checkProducto()"
+            @keyup.enter="checkProducto()"
             style="width: 100px;"
           >
           <div class="input-group-append">
             <b-button
               type="button" 
-              @click="findProducto()"
+              @click="checkProducto()"
               id="button-search"
               style="height: 1.5rem;"
               variant="secondary"
@@ -44,66 +43,66 @@
       </div>
       <div class="main-input-group">
         <label for="input-periodicidad">Periodicidad</label>
-        <input id="input-periodicidad" type="text" :value="financiamiento.pptipo" @input="update('pptipo',$event)">
+        <input id="input-periodicidad" type="text" :value="producto.pptipo" @input="update('pptipo',$event)">
       </div>
       <div class="main-input-group">
         <label for="input-valorOperacion">Valor Operación</label>
         <input id="input-valorOperacion" type="text">
       </div>
       <div class="main-input-group">
-        <label for="input-financiamientoTipo">Financiamiento Tipo</label>
-        <input id="input-financiamientoTipo" type="text" :value="financiamiento.tipo" @input="update('tipo',$event)">
+        <label for="input-productoTipo">producto Tipo</label>
+        <input id="input-productoTipo" type="text" :value="producto.tipo" @input="update('tipo',$event)">
       </div>
       <div class="main-input-group">
         <label for="input-tasaAnual">Tasa Anual</label>
-        <input id="input-tasaAnual" type="number" :value="financiamiento.tasa" @input="update('tasa',$event)">
+        <input id="input-tasaAnual" class="text-center" type="text" :value="producto.tasa.toFixed(2) + '%'" @input="update('tasa',$event)">
       </div>
       <div style="width: 75px; margin-top: 10px; text-align: center;"><label>Importe</label></div>
       <div class="main-input-group">
         <label for="input-anticipo">Anticipo</label>
-        <input id="input-anticipo" type="number" :value="financiamiento.anticipo" @input="update('anticipo',$event)">
+        <input id="input-anticipo" class="text-center" type="text" :value="producto.anticipo.toFixed(2) + '%'" @input="update('anticipo',$event)">
         <label class="block-label" for="input-impAnticipo"></label>
         <input disabled id="input-impAnticipo" type="text">
       </div>
       <div class="main-input-group">
         <label for="input-seguroDeuda">SeguroDeuda</label>
-        <input id="input-seguroDeuda" type="number" :value="financiamiento.segurodeuda" @input="update('segurodeuda',$event)">
+        <input id="input-seguroDeuda" class="text-center" type="text" :value="producto.segurodeuda.toFixed(2) + '%'" @input="update('segurodeuda',$event)">
         <label for="input-impSeguroDeuda"></label>
         <input disabled id="input-impSeguroDeuda" type="text">
       </div>
       <div class="main-input-group">
         <label for="input-apertura">Apertura</label>
-        <input id="input-apertura" type="number" :value="financiamiento.apertura" @input="update('apertura',$event)">
+        <input id="input-apertura" class="text-center" type="text" :value="producto.apertura.toFixed(2) + '%'" @input="update('apertura',$event)">
         <label for="input-impApertura"></label>
         <input disabled id="input-impApertura" type="text">
       </div>
       <div class="main-input-group">
         <label for="input-deposito">Depósito</label>
-        <input id="input-deposito" type="number" :value="financiamiento.deposito" @input="update('deposito',$event)">
+        <input id="input-deposito" class="text-center" type="text" :value="producto.deposito.toFixed(2) + '%'" @input="update('deposito',$event)">
         <label for="input-impDeposito"></label>
         <input disabled id="input-impDeposito" type="text">
       </div>
       <div class="main-input-group">
         <label for="input-admin">Administración</label>
-        <input id="input-admin" type="text">
+        <input id="input-admin" class="text-center" type="text">
         <label for="input-impAdmin"></label>
         <input disabled id="input-impAdmin" type="text">
       </div>
       <div class="main-input-group">
         <label for="input-gps">GPS</label>
-        <input id="input-gps" type="number" :value="financiamiento.gps" @input="update('gps',$event)">
+        <input id="input-gps" class="text-center" type="text" :value="producto.gps.toFixed(2)" @input="update('gps',$event)">
         <label for="input-impGps"></label>
         <input disabled id="input-impGps" type="text">
       </div>
       <div class="main-input-group">
         <label for="input-seguroAuto">SeguroAuto</label>
-        <input id="input-seguroAuto" type="text">
+        <input id="input-seguroAuto" class="text-center" type="text">
         <label for="input-impSeguroAuto"></label>
         <input disabled id="input-impSeguroAuto" type="text">
       </div>
       <div class="main-input-group" style="margin-bottom: 10px;">
         <label for="input-valorRescate">ValorRescate</label>
-        <input id="input-valorRescate" type="text">
+        <input id="input-valorRescate" class="text-center" type="text">
         <label for="input-impValorRescate"></label>
         <input disabled id="input-impValorRescate" type="text">
       </div>
@@ -124,44 +123,35 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import { mapMutations, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default{
-  name: 'Financiamiento',
+  name: 'producto',
   data() {
     return {
+      foundProducto: false,
       fondeador: '',
       noPagos: 0,
       periodicidad: '',
       valorOperacion: 0,
-      financiamiento: {
-        producto: '',
-        tipo: '',
-        tasa: 0,
-        anticipo: 0,
-        apertura: 0,
-        deposito: 0,
-        tfrescate: false,
-        tfadmon: false,
-        gps: 0,
-        tfgps: false,
-        tfseguroauto: false,
-        segurodeuda: 0,
-        tfsegurodeuda: false,
-        liquidacion: 0,
-        pptipo: ''
-      }
     }
   },
   computed: {
     ...mapState(['producto'])
   },
   methods: {
+    ...mapActions(['fetchProducto']),
     ...mapMutations(['setProducto']),
     update(key, event) {
-      this.financiamiento[key] = event.target.value;
+      this.producto[key] = event.target.value;
       this.setProducto({ [key]: event.target.value });
     },
+    checkProducto(){
+      if(this.producto.producto==='auto'){
+        this.foundProducto = true;
+        this.fetchProducto();
+      }
+    }
   }
 }
 </script>

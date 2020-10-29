@@ -238,6 +238,7 @@ export default new Vuex.Store({
     },
     async fetchProducto({ commit }){
       const res = await Service.getProducto();
+      console.log(res);
       commit('setProducto', res.data);
     },
 

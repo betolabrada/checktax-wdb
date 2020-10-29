@@ -153,7 +153,7 @@ router.get('/producto', async (req,res) => {
         "segurodeuda": 34.4827586,
         "tfsegurodeuda": false,
         "liquidacion": 20,
-        "pptipo": "mensualidad"
+        "pptipo": "Mensualidad"
     };
     res.send(producto);
 })
@@ -174,7 +174,7 @@ router.get('/producto', async (req,res) => {
         "segurodeuda": 34.4827586,
         "tfsegurodeuda": false,
         "liquidacion": 20,
-        "pptipo": "mensualidad"
+        "pptipo": "Mensualidad"
     };
     res.send(producto);
 });
