@@ -1,0 +1,22 @@
+CREATE TABLE tipoFinanciamiento(
+    idTipoFin INT NOT NULL AUTO_INCREMENT,
+    tipoFin VARCHAR(50),
+    tasa FLOAT,
+    anticipo FLOAT,
+    apertura FLOAT,
+    deposito FLOAT,
+    vRescate FLOAT,
+    tfValorRescate BOOLEAN,
+    descuento FLOAT,
+    admon FLOAT,
+    tfAdmon BOOLEAN,
+    gps FLOAT,
+    tfGps BOOLEAN,
+    seguroAuto FLOAT,
+    tfSeguroAuto BOOLEAN,
+    seguroDeuda FLOAT,
+    tfSeguroDeuda BOOLEAN,
+    liquidacion FLOAT,
+    ppTipo VARCHAR(50),
+    PRIMARY KEY(idTipoFin)
+);
