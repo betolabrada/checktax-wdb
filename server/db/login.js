@@ -8,7 +8,6 @@ dotenv.config();
 
 async function login (connection, req, res) {
     const sql_statement = `SELECT * FROM users WHERE username = ${connection.escape(req.body.username)}`;
-
     connection.query(sql_statement, (err,result) => {
         if (err) {
             return res.status(400).send({
@@ -33,7 +32,7 @@ async function login (connection, req, res) {
               `UPDATE users SET lat_login = now() WHERE username = ${connection.escape(result[0].username)}`
             );
 
-            res.cookie('jwt', token, {httpOnly: true});
+            res.cookie('jwt', token, {httpOnly: true, samesite: true, secure: true});
             return res.status(200).send({
               msg: 'Logged in!',
               token,
@@ -73,7 +72,7 @@ async function addUser (connection, req, res) {
 
 async function verifyUser(req, res, next){
   try {
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1] || req.cookie.jwt;
     const decoded = jwt.verify(
       token,
       process.env.ACCESS_TOKEN_SECRET

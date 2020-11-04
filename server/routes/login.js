@@ -2,7 +2,7 @@ const router = require('express').Router();
 const login = require('../db/login.js');
 const database = require('../services/database.js');
 
-router.post('/login', (req, res, next) => {
+router.post('/login', (req, res, next) => { 
     login.login(database, req, res);
 });
 

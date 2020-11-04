@@ -1,12 +1,23 @@
+import Axios from 'axios';
 import Vue from "vue";
 import Vuex from "vuex";
-
-import Service from '@/services/Service';
+import createPersistedState from 'vuex-persistedstate';
+import Service from '../services/Service';
 
 Vue.use(Vuex);
 
+const getDefaultState = () => {
+  return {
+    token: localStorage.getItem('user-token') || '',
+    user: {}
+  };
+};
+
 export default new Vuex.Store({
+  strict: true,
+  plugins: [createPersistedState()],
   state: {
+    default: getDefaultState(),
     finanzas : [] as any,
     operacionPost: {
       operacion: "",
@@ -89,7 +100,24 @@ export default new Vuex.Store({
       },
     ],
   },
+  getters: {
+    isLoggedIn: state => {
+      return state.default.token;
+    },
+    getUser: state => {
+      return state.default.user;
+    }
+  },
   mutations: {
+    SET_TOKEN: (state, token) => {
+      state.default.token = token;
+    },
+    SET_USER: (state, user) => {
+      state.default.user = user;
+    },
+    RESET: state => {
+      Object.assign(state.default, getDefaultState());
+    },
     setFinanzas(state, data) {      
       state.finanzas = data;
     },
@@ -175,6 +203,16 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    //Fetch authenticated user
+    login: ({ commit, dispatch }, { token, user }) => {
+      commit('SET_TOKEN', token);
+      commit('SET_USER', user);
+      // set auth header
+      Axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    },
+    logout: ({ commit }) => {
+      commit('RESET', '');
+    },
     // Fetch finanzas array
     async fetchFinanzas({ commit }) {
       const res = await Service.getFinanzas();

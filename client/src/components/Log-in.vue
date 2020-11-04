@@ -3,23 +3,55 @@
     <div class="col">
       <form>
         <div class="form-group">
-          <label for="email">Usuario</label>
-          <input type="email" class="form-control" id="email" />
+          <label for="username">Usuario</label>
+          <input type="text" class="form-control" id="username" v-model="username"/>
         </div><br>
         <div class="form-group">
           <label for="password">Contraseña</label>
-          <input type="password" class="form-control" id="password" />
+          <input type="password" class="form-control" id="password" v-model="password"/>
         </div><br>
         
         <div class="text-center">
-          <button type="submit" class="btn btn-success" id="submit">
+          <button type="button" class="btn btn-success" id="login" @click="login">
             Iniciar sesión
           </button>
         </div>
+        <p v-if="msg">{{ msg }}</p>
       </form>
     </div>
   </div>
 </template>
+
+<script>
+import authService from '../services/auth.js';
+export default {
+  data(){
+    return {
+      username: '',
+      password: '',
+      msg: ''
+    }
+  },
+  methods: {
+    async login(){
+      try {
+        const credentials = {
+          username: this.username,
+          password: this.password
+        };
+        const response = await authService.login(credentials);
+        this.msg = response.msg;
+        const token = response.token;
+        const user = response.user;
+        this.$store.dispatch('login', {token, user});
+        this.$router.push('/Home');
+      } catch (error) {
+        this.msg = error;
+      }
+    }
+  }
+}
+</script>>
 
 <style scoped>
 
