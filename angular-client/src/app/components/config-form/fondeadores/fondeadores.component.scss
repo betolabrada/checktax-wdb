@@ -1,0 +1,16 @@
+label {
+  text-align: left;
+  display: block;
+}
+
+.main-input-group:not(:last-child) {
+  margin-right: 4px;
+}
+
+.main-input-group:first-child {
+  margin-right: auto;
+}
+
+.main-input-group:last-child, .main-input-group:last-child input {
+  width: 100px;
+}

@@ -1,0 +1,66 @@
+<div class="section-content">
+  <div class="d-flex">
+    <div class="d-flex flex-column mr-2">
+      <label for="input-operacion" class="d-block">Operación
+        <span class="fas fa-info-circle"
+              placement="top" ngbTooltip="Buscar operación por número, si no existe, crea uno nuevo"
+        ></span>
+      </label>
+      <div class="main-input-group input-group input-group-sm">
+        <input id="input-operacion"
+              type="text"
+              value="numOperacion"
+              disabled>
+        <div class="input-group-append">
+          <button
+            class="btn btn-primary"
+            type="button"
+            id="button-search"
+            style="height: 1.5rem;"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="main-input-group">
+      <label for="input-fecha">Fecha</label>
+      <input id="input-fecha" type="text" :value="operacion.fecha">
+    </div>
+    <div class="main-input-group">
+      <label for="input-folio">Folio Com.</label>
+      <input id="input-folio" type="text" :value="operacion.folio">
+    </div>
+    <div class="main-input-group d-block">
+      <label for="input-refPagos">Referencia Pagos</label>
+      <input id="input-refPagos" type="text" :value="operacion.referencia">
+    </div>
+  </div>
+  <div class="d-flex">
+    <div class="main-input-group d-block">
+      <label for="input-cliente">Cliente</label>
+      <input id="input-cliente" type="text" :value="operacion.dePara">
+    </div>
+  </div>
+  <div class="d-flex">
+    <div class="main-input-group">
+      <label for="input-persona">Persona</label>
+      <select
+        size="sm"
+        id="input-persona" type="text" :value="operacion.persona">
+        <option>Física</option>
+        <option>Moral</option>
+      </select>
+    </div>
+    <div class="main-input-group d-block">
+      <label for="input-personaDesc">Descripción</label>
+      <input id="input-personaDesc" type="text" :value="operacion.descripcion">
+    </div>
+  </div>
+  <div class="d-flex">
+    <div class="main-input-group d-block">
+      <label for="input-asesor">Asesor</label>
+      <input id="input-asesor" type="text" :value="operacion.promotor">
+    </div>
+  </div>
+</div>

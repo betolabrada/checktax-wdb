@@ -1,0 +1,35 @@
+label {
+  display: block;
+  text-align: left;
+}
+
+.main-input-group {
+  flex-wrap: nowrap;
+}
+
+.main-input-group:not(:last-child) {
+  margin-right: 4px;
+}
+
+.main-input-group:nth-child(3) input {
+  width: 100px;
+}
+
+.d-block {
+  display: block;
+  width: 100%;
+}
+
+.d-block input {
+  width: 100%;
+}
+
+a {
+  color: #42b983;
+}
+
+i {
+  position: relative;
+  top: -2px;
+  color: #fff;
+}
