@@ -25,7 +25,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="763c789a-84c4-465f-aaa2-bebbd3d7d162" name="Default Changelist" comment="" />
+    <list default="true" id="763c789a-84c4-465f-aaa2-bebbd3d7d162" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,6 +38,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jCxtir7f8S3w1TTtg3jYt5p4uq" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -61,6 +67,9 @@
       <option name="presentableId" value="Default" />
       <updated>1603322090300</updated>
       <workItem from="1603322091626" duration="1314000" />
+      <workItem from="1604510055001" duration="1179000" />
+      <workItem from="1604514328916" duration="4582000" />
+      <workItem from="1604526675930" duration="9762000" />
     </task>
     <servers />
   </component>
@@ -77,5 +86,16 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="334" y="361" key="#SQL_Dialects" timestamp="1604519113067">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="334" y="361" key="#SQL_Dialects/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604519113067" />
+    <state x="1220" y="278" key="FileChooserDialogImpl" timestamp="1604537706040">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1220" y="278" key="FileChooserDialogImpl/0.0.1920.1040/-1920.0.1920.1040@0.0.1920.1040" timestamp="1604537706040" />
   </component>
 </project>

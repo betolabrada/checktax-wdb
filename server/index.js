@@ -8,7 +8,6 @@ const db = require('./services/Database');
 process.env.UV_THREADPOOL_SIZE = dbConfig.pool.poolMax + 4; // 4 default numThreads nodejs
 
 async function startup() {
-    console.log(process.env.TNS_ADMIN);
     console.log('Initializing database connection...');
     try {
         await db.initialize();
