@@ -2,11 +2,16 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import Service from '@/services/Service';
+import productos from '@/services/models/productos.json';
+import operaciones from '@/services/models/operaciones-query.json';
+
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    asesor: '',
+    cliente: '',
     finanzas : [] as any,
     operacionPost: {
       operacion: "",
@@ -88,6 +93,29 @@ export default new Vuex.Store({
         writing: true,
       },
     ],
+    producto: {
+      producto: "",
+      fondeador: "",
+      noPagos: 0,
+      valorOperacion: 0,
+      tipo: "",
+      tasa: 0,
+      anticipo: 0,
+      apertura: 0,
+      deposito: 0,
+      administracion: 0,
+      tfrescate: false,
+      tfadmon: false,
+      gps: 0,
+      tfgps: false,
+      tfseguroauto: false,
+      segurodeuda: 0,
+      seguroauto: 0,
+      tfsegurodeuda: false,
+      valorRescate: 0,
+      liquidacion: 0,
+      pptipo: ""
+    }
   },
   mutations: {
     setFinanzas(state, data) {      
@@ -99,6 +127,8 @@ export default new Vuex.Store({
         ...prev,
         ...data
       }
+      console.log('state.operacionPost', state.operacionPost);
+
     },
     operacionClear(state) {
       state.operacionPost = {
@@ -172,6 +202,22 @@ export default new Vuex.Store({
     },
     addOperacion(state){
       state.finanzas.push(state.operacionPost);
+    },
+    setProducto(state, data) {
+      const prev = state.producto;
+      state.producto = {
+        ...prev,
+        ...data
+      }
+      console.log(state.producto);
+    },
+
+    setAsesor(state, asesor) {
+      state.asesor = asesor;
+    },
+
+    setCliente(state, cliente) {
+      state.cliente = cliente;
     }
   },
   actions: {
@@ -181,12 +227,39 @@ export default new Vuex.Store({
       commit('setFinanzas', res.data);
     },
     // Post operacion
-    async postOperacion({ commit }) {
+    async postOperacion({ commit, dispatch }) {
+      this.state.operacionPost.valorOperacion = this.state.producto.valorOperacion;
+      this.state.operacionPost.fondeador = "RP";
       const res = await Service.postOperacion(this.state.operacionPost);
       if(res.data){
-        commit('addOperacion');
+        dispatch('fetchFinanzas');
       }
       return res.data;
+    },
+    async updateOperacion({ commit, dispatch }) {
+      this.state.operacionPost.valorOperacion = this.state.producto.valorOperacion;
+      this.state.operacionPost.fondeador = "RP";
+      const res = await Service.updateOperacion(this.state.operacionPost.operacion, this.state.operacionPost);
+      console.log('res: ', res);
+      if (res.data) {
+        dispatch('fetchFinanzas');
+      }
+      
+    },
+    async fetchProducto({ commit }){
+      const res = await Service.getProducto();
+      console.log(res);
+      commit('setProducto', res.data);
+    },
+
+    async fetchAsesor({ commit }) {
+      const res = await Service.getAsesor();
+      console.log('res ASESOR: ', res);
+    },
+
+    async fetchCliente({ commit }) {
+      const res = await Service.getCliente();
+      console.log('res CLIENTE: ', res);
     },
   },
   modules: {},

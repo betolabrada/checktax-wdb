@@ -3,14 +3,27 @@ const { restart } = require('nodemon');
 const Finanzas = require('../model/Finanzas');
 const {finanzasValidation, operacionFinanzasValidation} = require('../validation/validationFinanzas');
 
+//Update operacion
+router.patch('/update/:id', async (req, res) => {
+    const {error} = operacionFinanzasValidation(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    const document = await Finanzas.findOne({ operacion: req.params.id });
+    if (!document) return res.status(400).json({ message: 'Operación no encontrada' });
+
+    try {
+        const updated = await Finanzas.findOneAndUpdate({operacion: req.params.id} ,req.body);
+        res.send(updated);
+    } catch (err) {
+        res.status(400).send(err);
+    }
+});
+
 //Add new operacion
 router.post('/post', async (req,res) => {
     const {error} = finanzasValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
-
-    const operacionExist = await Finanzas.findOne({operacion: req.body.operacion});
-    if(operacionExist) return res.status(400).send('Esta operación ya existe');
-
+    
     const operacion = new Finanzas({
         operacion:req.body.operacion,
         fecha:req.body.fecha,
@@ -86,7 +99,6 @@ router.post('/post', async (req,res) => {
     } catch (err) {
         res.status(400).send(err);
     }
-    
 });
 
 router.get('/getAll', async (req,res) => {
@@ -125,21 +137,60 @@ router.delete('/delete', async (req, res) => {
     }
 });
 
-//Update operacion
-router.patch('/update', async (req, res) => {
-    const {error} = operacionFinanzasValidation(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
+router.get('/producto', async (req,res) => {
+    const producto = {
+        "producto": "auto",
+        "tipo": "GlobalAuto",
+        "tasa": 24,
+        "anticipo": 30,
+        "apertura": 2.59,
+        "deposito": 0,
+        "tfrescate": false,
+        "tfadmon": false,
+        "gps": 171.55,
+        "tfgps": false,
+        "tfseguroauto": false,
+        "segurodeuda": 34.4827586,
+        "tfsegurodeuda": false,
+        "liquidacion": 20,
+        "pptipo": "Mensualidad"
+    };
+    res.send(producto);
+})
 
-    const operacion = await Finanzas.findOne({operacion: req.body.operacion});
-    if(!operacion) return res.status(400).send('Esta operación no existe.');
-    if(operacion.id!==req.body.operacion) return res.status(400).send("No puedes cambiar el número de operación.")
+router.get('/producto', async (req,res) => {
+    const producto = {
+        "producto": "auto",
+        "tipo": "GlobalAuto",
+        "tasa": 24,
+        "anticipo": 30,
+        "apertura": 2.59,
+        "deposito": 0,
+        "tfrescate": false,
+        "tfadmon": false,
+        "gps": 171.55,
+        "tfgps": false,
+        "tfseguroauto": false,
+        "segurodeuda": 34.4827586,
+        "tfsegurodeuda": false,
+        "liquidacion": 20,
+        "pptipo": "Mensualidad"
+    };
+    res.send(producto);
+});
 
-    try {
-        await Finanzas.findOneAndUpdate(operacion.id ,req.body);
-        res.send({operacion: operacion.operacion});
-    } catch (err) {
-        res.status(400).send(err);
+router.get('/cliente', async (req, res) => {
+    const cliente = {
+        "nombre": "Diego Hernandez"
     }
+    res.send(cliente);
+});
+
+router.get('/asesor', async (req, res) => {
+    const asesor = {
+        "nombre": "Fernando Suarez"
+    }
+    res.send(asesor);
 });
 
 module.exports = router;

@@ -1,0 +1,52 @@
+[
+    {
+        "id": 1,
+        "impuesto": "IVA General",
+        "porcentaje": 0.16
+    },
+    {
+        "id": 2,
+        "impuesto": "IVA Frontera",
+        "porcentaje": 0.8
+    },
+    {
+        "id": 3,
+        "impuesto": "RetIVA",
+        "porcentaje": 0.1067
+    },
+    {
+        "id": 4,
+        "impuesto": "RetISR",
+        "porcentaje": 0.1
+    },
+    {
+        "id": 5,
+        "impuesto": "IEPS",
+        "porcentaje": 0.06
+    },
+    {
+        "id": 6,
+        "impuesto": "RemaSC",
+        "porcentaje": 0
+    },
+    {
+        "id": 7,
+        "impuesto": "Hospedaje",
+        "porcentaje": 0.03
+    },
+    {
+        "id": 8,
+        "impuesto": "Nominas",
+        "porcentaje": 0
+    },
+    {
+        "id": 9,
+        "impuesto": "AnticISR",
+        "porcentaje": 0
+    },
+    {
+        "id": 10,
+        "impuesto": "ISR",
+        "porcentaje": 0.3
+    }
+]

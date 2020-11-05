@@ -51,5 +51,6 @@
 <script lang="ts">
 import { Vue } from 'vue-property-decorator';
 
-export default class Financiamiento extends Vue{}   
+export default class Financiamientos extends Vue{}   
 </script>
+

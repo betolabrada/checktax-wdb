@@ -1,0 +1,147 @@
+[
+    {
+        "id": 1,
+        "subconcepto": "IVA"
+    },
+    {
+        "id": 2,
+        "subconcepto": "RetIVA"
+    },
+    {
+        "id": 3,
+        "subconcepto": "RetISR"
+    },
+    {
+        "id": 4,
+        "subconcepto": "IEPS"
+    },
+    {
+        "id": 5,
+        "subconcepto": "Hospedaje"
+    },
+    {
+        "id": 6,
+        "subconcepto": "Nominas"
+    },
+    {
+        "id": 7,
+        "subconcepto": "AnticipoISR"
+    },
+    {
+        "id": 8,
+        "subconcepto": "ISR"
+    },
+    {
+        "id": 9,
+        "subconcepto": "Basura"
+    },
+    {
+        "id": 10,
+        "subconcepto": "Propina"
+    },
+    {
+        "id": 11,
+        "subconcepto": "Comestibles"
+    },
+    {
+        "id": 12,
+        "subconcepto": "Medicinas"
+    },
+    {
+        "id": 13,
+        "subconcepto": "Mantto"
+    },
+    {
+        "id": 14,
+        "subconcepto": "Coche"
+    },
+    {
+        "id": 15,
+        "subconcepto": "Oficina"
+    },
+    {
+        "id": 16,
+        "subconcepto": "Otros"
+    },
+    {
+        "id": 17,
+        "subconcepto": "Limpieza"
+    },
+    {
+        "id": 18,
+        "subconcepto": "Computadora"
+    },
+    {
+        "id": 19,
+        "subconcepto": "Capital"
+    },
+    {
+        "id": 20,
+        "subconcepto": "Intereses"
+    },
+    {
+        "id": 21,
+        "subconcepto": "Moratorios"
+    },
+    {
+        "id": 22,
+        "subconcepto": "GtsCobranza"
+    },
+    {
+        "id": 23,
+        "subconcepto": "Anticipo"
+    },
+    {
+        "id": 24,
+        "subconcepto": "Apertura"
+    },
+    {
+        "id": 25,
+        "subconcepto": "Deposito"
+    },
+    {
+        "id": 26,
+        "subconcepto": "Admon"
+    },
+    {
+        "id": 27,
+        "subconcepto": "AdmonInt"
+    },
+    {
+        "id": 28,
+        "subconcepto": "GPS"
+    },
+    {
+        "id": 29,
+        "subconcepto": "GPSInt"
+    },
+    {
+        "id": 30,
+        "subconcepto": "SeguroAuto"
+    },
+    {
+        "id": 31,
+        "subconcepto": "SeguroAutoInt"
+    },
+    {
+        "id": 32,
+        "subconcepto": "SeguroDeuda"
+    },
+    {
+        "id": 33,
+        "subconcepto": "SeguroDeudaInt"
+    },
+    {
+        "id": 34,
+        "subconcepto": "Rescate"
+    },
+    {
+        "id": 35,
+        "subconcepto": "ComPromotor"
+    },
+    {
+        "id": 36,
+        "subconcepto": "ComLote"
+    }
+
+]

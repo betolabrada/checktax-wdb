@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const finazasSchema = new mongoose.Schema({
     operacion: {
         type: Number,
-        required: true
+        required: true,
+        unique: true
     },
     fecha: {
         type: Date
@@ -240,6 +241,10 @@ const finazasSchema = new mongoose.Schema({
     },
     fFondeo: {
         type: Date
+    },
+    dateCreated: {
+        type: Date,
+        default: Date.now
     }
 });
 
