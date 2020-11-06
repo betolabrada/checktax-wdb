@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-vd-nav',
@@ -10,13 +10,19 @@ export class VdNavComponent implements OnInit {
 
   @Output() navChanged = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit(): void {
   }
 
   onClickItem($event: string): void {
     this.navChanged.emit($event);
+  }
+
+  onOutsideClick(): void {
+    if (this.navActive) {
+      this.navActive = !this.navActive;
+    }
   }
 
 }

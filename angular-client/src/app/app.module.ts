@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
 import { MainFormComponent } from './components/main-form/main-form.component';
 import { MainFormNavComponent } from './components/nav/main-form-nav/main-form-nav.component';
 import { GeneralComponent } from './components/main-form/general/general.component';
@@ -31,10 +30,13 @@ import { SegurosAutosComponent } from './components/config-form/seguros-autos/se
 import { CalifBuroComponent } from './components/config-form/calif-buro/calif-buro.component';
 import { ConfigLoteAutosComponent } from './components/config-form/config-lote-autos/config-lote-autos.component';
 
+import { CommonModule } from '@angular/common';
+import { AlertModule } from './components/alert';
+import { ClickOutsideModule } from 'ng-click-outside';
+
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     MainFormComponent,
     MainFormNavComponent,
     GeneralComponent,
@@ -64,7 +66,10 @@ import { ConfigLoteAutosComponent } from './components/config-form/config-lote-a
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    CommonModule,
+    AlertModule,
+    ClickOutsideModule
   ],
   providers: [],
   bootstrap: [AppComponent]
