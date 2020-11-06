@@ -11,6 +11,7 @@ function initWebServer() {
     //Middleware
     
     app.use(express.json());
+    
     var whitelist = ['http://localhost:8080', 'http://localhost:3000'];
     var corsOptions = {
         origin: function (origin, callback) {
@@ -31,9 +32,6 @@ function initWebServer() {
     app.use(bodyParser.json());
 
     //Route middleware
-    app.get('/', (req, res) => {
-        res.send("Hello world!");
-    });
     app.use('/api/login', require('../routes/login.js'));
 
 

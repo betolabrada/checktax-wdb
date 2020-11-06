@@ -10,9 +10,16 @@ router.post('/addUser', (req, res, next) => {
     login.addUser(database, req, res);    
 });
 
-router.get('/secret-route', login.verifyUser, (req, res, next) => {
-    console.log(req.userData);
-    res.send('This is the secret content. Only logged in users can see that!');
+router.get('/verify', (req, res, next) => {
+    login.verifyUser(req, res);
+});
+
+router.delete('/deleteUser', (req, res, next) => {
+    login.deleteUser(database, req, res);
+});
+
+router.post('/addPermissions', (req, res) => {
+    login.addPermissions(database, req, res);
 });
 
 module.exports = router;
