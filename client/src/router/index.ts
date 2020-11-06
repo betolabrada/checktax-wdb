@@ -54,6 +54,11 @@ const routes: Array<RouteConfig> = [
     path: "/operacionessinplan",
     name: "Operaciones Sin Plan",
     component: () => import("../views/OperacionesSinPlanes.vue"),
+  },
+  {
+    path: "/temporal",
+    name: "Temporal",
+    component: () => import("../views/Temporal.vue"),
   }
 ];
 
