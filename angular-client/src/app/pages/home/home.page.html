@@ -1,0 +1,16 @@
+<div class="home d-inline-flex overflow-x-auto">
+  <app-main-form></app-main-form>
+  <app-vd-nav (navChanged)="currentVD = $event"></app-vd-nav>
+  <div class="vd-container" [ngSwitch]="currentVD">
+    <app-vd-operaciones *ngSwitchCase="'operaciones'"></app-vd-operaciones>
+    <app-vd-cotizaciones *ngSwitchCase="'cotizaciones'"></app-vd-cotizaciones>
+    <app-vd-desglose *ngSwitchCase="'desglose'"></app-vd-desglose>
+    <app-vd-alta-cliente *ngSwitchCase="'altaCliente'"></app-vd-alta-cliente>
+    <app-vd-manejo-cliente *ngSwitchCase="'manejoCliente'"></app-vd-manejo-cliente>
+    <app-vd-operaciones *ngSwitchDefault></app-vd-operaciones>
+  </div>
+
+</div>
+<div class="alert-wrapper">
+  <app-alert></app-alert>
+</div>

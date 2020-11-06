@@ -1,0 +1,65 @@
+* {
+  box-sizing: border-box;
+}
+
+.section-users {
+
+  border: #000000 solid 4px;
+  border-left: #000000 solid 2px;
+}
+
+.search {
+  padding-left: 2rem;
+}
+
+.sectionLabel {
+  margin: 0;
+  font-size: 2rem;
+  color: black;
+}
+
+#userField {
+  width: 15rem;
+  height: 3rem;
+}
+
+#addButton {
+  float: right;
+  margin-right: 2rem;
+}
+
+.windowTitle {
+  width: 100%;
+  padding-left: 1.2rem;
+  background: var(--gray-nav);
+}
+
+#windowLock {
+  color: orange;
+}
+
+label {
+  white-space: nowrap;
+}
+input[type="checkbox"] {
+  width: 15px;
+  margin: 0;
+  padding: 0;
+  align-self: flex-start;
+}
+
+.titleText{
+  color: white;
+  margin-bottom: 1.5rem;
+  transform: translateY(50%);
+}
+
+.windowTitle{
+  padding-left: 1.2rem;
+  background: var(--gray-nav);
+
+}
+
+.main-input-group.d-flex label {
+  align-self: center;
+}
