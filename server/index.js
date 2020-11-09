@@ -66,6 +66,9 @@ process.on('uncaughtException', (err) => {
     shutdown();
 });
 
+startup();
+
+/*
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
@@ -99,3 +102,4 @@ app.use('/api/finanzas', finanzasRoute);
 app.use('/api/clients', clientsRoute);
 
 app.listen(3000, () => console.log("Server up and running at port 3000"));
+*/
