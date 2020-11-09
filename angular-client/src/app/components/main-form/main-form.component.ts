@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { OperacionModel } from '../../models/operacion.model';
+import { Operacion } from '../../models/operacion.model';
 import { OperacionService } from '../../services/operacion/operacion.service';
 import { AlertService } from '../alert';
+import { Producto } from '../../models/producto.model';
+import { LoadingService } from '../../services/loading/loading.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-form',
@@ -11,13 +14,20 @@ import { AlertService } from '../alert';
 export class MainFormComponent implements OnInit {
 
   extensionActive = false;
-  operacion: OperacionModel;
+  finding: boolean;
+  loading: Subscription;
+  operacion: Operacion;
+  productos: Producto[];
 
   constructor(private operacionService: OperacionService,
-              private alertService: AlertService) {}
+              private alertService: AlertService,
+              private loadingService: LoadingService) {}
 
   ngOnInit(): void {
-    this.operacion = new OperacionModel('');
+    this.operacion = new Operacion('');
+    this.loading = this.loadingService.loading$.subscribe((loading) => {
+      this.finding = loading;
+    });
   }
 
 
@@ -69,9 +79,44 @@ export class MainFormComponent implements OnInit {
     return typeof this.operacion.asesor === 'string' ? this.operacion.asesor : '';
   }
 
+  get producto(): string {
+    return this.operacion.producto != null ? this.operacion.producto.producto : '';
+  }
 
-  showAlert(msg: string): void {
-    console.log('Showing Alert...');
-    this.alertService.success(msg);
+
+  showAlert(msg: string, type?: string): void {
+    if (!type) {
+      console.log('Showing Alert...');
+      this.alertService.success(msg);
+      return;
+    } else {
+      switch (type) {
+        case 'error': {
+          this.alertService.error(msg);
+          break;
+        }
+      }
+    }
+  }
+
+  searchProduct(event: Event): void {
+
+  }
+
+  findOperacion(): void {
+    console.log('finding...');
+    this.loadingService.setLoading(true);
+    this.operacionService.queryNumOperacion(this.numOperacion).subscribe(
+      (value) => {
+        console.log(value);
+        this.showAlert('Found operación!');
+        this.loadingService.setLoading(false);
+      },
+      (error) => {
+        console.log(error);
+        this.showAlert('No se encontró operación', 'error');
+        this.loadingService.setLoading(false);
+      }
+    );
   }
 }

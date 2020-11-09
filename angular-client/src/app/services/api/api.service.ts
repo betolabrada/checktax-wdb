@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { retryWhen, mergeMap } from 'rxjs/operators';
 import { Observable, timer, throwError } from 'rxjs';
 
-export const BASEURL      = 'https://test.historeat.app:3000/api';
+export const BASEURL      = 'http://localhost:3000/api';
 export const BASEURL_DEV  = 'http://localhost:3000/api';
 const HTTP_HEADERS        = new HttpHeaders({'Content-Type': 'application/json'});
 const RETRY_ATTEMPTS      = 5;
@@ -17,14 +17,19 @@ const RETRY_MILLISECONDS  = 10000;
   providedIn: 'root'
 })
 export class ApiService {
+
+  constructor(private http: HttpClient) {}
+
+  public get baseURL(): string {
+    return this.debugMode ? BASEURL_DEV : BASEURL;
+  }
   public token = '';
   public debugMode = false;
 
-  constructor(private http: HttpClient, private storage: Storage) {}
-
-  public get(endPoint: string, getVariables: any = {}, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON> {
-    const link: string = this.genLink(endPoint, useToken, getVariables);
-    return this.processHttpRequest(this.http.get<JSON>(link, { headers: HTTP_HEADERS }), displayErrors);
+  public get(endPoint: string, paramsObj: object = {}, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON> {
+    const link: string = this.genLink(endPoint, useToken);
+    const params = new HttpParams({ fromObject: { ...paramsObj } });
+    return this.processHttpRequest(this.http.get<JSON>(link, { headers: HTTP_HEADERS, params }), displayErrors);
   }
 
   public post(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON>{
@@ -47,33 +52,17 @@ export class ApiService {
     return this.processHttpRequest(this.http.delete<JSON>(link, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  public async setToken(token: string): Promise<void> {
-    await this.storage.ready();
-    await this.storage.set('token', token);
-    this.token = token;
-  }
-
-
   private processHttpRequest(request: Observable<JSON>, displayErrors): Observable<JSON> {
     return request.pipe(
       retryWhen(errorResponse => this.retryOnConnectionError(errorResponse, displayErrors))
     );
   }
 
-  private genLink(endPoint: string, useToken: boolean, getVars: any[] = []): string {
+  private genLink(endPoint: string, useToken: boolean, getVars: object = {}): string {
     useToken = useToken && this.token && this.token.length > 0;
 
-    let baseURL = (this.debugMode ? BASEURL_DEV : BASEURL) + endPoint + '?';
+    const baseURL = (this.debugMode ? BASEURL_DEV : BASEURL) + endPoint ;
 
-    if (endPoint.includes('?')){
-      baseURL = (this.debugMode ? BASEURL_DEV : BASEURL) + endPoint + '&';
-    }
-
-    if (getVars != null && getVars.length > 0) {
-      for (const variable of getVars) {
-        baseURL = `${baseURL}${variable}=${getVars[variable]}&`;
-      }
-    }
     return useToken ? baseURL + 'access_token=' + this.token : baseURL;
   }
 
@@ -89,20 +78,5 @@ export class ApiService {
         return timer(RETRY_MILLISECONDS);
       })
     );
-  }
-
-  private async setDebugMode(): Promise<void> {
-    await this.storage.ready();
-    this.debugMode = await this.storage.get('debugMode');
-  }
-
-  public async getToken(): Promise<string> {
-    await this.storage.ready();
-    this.token = await this.storage.get('token');
-    return this.token;
-  }
-
-  public get baseURL(): string {
-    return this.debugMode ? BASEURL_DEV : BASEURL;
   }
 }

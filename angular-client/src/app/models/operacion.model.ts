@@ -1,7 +1,7 @@
 import { TipoOperacion } from '../interfaces/operacion.interface';
 import { Producto } from './producto.model';
 
-export class OperacionModel {
+export class Operacion {
 
   numOperacion: string;
   tipo: TipoOperacion;

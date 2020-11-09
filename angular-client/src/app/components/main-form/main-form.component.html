@@ -19,6 +19,7 @@
               [value]="numOperacion"
               (input)="update('numOperacion', $event)"
               (keyup.enter)="showAlert('Ejemplo Alerta')"
+              (blur)="findOperacion()"
             >
             <div class="input-group-append">
               <button
@@ -227,6 +228,8 @@
                   id="input-producto"
                   type="text"
                   style="width: 100px;"
+                  [value]="producto"
+                  (input)="searchProduct($event)"
                 >
                 <div class="input-group-append">
                   <button
