@@ -1,15 +1,16 @@
 <template>
-  <div class="main-form">
-    <div class="section-header">Alta - Baja - Edición de Operaciones</div>
-    <general></general>
+  <div class="main-form bordered">
+    <main-form-nav @clickedNav="$emit('clickHeader', $event)"></main-form-nav>
+<!--    <div class="section-header" @click="$emit('clickHeader')">Alta - Baja - Edición de Operaciones</div>-->
+    <general></general> <!-- Alta - Baja - Edición de Operaciones -->
     <div class="d-flex">
       <div class="left-side">
-        <otros-param></otros-param>
+        <otros-param></otros-param> <!-- Otros Parámetros -->
         <aplicar-op></aplicar-op>
         <comentarios></comentarios>
       </div>
       <div class="right-side">
-        <financiamiento></financiamiento>
+        <financiamiento></financiamiento> <!-- Financiamiento -->
         <lote-autos></lote-autos>
       </div>
     </div>
@@ -24,9 +25,11 @@ import AplicarOp from "@/components/sections/AplicarOp.vue";
 import Comentarios from "@/components/sections/Comentarios.vue";
 import Financiamiento from "@/components/sections/Financiamiento.vue";
 import LoteAutos from "@/components/sections/LoteAutos.vue";
+import MainFormNav from '@/components/nav/MainFormNav.vue';
 
 @Component({
   components: {
+    MainFormNav,
     General,
     OtrosParam,
     AplicarOp,
@@ -41,8 +44,11 @@ export default class MainForm extends Vue {}
 <style>
 .main-form {
   width: 500px;
+  height: 800px;
   background: #e5e5e5;
-  margin: 16px;
+  margin: 16px 0 16px 16px;
+  overflow: hidden;
+
 }
 a {
   color: #42b983;

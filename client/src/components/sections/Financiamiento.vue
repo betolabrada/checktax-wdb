@@ -4,108 +4,171 @@
       Financiamiento
     </div>
     <div class="section-content d-flex flex-column align-items-end">
-      <div class="form-group">
-        <label for="input-producto">Producto</label>
-        <input id="input-producto" type="text">
-      </div>
-      <div class="form-group">
+      <div class="d-flex flex-column mb-3 text-center">
+        <label for="input-producto">Producto
+          <span class="fas fa-info-circle"
+                v-b-tooltip.hover.right="'Escriba producto para buscarlo'"
+          ></span>
+        </label>
+        <div class="main-input-group input-group input-group-sm">
+          <input 
+            id="input-producto"
+            type="text"
+            :value="producto.producto"
+            @input="update('producto', $event)"
+            @blur="checkProducto()"
+            @keyup.enter="checkProducto()"
+            style="width: 100px;"
+          >
+          <div class="input-group-append">
+            <b-button
+              type="button" 
+              @click="checkProducto()"
+              id="button-search"
+              style="height: 1.5rem;"
+              variant="secondary"
+            >
+              <i class="fas fa-search"></i>
+            </b-button>
+          </div>
+        </div>
+      </div><!--d-flex flex-column mr-2-->
+      <div class="main-input-group">
         <label for="input-fondeador">Fondeador</label>
-        <input id="input-fondeador" type="text">
+        <input id="input-fondeador" type="text" :value="producto.fondeador" @input="update('fondeador',$event)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-noPagos">No. Pagos</label>
-        <input id="input-noPagos" type="text">
+        <input id="input-noPagos" type="text" :value="producto.noPagos" @input="update('noPagos',$event)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-periodicidad">Periodicidad</label>
-        <input id="input-periodicidad" type="text">
+        <input id="input-periodicidad" type="text" :value="producto.pptipo" @input="update('pptipo',$event)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-valorOperacion">Valor Operación</label>
-        <input id="input-valorOperacion" type="text">
+        <input id="input-valorOperacion" type="text" :value="producto.valorOperacion" @input="update('valorOperacion',$event)">
       </div>
-      <div class="form-group">
-        <label for="input-financiamientoTipo">Financiamiento Tipo</label>
-        <input id="input-financiamientoTipo" type="text">
+      <div class="main-input-group">
+        <label for="input-productoTipo">Producto Tipo</label>
+        <input id="input-productoTipo" type="text" :value="producto.tipo" @input="update('tipo',$event)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-tasaAnual">Tasa Anual</label>
-        <input id="input-tasaAnual" type="text">
+        <input id="input-tasaAnual" class="text-center" type="text" :value="producto.tasa.toFixed(2) + '%'" @input="update('tasa',$event)">
       </div>
-      <div style="width: 75px; margin-top: 10px"><label>Importe</label></div>
-      <div class="form-group">
+      <div style="width: 75px; margin-top: 10px; text-align: center;"><label>Importe</label></div>
+      <div class="main-input-group">
         <label for="input-anticipo">Anticipo</label>
-        <input id="input-anticipo" type="text">
+        <input id="input-anticipo" class="text-center" type="text" :value="producto.anticipo.toFixed(2) + '%'" @input="update('anticipo',$event)">
         <label class="block-label" for="input-impAnticipo"></label>
-        <input id="input-impAnticipo" type="text">
+        <input disabled id="input-impAnticipo" type="text" :value="anticipo">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-seguroDeuda">SeguroDeuda</label>
-        <input id="input-seguroDeuda" type="text">
+        <input id="input-seguroDeuda" class="text-center" type="text" :value="producto.segurodeuda.toFixed(2)" @input="update('segurodeuda',$event)">
         <label for="input-impSeguroDeuda"></label>
-        <input id="input-impSeguroDeuda" type="text">
+        <input disabled id="input-impSeguroDeuda" type="text" :value="producto.segurodeuda.toFixed(2)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-apertura">Apertura</label>
-        <input id="input-apertura" type="text">
+        <input id="input-apertura" class="text-center" type="text" :value="producto.apertura.toFixed(2) + '%'" @input="update('apertura',$event)">
         <label for="input-impApertura"></label>
-        <input id="input-impApertura" type="text">
+        <input disabled id="input-impApertura" type="text" :value="apertura">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-deposito">Depósito</label>
-        <input id="input-deposito" type="text">
+        <input id="input-deposito" class="text-center" type="text" :value="producto.deposito.toFixed(2) + '%'" @input="update('deposito',$event)">
         <label for="input-impDeposito"></label>
-        <input id="input-impDeposito" type="text">
+        <input disabled id="input-impDeposito" type="text" :value="deposito">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-admin">Administración</label>
-        <input id="input-admin" type="text">
+        <input id="input-admin" class="text-center" type="text" :value="producto.administracion.toFixed(2)" @input="update('administracion',$event)">
         <label for="input-impAdmin"></label>
-        <input id="input-impAdmin" type="text">
+        <input disabled id="input-impAdmin" type="text" :value="producto.administracion.toFixed(2)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-gps">GPS</label>
-        <input id="input-gps" type="text">
+        <input id="input-gps" class="text-center" type="text" :value="producto.gps.toFixed(2)" @input="update('gps',$event)">
         <label for="input-impGps"></label>
-        <input id="input-impGps" type="text">
+        <input disabled id="input-impGps" type="text" :value="producto.gps.toFixed(2)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-seguroAuto">SeguroAuto</label>
-        <input id="input-seguroAuto" type="text">
+        <input id="input-seguroAuto" class="text-center" type="text" :value="producto.seguroauto.toFixed(2)" @input="update('seguroauto',$event)">
         <label for="input-impSeguroAuto"></label>
-        <input id="input-impSeguroAuto" type="text">
+        <input disabled id="input-impSeguroAuto" type="text" :value="producto.seguroauto.toFixed(2)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group" style="margin-bottom: 10px;">
         <label for="input-valorRescate">ValorRescate</label>
-        <input id="input-valorRescate" type="text">
+        <input id="input-valorRescate" class="text-center" type="text" :value="producto.valorRescate.toFixed(2)" @input="update('valorRescate',$event)">
         <label for="input-impValorRescate"></label>
-        <input id="input-impValorRescate" type="text">
+        <input disabled id="input-impValorRescate" type="text" :value="producto.valorRescate.toFixed(2)">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-descuento">Descuento</label>
         <input id="input-descuento" type="text">
         <label for="input-impDescuento"></label>
-        <input id="input-impDescuento" type="text">
+        <input disabled id="input-impDescuento" type="text">
       </div>
-      <hr style="border-top: #000000 solid 1px; width: 300px">
-      <div class="form-group">
+      <div style="text-align: right;"><hr style="border-top: #000000 solid 1px; width: 75px"></div>
+      <div class="main-input-group">
         <label for="input-total">Total Primer Pago</label>
-        <input id="input-total" type="text">
+        <input id="input-total" type="text" :value="primerPago">
       </div>
     </div><!-- section-content -->
   </section>
 </template>
 
-<script lang="ts">
+<script>
 import { Component, Vue } from 'vue-property-decorator';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
-@Component({})
-export default class Financiamiento extends Vue {}
+export default{
+  name: 'producto',
+  computed: {
+    ...mapState(['producto']),
+    anticipo() {
+      return (this.producto.anticipo/100) * this.producto.valorOperacion;
+    },
+    apertura() {
+      return (this.producto.apertura/100) * this.producto.valorOperacion;
+    },
+    deposito() {
+      return (this.producto.deposito/100) * this.producto.valorOperacion;
+    },
+    primerPago() {
+      //console.log(this.anticipo);console.log(this.producto.segurodeuda);console.log(this.apertura);console.log(this.deposito);console.log(this.producto.administracion);console.log(this.producto.gps);console.log(this.producto.seguroauto);
+      return (parseFloat(this.anticipo)+parseFloat(this.producto.segurodeuda)+parseFloat(this.apertura)+parseFloat(this.deposito)+parseFloat(this.producto.administracion)+parseFloat(this.producto.gps)+parseFloat(this.producto.seguroauto)).toFixed(2);
+    }
+  },
+  methods: {
+    ...mapActions(['fetchProducto']),
+    ...mapMutations(['setProducto']),
+    update(key, event) {
+      this.producto[key] = event.target.value;
+      this.setProducto({ [key]: event.target.value });
+    },
+    checkProducto(){
+      if(this.producto.producto==='auto'){
+        this.foundProducto = true;
+        this.fetchProducto();
+      }
+    }
+  }
+}
 </script>
 
 
 <style scoped>
-.form-group:first-child {
+.main-input-group:first-child {
   margin-bottom: 0.75rem;
+}
+
+i {
+  position: relative;
+  top: -2px;
+  color: #fff;
 }
 </style>

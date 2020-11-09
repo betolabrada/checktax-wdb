@@ -1,16 +1,16 @@
 <template>
-  <div class="config-form">
+  <div class="config-form d-inline-flex flex-column">
     <div class="section-header main-title">
       Configuración de Módulo de Finanzas
     </div>
-    <div class="d-inline-flex w-100 overflow-x-auto">
+    <div class="d-flex">
       <section class="section-config">
         <fondeadores></fondeadores>
         <div class="d-flex">
           <div class="left-side">
             <aplicar-pagos></aplicar-pagos>
             <base-moratorios></base-moratorios>
-            <ref-bancarias></ref-bancarias>
+            <ref-bancarias style="margin-bottom: 1.75px"></ref-bancarias>
             <estatus-cartera></estatus-cartera>
           </div>
           <div class="right-side">
@@ -40,16 +40,23 @@
   background: #000000;
 }
 
+.left-side {
+  height: 750px;
+}
+
 .right-side {
   width: 420px;
 }
 
 .section-config {
-  border-right: #000000 solid 4px;
+  border: #000000 solid 4px;
+  border-right: #000000 solid 2px;
 }
 
 .section-users {
   width: 100%;
+  border: #000000 solid 4px;
+  border-left: #000000 solid 2px;
 }
 
 </style>

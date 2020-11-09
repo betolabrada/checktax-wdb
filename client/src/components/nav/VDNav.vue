@@ -4,31 +4,31 @@
     <i class="fas fa-bars d-flex justify-content-center align-items-center"></i>
   </div>
   <ul class="fab-options d-flex flex-column align-items-end" :class="{ visible: navActive }">
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('operaciones')">
       <span class="fab-label">Operaciones</span>
       <div class="fab-icon-holder">
         <i class="fas fa-file-alt d-flex justify-content-center align-items-center"></i>
       </div>
     </li>
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('cotizaciones')">
       <span class="fab-label">Cotizaciones</span>
       <div class="fab-icon-holder">
         <i class="fas fa-dollar-sign d-flex justify-content-center align-items-center"></i>
       </div>
     </li>
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('planPagos')">
       <span class="fab-label">PlanPagos</span>
       <div class="fab-icon-holder">
         <i class="fas fa-tasks d-flex justify-content-center align-items-center"></i>
       </div>
     </li>
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('altaCliente')">
       <span class="fab-label">AltaCliente</span>
       <div class="fab-icon-holder">
         <i class="fas fa-user-plus d-flex justify-content-center align-items-center"></i>
       </div>
     </li>
-    <li class="d-inline-flex justify-content-end">
+    <li class="d-inline-flex justify-content-end" @click="onClickItem('manejoCliente')">
       <span class="fab-label">Clientes</span>
       <div class="fab-icon-holder">
         <i class="fas fa-users d-flex justify-content-center align-items-center"></i>
@@ -45,6 +45,11 @@ name: "VDNav",
     return {
       navActive: false
     }
+  },
+  methods: {
+    onClickItem(e) {
+      this.$emit('navChanged', e);
+    }
   }
 }
 </script>
@@ -53,10 +58,14 @@ name: "VDNav",
 * {
   margin: 0;
   padding: 0;
+  box-sizing: content-box;
 }
 
 .fab-container {
   width: 70px;
+  position: relative;
+  z-index: 999;
+  left: 30px;
 }
 
 .fab-icon-holder {
@@ -64,7 +73,8 @@ name: "VDNav",
   width: 50px;
   height: 50px;
   border-radius: 100%;
-  background: #2c3e50;
+  border: #2c3e50 solid 3px;
+  background: #ffffff;
 
   box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
@@ -75,7 +85,7 @@ name: "VDNav",
 
 .fab-icon-holder i {
   font-size: 25px;
-  color: #ffffff;
+  color: #2c3e50;
   height: inherit;
 }
 
@@ -89,6 +99,7 @@ name: "VDNav",
   margin: 0;
 
   opacity: 0;
+  display: none !important;
   transition: all 0.3s ease;
 }
 
@@ -98,6 +109,7 @@ name: "VDNav",
 
 .fab-options.visible {
   opacity: 1;
+  display: flex !important;
 }
 
 .fab-label {

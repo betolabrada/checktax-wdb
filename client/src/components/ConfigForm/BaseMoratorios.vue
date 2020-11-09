@@ -2,52 +2,52 @@
   <section>
     <div class="section-header">Base De Moratorios</div>
     <div class="section-content">
-      <div class="d-flex">
-        <div class="input-group">
-          <label for="config-morat-fondeador">Fondeador</label>
+      <div class="d-flex justify-content-between">
+        <div class="main-input-group">
+          <label class="d-block" for="config-morat-fondeador">Fondeador</label>
           <input id="config-morat-fondeador">
         </div>
-        <div class="input-group">
-          <label for="config-morat-tasaMensual">Tasa Mensual</label>
+        <div class="main-input-group">
+          <label class="d-block" for="config-morat-tasaMensual">TasaMensual</label>
           <input id="config-morat-tasaMensual">
         </div>
       </div>
-      <div class="d-flex mb-1">
-        <div class="input-group">
-          <label for="config-morat-diasMargen">Días Margen</label>
+      <div class="d-flex justify-content-between mb-1">
+        <div class="main-input-group">
+          <label class="d-block" for="config-morat-diasMargen">Días Margen</label>
           <input id="config-morat-diasMargen">
         </div>
-        <div class="input-group">
-          <label for="config-morat-gtsCobranza">GtsCobranza</label>
+        <div class="main-input-group">
+          <label class="d-block" for="config-morat-gtsCobranza">GtsCobranza</label>
           <input id="config-morat-gtsCobranza">
         </div>
       </div>
       <div class="d-flex flex-column">
-        <div class="input-group d-flex">
+        <div class="main-input-group d-flex">
           <input type="checkbox" id="config-morat-saldoInicial">
           <label for="config-morat-saldoInicial">SaldoInicial</label>
         </div>
-        <div class="input-group d-flex">
+        <div class="main-input-group d-flex">
           <input type="checkbox" id="config-morat-seguroDeuda">
           <label for="config-morat-seguroDeuda">SeguroDeuda</label>
         </div>
-        <div class="input-group d-flex">
+        <div class="main-input-group d-flex">
           <input type="checkbox" id="config-morat-seguroAuto">
           <label for="config-morat-seguroAuto">SeguroAuto</label>
         </div>
-        <div class="input-group d-flex">
+        <div class="main-input-group d-flex">
           <input type="checkbox" id="config-morat-gps">
           <label for="config-morat-gps">GPS</label>
         </div>
-        <div class="input-group d-flex">
+        <div class="main-input-group d-flex">
           <input type="checkbox" id="config-morat-admin">
           <label for="config-morat-admin">Administración</label>
         </div>
-        <div class="input-group d-flex">
+        <div class="main-input-group d-flex">
           <input type="checkbox" id="config-morat-intereses">
           <label for="config-morat-intereses">Intereses</label>
         </div>
-        <div class="input-group d-flex">
+        <div class="main-input-group d-flex">
           <input type="checkbox" id="config-morat-capital">
           <label for="config-morat-capital">Capital</label>
         </div>
@@ -70,7 +70,7 @@ input[type="checkbox"] {
   align-self: flex-start;
 }
 
-.input-group.d-flex label {
+.main-input-group.d-flex label {
   align-self: center;
 }
 

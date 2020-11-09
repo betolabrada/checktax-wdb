@@ -1,50 +1,68 @@
 <template>
-  <v-data-table
-      fixed-header
-      height="90vh"
-      disable-pagination
-      disable-sort
-      hide-default-footer
-      :headers="headers"
-      :items="cotizaciones"
-      class="elevation-1"
-      dense
-  >
-  </v-data-table>
+  <div class="vd">
+    <div class="vd-desglose-header d-flex justify-content-between">
+      <div class="d-flex flex-column">
+        <h1>Desglose de financiamiento</h1>
+        <p><strong>Cliente:</strong> BERNAL LOPEZ BEATRIZ</p>
+        <p><strong>Fecha:</strong> 21-Aug-20</p>
+        <p><strong>Descripción:</strong> CHEVROLET BEAT LS MOD</p>
+      </div>
+      <div class="d-flex flex-column">
+        <p><strong>Operación:</strong> 403500</p>
+        <p><strong>Referencia:</strong> 12340198340123840138</p>
+        <p><strong>PrimerPago:</strong> 40,649.73</p>
+        <p><strong>Valor Operación:</strong> 149,999.00</p>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <p><strong>Totales</strong></p>
+    </div>
+    <div class="table-wrapper">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th style="width: 20px;">Fecha</th>
+            <th style="width: 25px">Capital</th>
+            <th style="width: 25px">Intereses</th>
+            <th style="width: 25px">GPS</th>
+            <th style="width: 25px">SeguroAuto</th>
+            <th style="width: 25px">Intereses</th>
+            <th style="width: 25px">IVA Total</th>
+            <th style="width: 25px">Total</th>
+            <th style="width: 50px">Comentario</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr v-for="i in 100" :key="i">
+          <td class="text-center">12-Sept-15</td>
+          <td class="text-right">$431,000</td>
+          <td class="text-right">$431,000</td>
+          <td class="text-right">$431,000</td>
+          <td class="text-right">$431,000</td>
+          <td class="text-right">$431,000</td>
+          <td class="text-right">$431,000</td>
+          <td class="text-right">$431,000</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      headers: [
-        { text: 'Fecha', value: 'fecha', divider: true },
-        { text: 'Capital', value: 'noPagos', divider: true },
-        { text: 'Intereses', value: 'referencia', divider: true },
-        { text: 'Administración', value: 'cliente', divider: true },
-        { text: 'Intereses', value: 'descripcion', divider: true },
-        { text: 'GPS', value: 'fondeador', divider: true },
-        { text: 'Intereses', value: 'valorOperacion', divider: true },
-        { text: 'SeguroAuto', value: 'valorOperacion', divider: true },
-        { text: 'Intereses', value: 'valorOperacion', divider: true },
-        { text: 'SeguroDeuda', value: 'valorOperacion', divider: true },
-        { text: 'Intereses', value: 'valorOperacion', divider: true },
-      ],
-      cotizaciones: Array.from({ length: 500 }).map((v, k) => ({
-        cotizacion: `#${k}`,
-        fecha: '25-Sep-2020',
-        noPagos: 30,
-        referencia: 10,
-        cliente: 'Cliente',
-        descripcion: 'Fondeo',
-        fondeador: 'Fondeador',
-        valorOperacion: 100
-      }))
-    }
-  },
-  methods: {}
+
 }
 </script>
 
-<style>
+<style scoped>
+h1, p {
+  margin: 0;
+  padding: 0 20px;
+}
+
+p:last-child {
+  margin-bottom: 10px;
+}
 </style>

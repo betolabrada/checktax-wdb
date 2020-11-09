@@ -4,11 +4,11 @@
       Aplicar Operación
     </div>
     <div class="section-content d-flex flex-column align-items-end">
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-chequera">Chequera</label>
         <input id="input-chequera" type="text">
       </div>
-      <div class="form-group">
+      <div class="main-input-group">
         <label for="input-sucursal">Sucursal</label>
         <input id="input-sucursal" type="text">
       </div>
