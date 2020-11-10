@@ -1,14 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const users = require('../controllers/Users');
 const centroCosto = require('../controllers/CentroCosto');
 const impuestos = require('../controllers/Impuestos');
-
-router.route('/users/:id?')
-    .get(users.get)
-    .post(users.post)
-    .put(users.put)
-    .delete(users.deleteUser);
+const productos = require('../controllers/Producto');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -21,5 +15,11 @@ router.route('/impuestos/:id?')
     .post(impuestos.post)
     .put(impuestos.put)
     .delete(impuestos.deleteImpuestos);
+
+router.route('/productos/:idProducto?')
+    .get(productos.get)
+    .post(productos.post)
+    .put(productos.put)
+    .delete(productos.deleteProducto);
 
 module.exports = router;

@@ -1,13 +1,13 @@
-const { find, insert, deleteById, update } = require('../api/Impuestos');
+const { find, insert, deleteById, update } = require('../api/Producto');
 
 async function get(req, res, next) {
     try {
         const context = {};
-        context.id = parseInt(req.params.id, 10);
+        context.idProducto = parseInt(req.params.idProducto, 10);
 
         const rows = await find(context);
 
-        if (req.params.id) {
+        if (req.params.idProducto) {
             if (rows.length === 1) {
                 console.log(rows[0]);
                 res.status(200).json(rows[0]);
@@ -24,15 +24,13 @@ async function get(req, res, next) {
 }
 
 async function post(req, res, next) {
-    let impuestos = {
-        iva: req.body.iva,
-        empresa: req.body.empresa,
-        porcentaje: req.body.porcentaje
+    let producto = {
+        producto: req.body.producto
     };
 
     try {
-        const result = await insert(impuestos);
-        res.status(201).end('Impuestos added successfully!');
+        const result = await insert(producto);
+        res.status(201).end('Producto added successfully!');
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -40,11 +38,11 @@ async function post(req, res, next) {
 
 }
 
-async function deleteImpuestos(req, res, next) {
+async function deleteProducto(req, res, next) {
     try {
-        let id = parseInt(req.params.id, 10);
-        const result = await deleteById(id);
-        res.status(201).end('Impuestos deleted successfully!');
+        let idProducto = parseInt(req.params.idProducto, 10);
+        const result = await deleteById(idProducto);
+        res.status(201).end('Producto deleted successfully!');
     } catch (err) {
         res.status(404).end();
     }
@@ -53,13 +51,11 @@ async function deleteImpuestos(req, res, next) {
 async function put(req, res, next) {
     try {
         let context = {
-            id: parseInt(req.params.id, 10),
-            iva: req.body.iva,
-            empresa: req.body.empresa,
-            porcentaje: req.body.porcentaje
+            idProducto: parseInt(req.params.idProducto, 10),
+            producto: req.body.producto
         };
         const result = await update(context);
-        res.status(201).end('Impuestos updated successfully!');
+        res.status(201).end('Producto updated successfully!');
     } catch (err) {
         res.status(404).end();
     }
@@ -67,5 +63,5 @@ async function put(req, res, next) {
 
 module.exports.get = get;
 module.exports.post = post;
-module.exports.deleteImpuestos = deleteImpuestos;
+module.exports.deleteProducto = deleteProducto;
 module.exports.put = put;

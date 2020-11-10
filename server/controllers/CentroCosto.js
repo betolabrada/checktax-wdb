@@ -28,14 +28,12 @@ async function post(req, res, next) {
         centroCosto: req.body.centroCosto
     };
 
-    console.log(centroCosto);
-
     try {
         const result = await insert(centroCosto);
         res.status(201).end('Centro costo added successfully!');
     } catch (err) {
         console.log(err);
-        res.status(400);
+        res.status(404).end();
     }
 
 }
@@ -46,7 +44,7 @@ async function deleteCentroCosto(req, res, next) {
         const result = await deleteById(idCentroCosto);
         res.status(201).end('Centro costo deleted successfully!');
     } catch (err) {
-        res.status(400);
+        res.status(404).end();
     }
 }
 
@@ -59,7 +57,7 @@ async function put(req, res, next) {
         const result = await update(context);
         res.status(201).end('Centro costo updated successfully!');
     } catch (err) {
-        res.status(400);
+        res.status(404).end();
     }
 }
 

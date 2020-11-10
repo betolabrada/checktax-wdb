@@ -1,20 +1,20 @@
 const database = require('../services/Database');
 
-const baseQuery = 'SELECT * FROM Impuestos';
+const baseQuery = 'SELECT * FROM Producto';
 
-const insertQuery = 'INSERT INTO Impuestos (iva, empresa, porcentaje) VALUES(:iva, :empresa, :porcentaje)';
+const insertQuery = 'INSERT INTO Producto (producto) VALUES(:producto)';
 
-const deleteQuery = 'DELETE FROM Impuestos WHERE id = :id';
+const deleteQuery = 'DELETE FROM Producto WHERE idProducto = :idProducto';
 
-const updateQuery = 'UPDATE Impuestos SET iva = :iva, empresa = :empresa, porcentaje = :porcentaje WHERE id = :id';
+const updateQuery = 'UPDATE Producto SET producto = :producto WHERE idProducto = :idProducto';
 
 async function find(context) {
     let query = baseQuery;
     let binds = {};
 
-    if (context.id) {
-        binds.id = context.id;
-        query += '\nWHERE id = :id';
+    if (context.idProducto) {
+        binds.idProducto = context.idProducto;
+        query += '\nWHERE idProducto = :idProducto';
     }
 
     const result = await database.queryExecutor(query, binds);
@@ -22,14 +22,14 @@ async function find(context) {
     return result.rows;
 }
 
-async function insert(impuestos) {
-    let binds = Object.assign({}, impuestos);
+async function insert(producto) {
+    let binds = Object.assign({}, producto);
     const result = await database.queryExecutor(insertQuery, binds);
     return result;
 }
 
-async function deleteById(id) {
-    let binds = { id };
+async function deleteById(idProducto) {
+    let binds = { idProducto };
     const result = await database.queryExecutor(deleteQuery, binds);
     return result;
 }

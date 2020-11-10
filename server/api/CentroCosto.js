@@ -1,5 +1,5 @@
 const database = require('../services/Database');
-//idCentroCosto "idCentroCosto", centroCosto "centroCosto"
+
 const baseQuery = 'SELECT * FROM CentroCosto';
 
 const insertQuery = 'INSERT INTO CentroCosto (centroCosto) VALUES(:centroCosto)';
