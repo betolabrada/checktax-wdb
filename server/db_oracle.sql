@@ -459,7 +459,6 @@ BEGIN
 END;
 /
 
--- ORA-00955: name is already used by an existing object
 CREATE TABLE users (
                        id varchar2(128) PRIMARY KEY,
                        username varchar2(255) NOT NULL,
@@ -480,7 +479,6 @@ create table permissions (
                              foreign key (idPermissionSection) references permissions_section(id)
 );
 
--- ORA-02267: column type incompatible with referenced column type
 create table user_permissions(
                                  id varchar2(128) primary key,
                                  userID varchar2(128),
