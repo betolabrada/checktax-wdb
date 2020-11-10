@@ -1,13 +1,13 @@
-const { find, insert, deleteById, update } = require('../api/CentroCosto');
+const { find, insert, deleteById, update } = require('../api/Impuestos');
 
 async function get(req, res, next) {
     try {
         const context = {};
-        context.idCentroCosto = parseInt(req.params.idCentroCosto, 10);
+        context.id = parseInt(req.params.id, 10);
 
         const rows = await find(context);
 
-        if (req.params.idCentroCosto) {
+        if (req.params.id) {
             if (rows.length === 1) {
                 console.log(rows[0]);
                 res.status(200).json(rows[0]);
@@ -24,15 +24,17 @@ async function get(req, res, next) {
 }
 
 async function post(req, res, next) {
-    let centroCosto = {
-        centroCosto: req.body.centroCosto
+    let impuestos = {
+        iva: req.body.iva,
+        empresa: req.body.empresa,
+        porcentaje: req.body.porcentaje
     };
 
-    console.log(centroCosto);
+    console.log(impuestos);
 
     try {
-        const result = await insert(centroCosto);
-        res.status(201).end('Centro costo added successfully!');
+        const result = await insert(impuestos);
+        res.status(201).end('Impuestos added successfully!');
     } catch (err) {
         console.log(err);
         res.status(400);
@@ -40,11 +42,11 @@ async function post(req, res, next) {
 
 }
 
-async function deleteCentroCosto(req, res, next) {
+async function deleteImpuestos(req, res, next) {
     try {
-        let idCentroCosto = parseInt(req.params.idCentroCosto, 10);
-        const result = await deleteById(idCentroCosto);
-        res.status(201).end('Centro costo deleted successfully!');
+        let id = parseInt(req.params.id, 10);
+        const result = await deleteById(id);
+        res.status(201).end('Impuestos deleted successfully!');
     } catch (err) {
         res.status(400);
     }
@@ -53,11 +55,13 @@ async function deleteCentroCosto(req, res, next) {
 async function put(req, res, next) {
     try {
         let context = {
-            idCentroCosto: parseInt(req.params.idCentroCosto, 10),
-            centroCosto: req.body.centroCosto
+            id: parseInt(req.params.id, 10),
+            iva: req.body.iva,
+            empresa: req.body.empresa,
+            porcentaje: req.body.porcentaje
         };
         const result = await update(context);
-        res.status(201).end('Centro costo updated successfully!');
+        res.status(201).end('Impuestos updated successfully!');
     } catch (err) {
         res.status(400);
     }
@@ -65,5 +69,5 @@ async function put(req, res, next) {
 
 module.exports.get = get;
 module.exports.post = post;
-module.exports.deleteCentroCosto = deleteCentroCosto;
+module.exports.deleteImpuestos = deleteImpuestos;
 module.exports.put = put;
