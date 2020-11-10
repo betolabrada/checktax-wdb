@@ -2,11 +2,11 @@ const database = require('../services/Database');
 //idCentroCosto "idCentroCosto", centroCosto "centroCosto"
 const baseQuery = 'SELECT * FROM CentroCosto';
 
-const insertQuery = 'INSERT INTO CentroCosto VALUES(:centroCosto)';
+const insertQuery = 'INSERT INTO CentroCosto (centroCosto) VALUES(:centroCosto)';
 
 const deleteQuery = 'DELETE FROM CentroCosto WHERE idCentroCosto = :idCentroCosto';
 
-const updateQuery = 'UPDATE CentroCosto SET idCentroCosto = :idCentroCosto, centroCosto = :centroCosto WHERE idCentroCosto = :idCentroCosto';
+const updateQuery = 'UPDATE CentroCosto SET centroCosto = :centroCosto WHERE idCentroCosto = :idCentroCosto';
 
 async function find(context) {
     let query = baseQuery;

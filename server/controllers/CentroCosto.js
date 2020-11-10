@@ -33,6 +33,7 @@ async function post(req, res, next) {
         res.status(201).end('Centro costo added successfully!');
     } catch (err) {
         console.log(err);
+        res.status(400);
     }
 
 }
@@ -45,10 +46,16 @@ async function deleteCentroCosto(req, res, next) {
 
 async function put(req, res, next) {
     let context = {
+        idCentroCosto: parseInt(req.params.idCentroCosto, 10),
         centroCosto: req.body.centroCosto
     };
-    const result = await update(context);
-    res.status(201).end('Centro costo updated successfully!');
+
+    try {
+        const result = await update(context);
+        res.status(201).end('Centro costo updated successfully!');
+    } catch (err) {
+        res.status(400);
+    }
 }
 
 module.exports.get = get;
