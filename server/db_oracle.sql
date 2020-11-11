@@ -205,7 +205,7 @@ CREATE TABLE seguroAuto(
    siniestros VARCHAR2(50),
    cantPolizas VARCHAR2(50),
    sigVcmto VARCHAR2(50),
-   asegueado VARCHAR2(50),
+   asegurado VARCHAR2(50),
    PRIMARY KEY(id)
 );
 
