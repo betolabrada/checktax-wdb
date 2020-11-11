@@ -6,6 +6,7 @@ const productos = require('../controllers/Producto');
 const tipoFin = require('../controllers/TipoFinanciamiento');
 const seguroAuto = require('../controllers/SeguroAuto');
 const concepto = require('../controllers/Concepto');
+const subconcepto = require('../controllers/Subconcepto');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -42,5 +43,11 @@ router.route('/concepto/:idConcepto?')
     .post(concepto.post)
     .put(concepto.put)
     .delete(concepto.deleteConcepto);
+
+router.route('/subconcepto/:idSubconcepto?')
+    .get(subconcepto.get)
+    .post(subconcepto.post)
+    .put(subconcepto.put)
+    .delete(subconcepto.deleteSubconcepto);
 
 module.exports = router;
