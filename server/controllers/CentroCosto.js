@@ -19,6 +19,7 @@ async function get(req, res, next) {
             res.status(200).json(rows);
         }
     } catch (err) {
+        console.log(err);
         next(err);
     }
 }
@@ -44,6 +45,7 @@ async function deleteCentroCosto(req, res, next) {
         const result = await deleteById(idCentroCosto);
         res.status(201).end('Centro costo deleted successfully!');
     } catch (err) {
+        console.log(err);
         res.status(404).end();
     }
 }
@@ -57,6 +59,7 @@ async function put(req, res, next) {
         const result = await update(context);
         res.status(201).end('Centro costo updated successfully!');
     } catch (err) {
+        console.log(err);
         res.status(404).end();
     }
 }

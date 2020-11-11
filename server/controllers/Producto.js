@@ -19,16 +19,16 @@ async function get(req, res, next) {
             res.status(200).json(rows);
         }
     } catch (err) {
-        next(err);
+        console.log(err);
+        res.status(404).end();
     }
 }
 
 async function post(req, res, next) {
-    let producto = {
-        producto: req.body.producto
-    };
-
     try {
+        let producto = {
+            producto: req.body.producto
+        };
         const result = await insert(producto);
         res.status(201).end('Producto added successfully!');
     } catch (err) {

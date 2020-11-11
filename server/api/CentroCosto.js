@@ -40,11 +40,4 @@ async function update(context) {
     return result;
 }
 
-/*
-module.exports.find = find;
-module.exports.insert = insert;
-module.exports.deleteById = deleteById;
-module.exports.update = update;
-*/
-
 module.exports = { find, insert, deleteById, update};

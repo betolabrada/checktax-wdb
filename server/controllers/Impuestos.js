@@ -19,7 +19,8 @@ async function get(req, res, next) {
             res.status(200).json(rows);
         }
     } catch (err) {
-        next(err);
+        console.log(err);
+        res.status(404).end();
     }
 }
 
@@ -46,6 +47,7 @@ async function deleteImpuestos(req, res, next) {
         const result = await deleteById(id);
         res.status(201).end('Impuestos deleted successfully!');
     } catch (err) {
+        console.log(err);
         res.status(404).end();
     }
 }
@@ -61,6 +63,7 @@ async function put(req, res, next) {
         const result = await update(context);
         res.status(201).end('Impuestos updated successfully!');
     } catch (err) {
+        console.log(err);
         res.status(404).end();
     }
 }
