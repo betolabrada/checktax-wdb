@@ -1,12 +1,12 @@
 const database = require('../services/Database');
 
-const baseQuery = 'SELECT id "id", first_name "first_name", email "email" FROM Users';
+const baseQuery = 'SELECT * FROM Impuestos';
 
-const insertQuery = 'INSERT INTO users VALUES(:id, :first_name, :email)';
+const insertQuery = 'INSERT INTO Impuestos (iva, empresa, porcentaje) VALUES(:iva, :empresa, :porcentaje)';
 
-const deleteQuery = 'DELETE FROM users WHERE id = :id';
+const deleteQuery = 'DELETE FROM Impuestos WHERE id = :id';
 
-const updateQuery = 'UPDATE users SET id = :id, first_name = :first_name, email = :email WHERE id = :id';
+const updateQuery = 'UPDATE Impuestos SET iva = :iva, empresa = :empresa, porcentaje = :porcentaje WHERE id = :id';
 
 async function find(context) {
     let query = baseQuery;
@@ -22,8 +22,8 @@ async function find(context) {
     return result.rows;
 }
 
-async function insert(user) {
-    let binds = Object.assign({}, user);
+async function insert(impuestos) {
+    let binds = Object.assign({}, impuestos);
     const result = await database.queryExecutor(insertQuery, binds);
     return result;
 }
@@ -40,7 +40,4 @@ async function update(context) {
     return result;
 }
 
-module.exports.find = find;
-module.exports.insert = insert;
-module.exports.deleteById = deleteById;
-module.exports.update = update;
+module.exports = { find, insert, deleteById, update};
