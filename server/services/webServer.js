@@ -1,42 +1,53 @@
+const http = require('http');
 const express = require('express');
-const dotenv = require('dotenv');
-const cors = require('cors');
+const router = require('./Router');
+const config = require('../config/WebServer');
 const bodyParser = require('body-parser');
-const app = express();
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
-dotenv.config(); 
+let httpServer;
 
-function initWebServer() {
-    
-    //Middleware
-    
-    app.use(express.json());
-    
-    var whitelist = ['http://localhost:8080', 'http://localhost:3000'];
-    var corsOptions = {
-        origin: function (origin, callback) {
-            if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-            } else {
-            callback(new Error('Not allowed by CORS'))
-            }
-        },
-        credentials: true
-    };
-    app.use(cors(corsOptions));
-    app.use(function(req, res, next) {
-        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header('Access-Control-Allow-Methods', 'GET, PATCH, POST, DELETE');
-        next();
-      });
-    app.use(bodyParser.json());
-
-    //Route middleware
-    app.use('/api/login', require('../routes/login.js'));
+function initialize() {
+    return new Promise((resolve, reject) => {
+        const app = express();
+        app.use(cookieParser());
+        app.use(morgan('combined'));
+        
+        const corsOptions = {
+            origin: true,
+            credentials: true
+        }
+        app.use(cors(corsOptions));
+        app.use(bodyParser.json());
+        app.use('/v1/api', router);
+        httpServer = http.createServer(app);
 
 
-    app.listen(3000, () => console.log("Server up and running at port 3000"));
+        httpServer.listen(config.port)
+            .on('listening', () => {
+                console.log(`Web server on, listening on port: ${config.port}`);
+                resolve();
+            })
+            .on('error', (err) => {
+                console.log(err);
+                reject(err);
+            });
+    });
 }
- 
-module.exports.initWebServer = initWebServer;
 
+function close() {
+    return new Promise((resolve, reject) => {
+        httpServer.close((err) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
+        });
+    });
+}
+
+module.exports.initialize = initialize;
+module.exports.close = close;
