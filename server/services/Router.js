@@ -9,6 +9,7 @@ const concepto = require('../controllers/Concepto');
 const subconcepto = require('../controllers/Subconcepto');
 const datosPer = require('../controllers/DatosPersonales');
 const com = require('../controllers/Comunicacion');
+const dom = require('../controllers/Domicilio');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -63,5 +64,11 @@ router.route('/com/:idCom?')
     .post(com.post)
     .put(com.put)
     .delete(com.deleteCom);
+
+router.route('/dom/:idDom?')
+    .get(dom.get)
+    .post(dom.post)
+    .put(dom.put)
+    .delete(dom.deleteDom);
 
 module.exports = router;
