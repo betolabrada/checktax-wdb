@@ -8,6 +8,7 @@ const seguroAuto = require('../controllers/SeguroAuto');
 const concepto = require('../controllers/Concepto');
 const subconcepto = require('../controllers/Subconcepto');
 const datosPer = require('../controllers/DatosPersonales');
+const com = require('../controllers/Comunicacion');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -56,5 +57,11 @@ router.route('/datosPer/:idPer?')
     .post(datosPer.post)
     .put(datosPer.put)
     .delete(datosPer.deleteDatosPer);
+
+router.route('/com/:idCom?')
+    .get(com.get)
+    .post(com.post)
+    .put(com.put)
+    .delete(com.deleteCom);
 
 module.exports = router;
