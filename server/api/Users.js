@@ -7,14 +7,17 @@ const selectQuery = 'SELECT id FROM users WHERE LOWER(username) = :username';
 const verifyCredentialsQuery = 'SELECT id FROM users WHERE LOWER(username) = :username AND password = :password';
 const selectSectionPermission = 'SELECT permissions.id "permissionID", permissions_section.id "sectionID" FROM permissions INNER JOIN permissions_section ON permissions.idPermissionSection = permissions_section.id WHERE (PERMISSIONS.permission = :permission AND permissions_section.section = :section)';
 const selectUserPermission = 'SELECT * FROM user_permissions WHERE userID = :userID AND permissionID = :permissionID';
+const selectSection = 'SELECT id FROM permissions_section WHERE section = LOWER(:section)'
 
-const insertUserQuery = 'INSERT INTO users(id, username, password, registered, last_login) VALUES(:id, :username, :password, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)';
-const insertPermission = 'INSERT INTO user_permissions (id, userID, permissionID) VALUES(:id, :userID, :permissionID)';
+const insertUserQuery = 'INSERT INTO users(id, username, password, registered, last_login) VALUES(:id, LOWER(:username), :password, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)';
+const grantPermissionQuery = 'INSERT INTO user_permissions (id, userID, permissionID) VALUES(:id, :userID, :permissionID)';
 const deleteUserQuery = 'DELETE FROM users WHERE id = :id';
 const deleteUserPermissions = 'DELETE FROM user_permissions WHERE userID = :userID';
 const deletePermission = 'DELETE FROM user_permissions WHERE userID = :userID AND permissionID = :permissionID';
 const updateLogIn = 'UPDATE users SET last_login = CURRENT_TIMESTAMP WHERE id = :id';
 const updatePassword = 'UPDATE users SET password = :password WHERE id = :id';
+const insertSectionQuery = 'INSERT INTO permissions_section(id, section) VALUES(:id, LOWER(:section))';
+const insertPermissionQuery = 'INSERT INTO permissions(id, permission, idPermissionSection) VALUES(:id, LOWER(:permission), :idPermissionSection)';
 
 async function find(user) {
     let binds = Object.assign({}, user);
@@ -54,7 +57,7 @@ async function addPermission(user){
                 userID: userIDRedusult[0].ID,
                 permissionID: permission_section_result.rows[0].permissionID
             }
-            const permissionGranted = await database.queryExecutor(insertPermission, newPermissionBinds);
+            const permissionGranted = await database.queryExecutor(grantPermissionQuery, newPermissionBinds);
             return 'Permission granted successfully !';
         }
 
@@ -193,6 +196,47 @@ async function verifyPermission(user){
     return 0;
 }
 
+async function insertPermission(permission){
+    let permissionBinds = {
+        permission: permission.name,
+        section: permission.section
+    }
+    const checkPermission = await database.queryExecutor(selectSectionPermission, permissionBinds);
+    if(checkPermission.rows.length > 0){
+        return {msg: 'Permission already exists !'};
+    }
+    let sectionBinds = {
+        section: permission.section
+    }
+    const idSectionResult = await database.queryExecutor(selectSection, sectionBinds);
+    if(idSectionResult.rows.length == 0){
+        return {msg: 'Section does not exists !'};
+    }
+    let newPermissionBinds = {
+        id: uuid.v4(),
+        permission: permission.name,
+        idPermissionSection: idSectionResult.rows[0].ID
+    }
+    await database.queryExecutor(insertPermissionQuery, newPermissionBinds);
+    return {msg: 'Permission inserted successfully !'};
+}
+
+async function insertSection(section){
+    let sectionBinds = {
+        section: section.name
+    }
+    const checkSection = await database.queryExecutor(selectSection, sectionBinds);
+    if(checkSection.rows.length > 0){
+        return {msg: 'Section already exists !'}
+    }
+    let newSectionBinds = {
+        section: section.name,
+        id: uuid.v4()
+    }
+    await database.queryExecutor(insertSectionQuery, newSectionBinds);
+    return {msg: 'Section inserted successfully !'}
+}
+
 module.exports.find = find;
 module.exports.addUser = addUser;
 module.exports.addPermission = addPermission;
@@ -201,3 +245,5 @@ module.exports.deleteUser = deleteUser;
 module.exports.login = login;
 module.exports.verifyToken = verifyToken;
 module.exports.verifyPermission = verifyPermission;
+module.exports.insertPermission = insertPermission;
+module.exports.insertSection = insertSection;
