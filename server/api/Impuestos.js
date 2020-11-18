@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Impuestos';
 
-const insertQuery = 'INSERT INTO Impuestos (iva, empresa, porcentaje) VALUES(:iva, :empresa, :porcentaje)';
+const insertQuery = 'INSERT INTO Impuestos (iva, empresa, porcentaje) VALUES(:iva, :empresa, :porcentaje) RETURNING id INTO :rid';
 
 const deleteQuery = 'DELETE FROM Impuestos WHERE id = :id';
 
@@ -40,4 +40,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

@@ -26,12 +26,13 @@ async function get(req, res, next) {
 
 async function post(req, res, next) {
     let centroCosto = {
-        centroCosto: req.body.centroCosto
+        centroCosto: req.body.centroCosto,
+        rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
     };
 
     try {
         const result = await centroCost.insert(centroCosto);
-        res.status(201).end('Centro costo added successfully!');
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();

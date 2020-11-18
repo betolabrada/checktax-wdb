@@ -1,11 +1,11 @@
-const { find, insert, deleteById, update } = require('../api/Impuestos');
+const imp = require('../api/Impuestos');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.id = parseInt(req.params.id, 10);
 
-        const rows = await find(context);
+        const rows = await imp.find(context);
 
         if (req.params.id) {
             if (rows.length === 1) {
@@ -28,12 +28,13 @@ async function post(req, res, next) {
     let impuestos = {
         iva: req.body.iva,
         empresa: req.body.empresa,
-        porcentaje: req.body.porcentaje
+        porcentaje: req.body.porcentaje,
+        rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
     };
 
     try {
-        const result = await insert(impuestos);
-        res.status(201).end('Impuestos added successfully!');
+        const result = await imp.insert(impuestos);
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -44,7 +45,7 @@ async function post(req, res, next) {
 async function deleteImpuestos(req, res, next) {
     try {
         let id = parseInt(req.params.id, 10);
-        const result = await deleteById(id);
+        const result = await imp.deleteById(id);
         res.status(201).end('Impuestos deleted successfully!');
     } catch (err) {
         console.log(err);
@@ -60,7 +61,7 @@ async function put(req, res, next) {
             empresa: req.body.empresa,
             porcentaje: req.body.porcentaje
         };
-        const result = await update(context);
+        const result = await imp.update(context);
         res.status(201).end('Impuestos updated successfully!');
     } catch (err) {
         console.log(err);

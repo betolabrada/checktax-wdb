@@ -1,11 +1,11 @@
-const { find, insert, deleteById, update } = require('../api/Producto');
+const pro = require('../api/Producto');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.idProducto = parseInt(req.params.idProducto, 10);
 
-        const rows = await find(context);
+        const rows = await pro.find(context);
 
         if (req.params.idProducto) {
             if (rows.length === 1) {
@@ -27,10 +27,11 @@ async function get(req, res, next) {
 async function post(req, res, next) {
     try {
         let producto = {
-            producto: req.body.producto
+            producto: req.body.producto,
+            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         };
-        const result = await insert(producto);
-        res.status(201).end('Producto added successfully!');
+        const result = await pro.insert(producto);
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -41,7 +42,7 @@ async function post(req, res, next) {
 async function deleteProducto(req, res, next) {
     try {
         let idProducto = parseInt(req.params.idProducto, 10);
-        const result = await deleteById(idProducto);
+        const result = await pro.deleteById(idProducto);
         res.status(201).end('Producto deleted successfully!');
     } catch (err) {
         res.status(404).end();
@@ -54,7 +55,7 @@ async function put(req, res, next) {
             idProducto: parseInt(req.params.idProducto, 10),
             producto: req.body.producto
         };
-        const result = await update(context);
+        const result = await pro.update(context);
         res.status(201).end('Producto updated successfully!');
     } catch (err) {
         res.status(404).end();

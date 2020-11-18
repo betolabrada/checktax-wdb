@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Concepto';
 
-const insertQuery = 'INSERT INTO Concepto (concepto) VALUES(:concepto)';
+const insertQuery = 'INSERT INTO Concepto (concepto) VALUES(:concepto) RETURNING idConcepto INTO :rid';
 
 const deleteQuery = 'DELETE FROM Concepto WHERE idConcepto = :idConcepto';
 

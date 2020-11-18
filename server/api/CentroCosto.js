@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM CentroCosto';
 
-const insertQuery = 'INSERT INTO CentroCosto (centroCosto) VALUES(:centroCosto)';
+const insertQuery = 'INSERT INTO CentroCosto (centroCosto) VALUES(:centroCosto) RETURNING idCentroCosto INTO :rid';
 
 const deleteQuery = 'DELETE FROM CentroCosto WHERE idCentroCosto = :idCentroCosto';
 

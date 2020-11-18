@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Subconcepto';
 
-const insertQuery = 'INSERT INTO Subconcepto (subconcepto) VALUES(:subconcepto)';
+const insertQuery = 'INSERT INTO Subconcepto (subconcepto) VALUES(:subconcepto) RETURNING idSubconcepto INTO :rid';
 
 const deleteQuery = 'DELETE FROM Subconcepto WHERE idSubconcepto = :idSubconcepto';
 
@@ -40,4 +40,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Producto';
 
-const insertQuery = 'INSERT INTO Producto (producto) VALUES(:producto)';
+const insertQuery = 'INSERT INTO Producto (producto) VALUES(:producto) RETURNING idProducto INTO :rid';
 
 const deleteQuery = 'DELETE FROM Producto WHERE idProducto = :idProducto';
 
@@ -40,4 +40,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

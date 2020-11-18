@@ -27,10 +27,11 @@ async function get(req, res, next) {
 async function post(req, res, next) {
     try {
         let concepto = {
-            concepto: req.body.concepto
+            concepto: req.body.concepto,
+            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         };
         const result = await con.insert(concepto);
-        res.status(201).end('Concepto added successfully!');
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();

@@ -6,7 +6,8 @@ const insertQuery = 'INSERT INTO TipoFinanciamiento (' +
     'tipoFin, tasa, anticipo, apertura, deposito, vRescate, tfValorRescate, descuento, admon,' +
     ' tfAdmon, gps, tfGps, seguroAuto, tfSeguroAuto, seguroDeuda, tfSeguroDeuda, liquidacion, ppTipo) ' +
     'VALUES(:tipoFin, :tasa, :anticipo, :apertura, :deposito, :vRescate, :tfValorRescate, :descuento, :admon,' +
-    ' :tfAdmon, :gps, :tfGps, :seguroAuto, :tfSeguroAuto, :seguroDeuda, :tfSeguroDeuda, :liquidacion, :ppTipo)';
+    ' :tfAdmon, :gps, :tfGps, :seguroAuto, :tfSeguroAuto, :seguroDeuda, :tfSeguroDeuda, :liquidacion, :ppTipo)' +
+    'RETURNING idTipoFin INTO :rid';
 
 const deleteQuery = 'DELETE FROM TipoFinanciamiento WHERE idTipoFin = :idTipoFin';
 
@@ -49,4 +50,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;
