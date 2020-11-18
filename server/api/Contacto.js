@@ -3,7 +3,7 @@ const database = require('../services/Database');
 const baseQuery = 'SELECT * FROM Contacto';
 
 const insertQuery = 'INSERT INTO Contacto (nombre, tipo, razonSocial, idPer, idCliente, idCom, idDom, recomendado, asesor, tipoAsesor, puesto, activo, web) ' +
-                    'VALUES(:nombre, :tipo, :razonSocial, :idPer, :idCliente, :idCom, :idDom, :recomendado, :asesor, :tipoAsesor, :puesto, :activo, :web)';
+                    'VALUES(:nombre, :tipo, :razonSocial, :idPer, :idCliente, :idCom, :idDom, :recomendado, :asesor, :tipoAsesor, :puesto, :activo, :web) RETURNING idContacto INTO :rid';
 
 const deleteQuery = 'DELETE FROM Contacto WHERE idContacto = :idContacto';
 
@@ -15,9 +15,9 @@ async function find(context) {
     let query = baseQuery;
     let binds = {};
 
-    if (context.idDom) {
-        binds.idDom = context.idDom;
-        query += '\nWHERE idDom = :idDom';
+    if (context.idContacto) {
+        binds.idContacto = context.idContacto;
+        query += '\nWHERE idContacto = :idContacto';
     }
 
     const result = await database.queryExecutor(query, binds);
@@ -25,14 +25,14 @@ async function find(context) {
     return result.rows;
 }
 
-async function insert(domicilio) {
-    let binds = Object.assign({}, domicilio);
+async function insert(contacto) {
+    let binds = Object.assign({}, contacto);
     const result = await database.queryExecutor(insertQuery, binds);
     return result;
 }
 
-async function deleteById(idDom) {
-    let binds = { idDom };
+async function deleteById(idContacto) {
+    let binds = {idContacto};
     const result = await database.queryExecutor(deleteQuery, binds);
     return result;
 }
@@ -43,4 +43,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

@@ -1,4 +1,4 @@
-const { find, insert, deleteById, update } = require('../api/Contacto');
+const cont = require('../api/Contacto');
 const dom = require('../api/Domicilio');
 const com = require('../api/Comunicacion');
 const datosPer = require('../api/DatosPersonales');
@@ -9,7 +9,7 @@ async function get(req, res, next) {
         const context = {};
         context.idContacto = parseInt(req.params.idContacto, 10);
 
-        const rows = await find(context);
+        const rows = await cont.find(context);
 
         if (req.params.idContacto) {
             if (rows.length === 1) {
@@ -64,16 +64,24 @@ async function post(req, res, next) {
         const resultDatos = await datosPer.insert(datos);
         const idDatos = resultDatos.outBinds.rid[0];
 
-        /*
         let contacto = {
+            nombre: req.body.nombre,
+            tipo: req.body.tipo,
+            razonSocial: req.body.razonSocial,
+            idPer: idDatos,
+            idCliente: req.body.idCliente,
+            idCom: idCom,
+            idDom: idDom,
+            recomendado: req.body.recomendado,
+            asesor: req.body.asesor,
+            tipoAsesor: req.body.tipoAsesor,
+            puesto: req.body.puesto,
+            activo: req.body.activo,
+            web: req.body.web,
+            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         };
-        const result = await insert(contacto);
-        */
-
-        console.log(idDom);
-        console.log(idCom);
-        console.log(idDatos);
-        res.status(201).json("Dom, Com and Datos added");
+        const resultContacto = await cont.insert(contacto);
+        res.status(201).json(resultContacto.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -84,7 +92,7 @@ async function post(req, res, next) {
 async function deleteContacto(req, res, next) {
     try {
         let idContacto = parseInt(req.params.idContacto, 10);
-        const result = await deleteById(idContacto);
+        const result = await cont.deleteById(idContacto);
         res.status(201).end('Contacto deleted successfully!');
     } catch (err) {
         res.status(404).end();
@@ -94,16 +102,23 @@ async function deleteContacto(req, res, next) {
 async function put(req, res, next) {
     try {
         let context = {
-            idDom: parseInt(req.params.idDom, 10),
-            calle: req.body.calle,
-            colonia: req.body.colonia,
-            noExt: req.body.noExt,
-            noInt: req.body.noInt,
-            ciudad: req.body.ciudad,
-            cp: req.body.cp
+            idContacto: parseInt(req.params.idContacto, 10),
+            nombre: req.body.nombre,
+            tipo: req.body.tipo,
+            razonSocial: req.body.razonSocial,
+            idPer: req.body.idPer,
+            idCliente: req.body.idCliente,
+            idCom: req.body.idCom,
+            idDom: req.body.idDom,
+            recomendado: req.body.recomendado,
+            asesor: req.body.asesor,
+            tipoAsesor: req.body.tipoAsesor,
+            puesto: req.body.puesto,
+            activo: req.body.activo,
+            web: req.body.web
         };
-        const result = await update(context);
-        res.status(201).end('Domicilio updated successfully!');
+        const result = await cont.update(context);
+        res.status(201).end('Contacto updated successfully!');
     } catch (err) {
         res.status(404).end();
     }

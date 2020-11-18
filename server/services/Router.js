@@ -73,6 +73,9 @@ router.route('/dom/:idDom?')
     .delete(dom.deleteDom);
 
 router.route('/contacto/:idContacto?')
-    .post(contacto.post);
+    .get(contacto.get)
+    .post(contacto.post)
+    .put(contacto.put)
+    .delete(contacto.deleteContacto);
 
 module.exports = router;
