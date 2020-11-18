@@ -1,9 +1,12 @@
 <div class="main-navbar">
   <span class="section-header">Alta - Baja - Edición de Operaciones</span>
   <ul class="main-navbar-nav">
-    <li class="main-nav-item">
+    <li class="main-nav-item" (click)="emitNavEvent('expand')">
+      <app-saving-icon *ngIf="saving"></app-saving-icon>
+    </li>
+    <li class="main-nav-item" [class.disabled]="saving">
       <a class="main-nav-link" (click)="emitNavEvent('save')">
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="save"
+        <svg focusable="false" data-prefix="fas" data-icon="save"
              class="svg-inline--fa fa-save fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 448 512">
           <path fill="currentColor"
@@ -12,7 +15,7 @@
     </li>
     <li class="main-nav-item" (click)="emitNavEvent('expand')">
       <a class="main-nav-link">
-        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrows-alt-h"
+        <svg focusable="false" data-prefix="fas" data-icon="arrows-alt-h"
              class="svg-inline--fa fa-arrows-alt-h fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 512 512">
           <path fill="currentColor"

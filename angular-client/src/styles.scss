@@ -17,7 +17,7 @@ $font-family-sans-serif: Roboto, "Helvetica Neue", Arial, sans-serif;
   --color-header-vd: #4e4b3a;
   --color-th-vd: #5f3b39;
   --color-td-vd: #84643c;
-  font-size: 12px;
+  font-size: 10px;
 }
 
 body {
@@ -35,7 +35,7 @@ label {
   margin: 0 4px;
 }
 
-input {
+input, select {
   width: 75px;
   height: 1.5rem;
   font-size: 1rem;
@@ -200,6 +200,12 @@ input.phone-input {
   margin: 0;
   padding: 0;
   align-self: flex-start;
+}
+
+.icon-btn i {
+  position: relative;
+  top: -2px;
+  color: #fff;
 }
 /* ================================================================================================== */
 /* Ventanas dinámicas */

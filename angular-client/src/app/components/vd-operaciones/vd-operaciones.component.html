@@ -15,8 +15,8 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td class="text-center">00000000</td>
+      <tr *ngFor="let operacion of operaciones; index as i;">
+        <td class="text-center" (click)="onSelected(i)">{{operacion.numOperacion}}</td>
         <td class="text-center">12-Sept-15</td>
         <td class="text-center">30</td>
         <td class="text-center">123413241234</td>
@@ -27,5 +27,6 @@
       </tr>
       </tbody>
     </table>
+    {{ operacion | json }}
   </div>
 </div>

@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,7 +34,10 @@ import { ConfigLoteAutosComponent } from './components/config-form/config-lote-a
 import { CommonModule } from '@angular/common';
 import { AlertModule } from './components/alert';
 import { ClickOutsideModule } from 'ng-click-outside';
-
+import { SavingIconComponent } from './components/nav/main-form-nav/saving-icon/saving-icon.component';
+import { FinanciamientoComponent } from './components/main-form/financiamiento/financiamiento.component';
+import { FormsModule } from '@angular/forms';
+import { OtrosParamComponent } from './components/main-form/otros-param/otros-param.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,15 +65,20 @@ import { ClickOutsideModule } from 'ng-click-outside';
     LiquidacionesComponent,
     SegurosAutosComponent,
     CalifBuroComponent,
-    ConfigLoteAutosComponent
+    ConfigLoteAutosComponent,
+    SavingIconComponent,
+    FinanciamientoComponent,
+    OtrosParamComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     CommonModule,
+    HttpClientModule,
     AlertModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

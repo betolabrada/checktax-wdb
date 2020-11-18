@@ -1,4 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { OperacionService } from '../../../services/operacion/operacion.service';
+import { LoadingService } from '../../../services/loading/loading.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-main-form-nav',
@@ -7,15 +10,27 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class MainFormNavComponent implements OnInit {
 
+  saving: boolean;
+  loading: Subscription;
   @Output() navEvent = new EventEmitter<string>();
 
-  constructor() { }
+  constructor(private operacionService: OperacionService,
+              private loadingService: LoadingService) { }
 
   ngOnInit(): void {
+    this.loading = this.loadingService.loading$.subscribe((loading) => {
+      this.saving = loading;
+    });
   }
 
   emitNavEvent(event: string): void {
-    this.navEvent.emit(event);
+    if (!this.saving) {
+      if (event === 'save') {
+        this.operacionService.saveOperacion();
+      } else {
+        this.navEvent.emit(event);
+      }
+    }
   }
 
 }
