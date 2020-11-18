@@ -1,0 +1,76 @@
+<!-- Otros Parámetros -->
+<section>
+  <div class="section-header">
+    Otros Parámetros
+  </div>
+  <div class="section-subheader">Impuestos</div>
+  <div class="section-content d-flex flex-column align-items-end">
+    <div class="main-input-group">
+      <label for="input-iva">IVA</label>
+      <input id="input-iva" type="text" (input)="update('impuesto','iva', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-empresa">Empresa</label>
+      <input id="input-empresa" type="text" (input)="update('impuesto','empresa', $event)">
+    </div>
+  </div>
+  <div class="section-subheader">SeguroAuto</div>
+  <div class="section-content d-flex flex-column align-items-end">
+    <div class="main-input-group">
+      <label for="input-comp">Compañía</label>
+      <input id="input-comp" type="text" (input)="update('seguroAuto','compania', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-primaTotal">PrimaTotal</label>
+      <input id="input-primaTotal" type="text" (input)="update('seguroAuto','primaTotal', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-formaPago">FormaPago</label>
+      <input id="input-formaPago" type="text" (input)="update('seguroAuto','formaPago', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-noPoliza">NoPoliza</label>
+      <input id="input-noPoliza" type="text" (input)="update('seguroAuto','noPoliza', $event)">
+    </div>
+    <div class="main-input-group d-flex">
+      <label class="align-self-center m-0" for="input-financiado">Financiado</label>
+      <input id="input-financiado" type="checkbox" (change)="update('seguroAuto','financiado', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-fechaInicio">FechaInicio</label>
+      <input id="input-fechaInicio" type="text" (input)="update('seguroAuto','fechaInicio', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-fechaFinal">FechaFinal</label>
+      <input id="input-fechaFinal" type="text" (input)="update('seguroAuto','fechaFinal', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-tipoUnidad">TipoUnidad</label>
+      <input id="input-tipoUnidad" type="text" (input)="update('seguroAuto','tipoUnidad', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-fechaPago">FechaPago</label>
+      <input id="input-fechaPago" type="text" (input)="update('seguroAuto','fechaPago', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-relacionPago">RelaciónPago</label>
+      <input id="input-relacionPago" type="text" (input)="update('seguroAuto','relacionPago', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-siniestros">Siniestros</label>
+      <input id="input-siniestros" type="text" (input)="update('seguroAuto','siniestros', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-cantPolizas">CantPolizas</label>
+      <input id="input-cantPolizas" type="text" (input)="update('seguroAuto','cantPolizas', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-sigVencimiento">Sig.Vcmto</label>
+      <input id="input-sigVencimiento" type="text" (input)="update('seguroAuto','sigVcmto', $event)">
+    </div>
+    <div class="main-input-group">
+      <label for="input-precioAsegurado">$Asegurado</label>
+      <input id="input-precioAsegurado" type="text" (input)="update('seguroAuto','pAsegurado', $event)">
+    </div>
+  </div>
+</section>

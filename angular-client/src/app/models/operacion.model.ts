@@ -1,5 +1,6 @@
 import { TipoOperacion } from '../interfaces/operacion.interface';
 import { Producto } from './producto.model';
+import { Financiamiento } from './financiamiento.model';
 
 export class Operacion {
 
@@ -12,8 +13,8 @@ export class Operacion {
   persona: string;
   descripcion: string;
   asesor: string;
-  producto: Producto | null;
-  fondeador: string;
+  financiamiento: Financiamiento;
+  comentarios: string;
 
 
   constructor(numOperacion: string) {

@@ -26,33 +26,33 @@ export class ApiService {
   public token = '';
   public debugMode = false;
 
-  public get(endPoint: string, paramsObj: object = {}, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON> {
+  public get<T>(endPoint: string, paramsObj: object = {}, useToken: boolean = true, displayErrors: boolean = true): Observable<T> {
     const link: string = this.genLink(endPoint, useToken);
     const params = new HttpParams({ fromObject: { ...paramsObj } });
-    return this.processHttpRequest(this.http.get<JSON>(link, { headers: HTTP_HEADERS, params }), displayErrors);
+    return this.processHttpRequest(this.http.get<T>(link, { headers: HTTP_HEADERS, params }), displayErrors);
   }
 
-  public post(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON>{
+  public post<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
     const link: string = this.genLink(endPoint, useToken);
-    return this.processHttpRequest(this.http.post<JSON>(link, body, { headers: HTTP_HEADERS }), displayErrors);
+    return this.processHttpRequest(this.http.post<T>(link, body, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  public patch(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON>{
+  public patch<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
     const link: string = this.genLink(endPoint, useToken);
-    return this.processHttpRequest(this.http.patch<JSON>(link, body, { headers: HTTP_HEADERS }), displayErrors);
+    return this.processHttpRequest(this.http.patch<T>(link, body, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  public put(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON>{
+  public put<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
     const link: string = this.genLink(endPoint, useToken);
-    return this.processHttpRequest(this.http.put<JSON>(link, body, { headers: HTTP_HEADERS }), displayErrors);
+    return this.processHttpRequest(this.http.put<T>(link, body, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  public delete(endPoint: string, useToken: boolean = true, displayErrors: boolean = true): Observable<JSON>{
+  public delete<T>(endPoint: string, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
     const link: string = this.genLink(endPoint, useToken);
-    return this.processHttpRequest(this.http.delete<JSON>(link, { headers: HTTP_HEADERS }), displayErrors);
+    return this.processHttpRequest(this.http.delete<T>(link, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  private processHttpRequest(request: Observable<JSON>, displayErrors): Observable<JSON> {
+  private processHttpRequest<T>(request: Observable<T>, displayErrors): Observable<T> {
     return request.pipe(
       retryWhen(errorResponse => this.retryOnConnectionError(errorResponse, displayErrors))
     );

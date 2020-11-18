@@ -1,6 +1,13 @@
 export class Producto {
-  idProducto: string;
+  idProducto: string | number;
   producto: string;
+  tipoFin: TipoFinanciamiento[];
+  selectedTipoFin: TipoFinanciamiento;
+  constructor(idProducto: string | number, producto: string, tipoFin: TipoFinanciamiento[]) {
+    this.idProducto = idProducto;
+    this.producto = producto;
+    this.tipoFin = tipoFin;
+  }
 }
 
 export class ProductoTipoFinanciamiento {
@@ -10,7 +17,8 @@ export class ProductoTipoFinanciamiento {
 }
 
 export class TipoFinanciamiento {
-  idTipoFin: string;
+  idTipoFin: string | number;
+  tipoFin: string;
   tasa: number;
   anticipo: number;
   apertura: number;
@@ -28,5 +36,10 @@ export class TipoFinanciamiento {
   tfSeguroDeuda: boolean;
   liquidacion: number;
   ppTipo: string;
+  constructor(idTipoFin: string | number,
+              tipoFin: string) {
+    this.idTipoFin = idTipoFin;
+    this.tipoFin = tipoFin;
+  }
 
 }

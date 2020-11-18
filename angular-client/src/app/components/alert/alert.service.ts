@@ -11,30 +11,51 @@ export class AlertService {
   private subject = new Subject<Alert>();
   private defaultId = 'default-alert';
 
+  showAlert(msg: string, type: string = ''): void {
+    if (!type.length) {
+      this.success(msg);
+    } else {
+      switch (type) {
+        case 'error': {
+          this.error(msg);
+          break;
+        }
+        case 'info': {
+          this.info(msg);
+          break;
+        }
+        case 'success': {
+          this.success(msg);
+          break;
+        }
+      }
+    }
+  }
+
   // Enable subscribing to alerts observable
   onAlert(id = this.defaultId): Observable<Alert> {
     return this.subject.asObservable().pipe(filter(x => x && x.id === id));
   }
 
   // Convenience methods
-  success(message: string, options?: any): void {
+  private success(message: string, options?: any): void {
     this.alert(new Alert({ ...options, type: AlertType.Success, message }));
   }
 
-  error(message: string, options?: any): void {
+  private error(message: string, options?: any): void {
     this.alert(new Alert({ ...options, type: AlertType.Error, message }));
   }
 
-  info(message: string, options?: any): void {
+  private info(message: string, options?: any): void {
     this.alert(new Alert({ ...options, type: AlertType.Info, message }));
   }
 
-  warn(message: string, options?: any): void {
+  private warn(message: string, options?: any): void {
     this.alert(new Alert({ ...options, type: AlertType.Warning, message }));
   }
 
   // Main alert method
-  alert(alert: Alert): void {
+  private alert(alert: Alert): void {
     alert.id = alert.id || this.defaultId;
     this.subject.next(alert);
   }
