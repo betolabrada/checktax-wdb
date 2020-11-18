@@ -1,11 +1,11 @@
-const { find, insert, deleteById, update } = require('../api/CentroCosto');
+const centroCost = require('../api/CentroCosto');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.idCentroCosto = parseInt(req.params.idCentroCosto, 10);
 
-        const rows = await find(context);
+        const rows = await centroCost.find(context);
 
         if (req.params.idCentroCosto) {
             if (rows.length === 1) {
@@ -30,7 +30,7 @@ async function post(req, res, next) {
     };
 
     try {
-        const result = await insert(centroCosto);
+        const result = await centroCost.insert(centroCosto);
         res.status(201).end('Centro costo added successfully!');
     } catch (err) {
         console.log(err);
@@ -42,7 +42,7 @@ async function post(req, res, next) {
 async function deleteCentroCosto(req, res, next) {
     try {
         let idCentroCosto = parseInt(req.params.idCentroCosto, 10);
-        const result = await deleteById(idCentroCosto);
+        const result = await centroCost.deleteById(idCentroCosto);
         res.status(201).end('Centro costo deleted successfully!');
     } catch (err) {
         console.log(err);
@@ -56,7 +56,7 @@ async function put(req, res, next) {
             idCentroCosto: parseInt(req.params.idCentroCosto, 10),
             centroCosto: req.body.centroCosto
         };
-        const result = await update(context);
+        const result = await centroCost.update(context);
         res.status(201).end('Centro costo updated successfully!');
     } catch (err) {
         console.log(err);
