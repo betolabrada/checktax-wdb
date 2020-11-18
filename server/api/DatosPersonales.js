@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM DatosPersonales';
 
-const insertQuery = 'INSERT INTO DatosPersonales (rfc, curp, edoCivil) VALUES(:rfc, :curp, :edoCivil)';
+const insertQuery = 'INSERT INTO DatosPersonales (rfc, curp, edoCivil) VALUES(:rfc, :curp, :edoCivil) RETURNING idPer INTO :rid';
 
 const deleteQuery = 'DELETE FROM DatosPersonales WHERE idPer = :idPer';
 
@@ -40,4 +40,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

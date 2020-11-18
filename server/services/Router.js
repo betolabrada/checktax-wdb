@@ -10,6 +10,7 @@ const subconcepto = require('../controllers/Subconcepto');
 const datosPer = require('../controllers/DatosPersonales');
 const com = require('../controllers/Comunicacion');
 const dom = require('../controllers/Domicilio');
+const contacto = require('../controllers/Contacto');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -70,5 +71,8 @@ router.route('/dom/:idDom?')
     .post(dom.post)
     .put(dom.put)
     .delete(dom.deleteDom);
+
+router.route('/contacto/:idContacto?')
+    .post(contacto.post);
 
 module.exports = router;

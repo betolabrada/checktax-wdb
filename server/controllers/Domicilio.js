@@ -1,11 +1,12 @@
-const { find, insert, deleteById, update } = require('../api/Domicilio');
+const domicilio = require('../api/Domicilio');
+const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.idDom = parseInt(req.params.idDom, 10);
 
-        const rows = await find(context);
+        const rows = await domicilio.find(context);
 
         if (req.params.idDom) {
             if (rows.length === 1) {
@@ -26,16 +27,17 @@ async function get(req, res, next) {
 
 async function post(req, res, next) {
     try {
-        let domicilio = {
+        let dom = {
             calle: req.body.calle,
             colonia: req.body.colonia,
             noExt: req.body.noExt,
             noInt: req.body.noInt,
             ciudad: req.body.ciudad,
-            cp: req.body.cp
+            cp: req.body.cp,
+            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         };
-        const result = await insert(domicilio);
-        res.status(201).end('Domicilio added successfully!');
+        const result = await domicilio.insert(dom);
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -46,7 +48,7 @@ async function post(req, res, next) {
 async function deleteDom(req, res, next) {
     try {
         let idDom = parseInt(req.params.idDom, 10);
-        const result = await deleteById(idDom);
+        const result = await domicilio.deleteById(idDom);
         res.status(201).end('Domicilio deleted successfully!');
     } catch (err) {
         res.status(404).end();
@@ -64,7 +66,7 @@ async function put(req, res, next) {
             ciudad: req.body.ciudad,
             cp: req.body.cp
         };
-        const result = await update(context);
+        const result = await domicilio.update(context);
         res.status(201).end('Domicilio updated successfully!');
     } catch (err) {
         res.status(404).end();

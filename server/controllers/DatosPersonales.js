@@ -1,11 +1,12 @@
-const { find, insert, deleteById, update } = require('../api/DatosPersonales');
+const datosPersonales = require('../api/DatosPersonales');
+const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.idPer = parseInt(req.params.idPer, 10);
 
-        const rows = await find(context);
+        const rows = await datosPersonales.find(context);
 
         if (req.params.idPer) {
             if (rows.length === 1) {
@@ -29,10 +30,11 @@ async function post(req, res, next) {
         let datos = {
             rfc: req.body.rfc,
             curp: req.body.curp,
-            edoCivil: req.body.edoCivil
+            edoCivil: req.body.edoCivil,
+            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         };
-        const result = await insert(datos);
-        res.status(201).end('Datos personales added successfully!');
+        const result = await datosPersonales.insert(datos);
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -43,7 +45,7 @@ async function post(req, res, next) {
 async function deleteDatosPer(req, res, next) {
     try {
         let idPer = parseInt(req.params.idPer, 10);
-        const result = await deleteById(idPer);
+        const result = await datosPersonales.deleteById(idPer);
         res.status(201).end('Datos personales deleted successfully!');
     } catch (err) {
         res.status(404).end();
@@ -58,7 +60,7 @@ async function put(req, res, next) {
             curp: req.body.curp,
             edoCivil: req.body.edoCivil
         };
-        const result = await update(context);
+        const result = await datosPersonales.update(context);
         res.status(201).end('Datos personales updated successfully!');
     } catch (err) {
         res.status(404).end();
