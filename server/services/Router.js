@@ -11,6 +11,7 @@ const datosPer = require('../controllers/DatosPersonales');
 const com = require('../controllers/Comunicacion');
 const dom = require('../controllers/Domicilio');
 const contacto = require('../controllers/Contacto');
+const productoTipoFin = require('../controllers/ProductoTipoFinanciamiento');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -77,5 +78,11 @@ router.route('/contacto/:idContacto?')
     .post(contacto.post)
     .put(contacto.put)
     .delete(contacto.deleteContacto);
+
+router.route('/productoTipoFin/:id?')
+    .get(productoTipoFin.get)
+    .post(productoTipoFin.post)
+    .put(productoTipoFin.put)
+    .delete(productoTipoFin.deleteProductoTipoFinanciamiento);
 
 module.exports = router;

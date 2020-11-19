@@ -1,4 +1,5 @@
 const sub = require('../api/Subconcepto');
+const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {

@@ -1,4 +1,5 @@
 const tipoF = require('../api/TipoFinanciamiento');
+const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
