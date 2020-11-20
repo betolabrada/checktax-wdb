@@ -1,4 +1,4 @@
-const AplOp = require('../api/AplicarOp');
+const CentroCosto = require('../api/CentroCostoConcepto');
 const oracledb = require('oracledb');
 
 async function get(req, res, next) {
@@ -6,7 +6,7 @@ async function get(req, res, next) {
         const context = {};
         context.id = parseInt(req.params.id, 10);
 
-        const rows = await AplOp.find(context);
+        const rows = await CentroCosto.find(context);
 
         if (req.params.id) {
             if (rows.length === 1) {
@@ -26,13 +26,14 @@ async function get(req, res, next) {
 }
 
 async function post(req, res, next) {
-    let aplicarOp = {
-        dummy: req.body.dummy,
+    let centroCostoConcepto = {
+        idConcepto: req.body.idConcepto,
+        idCentroCosto: req.body.idCentroCosto,
         rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
     };
 
     try {
-        const result = await AplOp.insert(aplicarOp);
+        const result = await CentroCosto.insert(centroCostoConcepto);
         res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
@@ -41,11 +42,11 @@ async function post(req, res, next) {
 
 }
 
-async function deleteAplicarOp(req, res, next) {
+async function deleteCentroCostoConcepto(req, res, next) {
     try {
         let id = parseInt(req.params.id, 10);
-        const result = await AplOp.deleteById(id);
-        res.status(201).end('AplicarOp deleted successfully!');
+        const result = await CentroCosto.deleteById(id);
+        res.status(201).end('CentroCostoConcepto deleted successfully!');
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -56,10 +57,11 @@ async function put(req, res, next) {
     try {
         let context = {
             id: parseInt(req.params.id, 10),
-            dummy: req.body.dummy
+            idConcepto: req.body.idConcepto,
+            idCentroCosto: req.body.idCentroCosto,
         };
-        const result = await AplOp.update(context);
-        res.status(201).end('AplicarOp updated successfully!');
+        const result = await CentroCosto.update(context);
+        res.status(201).end('CentroCostoConcepto updated successfully!');
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -68,5 +70,5 @@ async function put(req, res, next) {
 
 module.exports.get = get;
 module.exports.post = post;
-module.exports.deleteAplicarOp = deleteAplicarOp;
+module.exports.deleteCentroCostoConcepto = deleteCentroCostoConcepto;
 module.exports.put = put;
