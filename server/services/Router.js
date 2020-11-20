@@ -12,8 +12,9 @@ const com = require('../controllers/Comunicacion');
 const dom = require('../controllers/Domicilio');
 const contacto = require('../controllers/Contacto');
 const productoTipoFin = require('../controllers/ProductoTipoFinanciamiento');
-const fact = require('../controllers/Factura');
+const factura = require('../controllers/Factura');
 const loteAutos = require('../controllers/LoteAutos');
+const financiamiento = require('../controllers/Financiamiento');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -88,15 +89,21 @@ router.route('/productoTipoFin/:id?')
     .delete(productoTipoFin.deleteProductoTipoFinanciamiento);
 
 router.route('/factura/:idFactura?')
-    .get(fact.get)
-    .post(fact.post)
-    .put(fact.put)
-    .delete(fact.deleteFactura);
+    .get(factura.get)
+    .post(factura.post)
+    .put(factura.put)
+    .delete(factura.deleteFactura);
 
 router.route('/loteAutos/:id?')
     .get(loteAutos.get)
     .post(loteAutos.post)
     .put(loteAutos.put)
     .delete(loteAutos.deleteLoteAutos);
+
+router.route('/financiamiento/:idFinanciamiento?')
+    .get(financiamiento.get)
+    .post(financiamiento.post)
+    .put(financiamiento.put)
+    .delete(financiamiento.deleteFinanciamiento);
 
 module.exports = router;

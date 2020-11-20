@@ -72,7 +72,7 @@ async function put(req, res, next) {
             domicilio: req.body.domicilio,
             asesor: req.body.asesor,
         };
-        const result = await tipoFin.update(context);
+        const result = await loteA.update(context);
         res.status(201).end('Lote autos updated successfully!');
     } catch (err) {
         console.log(err);
