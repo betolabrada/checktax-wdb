@@ -17,6 +17,7 @@ const loteAutos = require('../controllers/LoteAutos');
 const financiamiento = require('../controllers/Financiamiento');
 const aplicarOp = require('../controllers/AplicarOp');
 const centroCostoConcepto = require('../controllers/CentroCostoConcepto');
+const conceptoSubconcepto = require('../controllers/ConceptoSubconcepto');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -119,5 +120,11 @@ router.route('/centroCostoConcepto/:id?')
     .post(centroCostoConcepto.post)
     .put(centroCostoConcepto.put)
     .delete(centroCostoConcepto.deleteCentroCostoConcepto);
+
+router.route('/conceptoSubconcepto/:id?')
+    .get(conceptoSubconcepto.get)
+    .post(conceptoSubconcepto.post)
+    .put(conceptoSubconcepto.put)
+    .delete(conceptoSubconcepto.deleteConceptoSubconcepto);
 
 module.exports = router;
