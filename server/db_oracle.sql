@@ -385,6 +385,7 @@ END;
 
 CREATE TABLE aplicarOp(
                           id NUMBER(10) NOT NULL,
+                          dummy NUMBER(10),
                           PRIMARY KEY(id)
 );
 

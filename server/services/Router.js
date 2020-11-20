@@ -15,6 +15,7 @@ const productoTipoFin = require('../controllers/ProductoTipoFinanciamiento');
 const factura = require('../controllers/Factura');
 const loteAutos = require('../controllers/LoteAutos');
 const financiamiento = require('../controllers/Financiamiento');
+const aplicarOp = require('../controllers/AplicarOp');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -105,5 +106,11 @@ router.route('/financiamiento/:idFinanciamiento?')
     .post(financiamiento.post)
     .put(financiamiento.put)
     .delete(financiamiento.deleteFinanciamiento);
+
+router.route('/aplicarOp/:id?')
+    .get(aplicarOp.get)
+    .post(aplicarOp.post)
+    .put(aplicarOp.put)
+    .delete(aplicarOp.deleteAplicarOp);
 
 module.exports = router;
