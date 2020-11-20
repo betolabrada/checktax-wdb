@@ -10,6 +10,14 @@ const subconcepto = require('../controllers/Subconcepto');
 const datosPer = require('../controllers/DatosPersonales');
 const com = require('../controllers/Comunicacion');
 const dom = require('../controllers/Domicilio');
+const contacto = require('../controllers/Contacto');
+const productoTipoFin = require('../controllers/ProductoTipoFinanciamiento');
+const factura = require('../controllers/Factura');
+const loteAutos = require('../controllers/LoteAutos');
+const financiamiento = require('../controllers/Financiamiento');
+const aplicarOp = require('../controllers/AplicarOp');
+const centroCostoConcepto = require('../controllers/CentroCostoConcepto');
+const conceptoSubconcepto = require('../controllers/ConceptoSubconcepto');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -70,5 +78,53 @@ router.route('/dom/:idDom?')
     .post(dom.post)
     .put(dom.put)
     .delete(dom.deleteDom);
+
+router.route('/contacto/:idContacto?')
+    .get(contacto.get)
+    .post(contacto.post)
+    .put(contacto.put)
+    .delete(contacto.deleteContacto);
+
+router.route('/productoTipoFin/:id?')
+    .get(productoTipoFin.get)
+    .post(productoTipoFin.post)
+    .put(productoTipoFin.put)
+    .delete(productoTipoFin.deleteProductoTipoFinanciamiento);
+
+router.route('/factura/:idFactura?')
+    .get(factura.get)
+    .post(factura.post)
+    .put(factura.put)
+    .delete(factura.deleteFactura);
+
+router.route('/loteAutos/:id?')
+    .get(loteAutos.get)
+    .post(loteAutos.post)
+    .put(loteAutos.put)
+    .delete(loteAutos.deleteLoteAutos);
+
+router.route('/financiamiento/:idFinanciamiento?')
+    .get(financiamiento.get)
+    .post(financiamiento.post)
+    .put(financiamiento.put)
+    .delete(financiamiento.deleteFinanciamiento);
+
+router.route('/aplicarOp/:id?')
+    .get(aplicarOp.get)
+    .post(aplicarOp.post)
+    .put(aplicarOp.put)
+    .delete(aplicarOp.deleteAplicarOp);
+
+router.route('/centroCostoConcepto/:id?')
+    .get(centroCostoConcepto.get)
+    .post(centroCostoConcepto.post)
+    .put(centroCostoConcepto.put)
+    .delete(centroCostoConcepto.deleteCentroCostoConcepto);
+
+router.route('/conceptoSubconcepto/:id?')
+    .get(conceptoSubconcepto.get)
+    .post(conceptoSubconcepto.post)
+    .put(conceptoSubconcepto.put)
+    .delete(conceptoSubconcepto.deleteConceptoSubconcepto);
 
 module.exports = router;

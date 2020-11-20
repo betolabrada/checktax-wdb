@@ -5,7 +5,8 @@ const baseQuery = 'SELECT * FROM SeguroAuto';
 const insertQuery = 'INSERT INTO SeguroAuto (compania, primaTotal, formaPago, noPoliza, financiado, ' +
     'fechaInicio, fechaFinal, tipoUnidad, fechaPago, relacionPago, siniestros, cantPolizas, sigVcmto, ' +
     'asegurado) VALUES(:compania, :primaTotal, :formaPago, :noPoliza, :financiado, :fechaInicio, ' +
-    ':fechaFinal, :tipoUnidad, :fechaPago, :relacionPago, :siniestros, :cantPolizas, :sigVcmto, :asegurado)';
+    ':fechaFinal, :tipoUnidad, :fechaPago, :relacionPago, :siniestros, :cantPolizas, :sigVcmto, :asegurado)' +
+    'RETURNING id INTO :rid';
 
 const deleteQuery = 'DELETE FROM SeguroAuto WHERE id = :id';
 
@@ -46,4 +47,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

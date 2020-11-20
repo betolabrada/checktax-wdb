@@ -1,12 +1,14 @@
 const database = require('../services/Database');
 
-const baseQuery = 'SELECT * FROM Impuestos';
+const baseQuery = 'SELECT * FROM LoteAutos';
 
-const insertQuery = 'INSERT INTO Impuestos (iva, empresa, porcentaje) VALUES(:iva, :empresa, :porcentaje) RETURNING id INTO :rid';
+const insertQuery = 'INSERT INTO LoteAutos (razonSocial, sinIVA, conIVA, lineaVenta, comision, sucursal, domicilio, asesor) ' +
+                    'VALUES (:razonSocial, :sinIVA, :conIVA, :lineaVenta, :comision, :sucursal, :domicilio, :asesor) RETURNING id INTO :rid';
 
-const deleteQuery = 'DELETE FROM Impuestos WHERE id = :id';
+const deleteQuery = 'DELETE FROM LoteAutos WHERE id = :id';
 
-const updateQuery = 'UPDATE Impuestos SET iva = :iva, empresa = :empresa, porcentaje = :porcentaje WHERE id = :id';
+const updateQuery = 'UPDATE LoteAutos SET razonSocial = :razonSocial, sinIVA = :sinIVA, conIVA = :conIVA, lineaVenta = :lineaVenta, ' +
+                    'comision = :comision, sucursal = :sucursal, domicilio = :domicilio, asesor = :asesor WHERE id = :id';
 
 async function find(context) {
     let query = baseQuery;
@@ -22,8 +24,8 @@ async function find(context) {
     return result.rows;
 }
 
-async function insert(impuestos) {
-    let binds = Object.assign({}, impuestos);
+async function insert(loteAutos) {
+    let binds = Object.assign({}, loteAutos);
     const result = await database.queryExecutor(insertQuery, binds);
     return result;
 }

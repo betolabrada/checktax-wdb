@@ -1,11 +1,12 @@
-const { find, insert, deleteById, update } = require('../api/SeguroAuto');
+const seg = require('../api/SeguroAuto');
+const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.id = parseInt(req.params.id, 10);
 
-        const rows = await find(context);
+        const rows = await seg.find(context);
 
         if (req.params.id) {
             if (rows.length === 1) {
@@ -39,12 +40,13 @@ async function post(req, res, next) {
         siniestros: req.body.siniestros,
         cantPolizas: req.body.cantPolizas,
         sigVcmto: req.body.sigVcmto,
-        asegurado: req.body.asegurado
+        asegurado: req.body.asegurado,
+        rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
     };
 
     try {
-        const result = await insert(seguro);
-        res.status(201).end('Seguro added successfully!');
+        const result = await seg.insert(seguro);
+        res.status(201).end(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -55,7 +57,7 @@ async function post(req, res, next) {
 async function deleteSeguro(req, res, next) {
     try {
         let id = parseInt(req.params.id, 10);
-        const result = await deleteById(id);
+        const result = await seg.deleteById(id);
         res.status(201).end('Seguro deleted successfully!');
     } catch (err) {
         console.log(err);
@@ -82,7 +84,7 @@ async function put(req, res, next) {
             sigVcmto: req.body.sigVcmto,
             asegurado: req.body.asegurado
         };
-        const result = await update(context);
+        const result = await seg.update(context);
         res.status(201).end('Seguro updated successfully!');
     } catch (err) {
         console.log(err);

@@ -1,4 +1,4 @@
-const imp = require('../api/Impuestos');
+const loteA = require('../api/LoteAutos');
 const oracledb = require('oracledb');
 
 async function get(req, res, next) {
@@ -6,7 +6,7 @@ async function get(req, res, next) {
         const context = {};
         context.id = parseInt(req.params.id, 10);
 
-        const rows = await imp.find(context);
+        const rows = await loteA.find(context);
 
         if (req.params.id) {
             if (rows.length === 1) {
@@ -21,20 +21,25 @@ async function get(req, res, next) {
         }
     } catch (err) {
         console.log(err);
-        res.status(404).end();
+        next(err);
     }
 }
 
 async function post(req, res, next) {
-    let impuestos = {
-        iva: req.body.iva,
-        empresa: req.body.empresa,
-        porcentaje: req.body.porcentaje,
+    let loteAutos = {
+        razonSocial: req.body.razonSocial,
+        sinIVA: req.body.sinIVA,
+        conIVA: req.body.conIVA,
+        lineaVenta: req.body.lineaVenta,
+        comision: req.body.comision,
+        sucursal: req.body.sucursal,
+        domicilio: req.body.domicilio,
+        asesor: req.body.asesor,
         rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
     };
 
     try {
-        const result = await imp.insert(impuestos);
+        const result = await loteA.insert(loteAutos);
         res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
@@ -43,11 +48,11 @@ async function post(req, res, next) {
 
 }
 
-async function deleteImpuestos(req, res, next) {
+async function deleteLoteAutos(req, res, next) {
     try {
         let id = parseInt(req.params.id, 10);
-        const result = await imp.deleteById(id);
-        res.status(201).end('Impuestos deleted successfully!');
+        const result = await loteA.deleteById(id);
+        res.status(201).end('Lote autos deleted successfully!');
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -58,12 +63,17 @@ async function put(req, res, next) {
     try {
         let context = {
             id: parseInt(req.params.id, 10),
-            iva: req.body.iva,
-            empresa: req.body.empresa,
-            porcentaje: req.body.porcentaje
+            razonSocial: req.body.razonSocial,
+            sinIVA: req.body.sinIVA,
+            conIVA: req.body.conIVA,
+            lineaVenta: req.body.lineaVenta,
+            comision: req.body.comision,
+            sucursal: req.body.sucursal,
+            domicilio: req.body.domicilio,
+            asesor: req.body.asesor,
         };
-        const result = await imp.update(context);
-        res.status(201).end('Impuestos updated successfully!');
+        const result = await loteA.update(context);
+        res.status(201).end('Lote autos updated successfully!');
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -72,5 +82,5 @@ async function put(req, res, next) {
 
 module.exports.get = get;
 module.exports.post = post;
-module.exports.deleteImpuestos = deleteImpuestos;
+module.exports.deleteLoteAutos = deleteLoteAutos;
 module.exports.put = put;

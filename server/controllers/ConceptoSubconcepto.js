@@ -1,14 +1,14 @@
-const centroCost = require('../api/CentroCosto');
+const ConceptoSub = require('../api/ConceptoSubconcepto');
 const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
         const context = {};
-        context.idCentroCosto = parseInt(req.params.idCentroCosto, 10);
+        context.id = parseInt(req.params.id, 10);
 
-        const rows = await centroCost.find(context);
+        const rows = await ConceptoSub.find(context);
 
-        if (req.params.idCentroCosto) {
+        if (req.params.id) {
             if (rows.length === 1) {
                 console.log(rows[0]);
                 res.status(200).json(rows[0]);
@@ -26,13 +26,14 @@ async function get(req, res, next) {
 }
 
 async function post(req, res, next) {
-    let centroCosto = {
-        centroCosto: req.body.centroCosto,
+    let conceptoSubconcepto = {
+        idConcepto: req.body.idConcepto,
+        idSubconcepto: req.body.idSubconcepto,
         rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
     };
 
     try {
-        const result = await centroCost.insert(centroCosto);
+        const result = await ConceptoSub.insert(conceptoSubconcepto);
         res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
@@ -41,11 +42,11 @@ async function post(req, res, next) {
 
 }
 
-async function deleteCentroCosto(req, res, next) {
+async function deleteConceptoSubconcepto(req, res, next) {
     try {
-        let idCentroCosto = parseInt(req.params.idCentroCosto, 10);
-        const result = await centroCost.deleteById(idCentroCosto);
-        res.status(201).end('Centro costo deleted successfully!');
+        let id = parseInt(req.params.id, 10);
+        const result = await ConceptoSub.deleteById(id);
+        res.status(201).end('ConceptoSubconcepto deleted successfully!');
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -55,11 +56,12 @@ async function deleteCentroCosto(req, res, next) {
 async function put(req, res, next) {
     try {
         let context = {
-            idCentroCosto: parseInt(req.params.idCentroCosto, 10),
-            centroCosto: req.body.centroCosto
+            id: parseInt(req.params.id, 10),
+            idConcepto: req.body.idConcepto,
+            idSubconcepto: req.body.idSubconcepto,
         };
-        const result = await centroCost.update(context);
-        res.status(201).end('Centro costo updated successfully!');
+        const result = await ConceptoSub.update(context);
+        res.status(201).end('ConceptoSubconcepto updated successfully!');
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -68,5 +70,5 @@ async function put(req, res, next) {
 
 module.exports.get = get;
 module.exports.post = post;
-module.exports.deleteCentroCosto = deleteCentroCosto;
+module.exports.deleteConceptoSubconcepto = deleteConceptoSubconcepto;
 module.exports.put = put;

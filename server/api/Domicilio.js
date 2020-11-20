@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Domicilio';
 
-const insertQuery = 'INSERT INTO Domicilio (calle, colonia, noExt, noInt, ciudad, cp) VALUES(:calle, :colonia, :noExt, :noInt, :ciudad, :cp)';
+const insertQuery = 'INSERT INTO Domicilio (calle, colonia, noExt, noInt, ciudad, cp) VALUES(:calle, :colonia, :noExt, :noInt, :ciudad, :cp) RETURNING idDom INTO :rid';
 
 const deleteQuery = 'DELETE FROM Domicilio WHERE idDom = :idDom';
 
@@ -40,4 +40,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

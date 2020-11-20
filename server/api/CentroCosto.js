@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM CentroCosto';
 
-const insertQuery = 'INSERT INTO CentroCosto (centroCosto) VALUES(:centroCosto)';
+const insertQuery = 'INSERT INTO CentroCosto (centroCosto) VALUES(:centroCosto) RETURNING idCentroCosto INTO :rid';
 
 const deleteQuery = 'DELETE FROM CentroCosto WHERE idCentroCosto = :idCentroCosto';
 
@@ -40,4 +40,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;

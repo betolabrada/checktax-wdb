@@ -1,11 +1,12 @@
-const { find, insert, deleteById, update } = require('../api/TipoFinanciamiento');
+const tipoF = require('../api/TipoFinanciamiento');
+const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.idTipoFin = parseInt(req.params.idTipoFin, 10);
 
-        const rows = await find(context);
+        const rows = await tipoF.find(context);
 
         if (req.params.idTipoFin) {
             if (rows.length === 1) {
@@ -44,10 +45,11 @@ async function post(req, res, next) {
             seguroDeuda: req.body.seguroDeuda,
             tfSeguroDeuda: req.body.tfSeguroDeuda,
             liquidacion: req.body.liquidacion,
-            ppTipo: req.body.ppTipo
+            ppTipo: req.body.ppTipo,
+            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         };
-        const result = await insert(tipoFin);
-        res.status(201).end('Tipo financiamiento added successfully!');
+        const result = await tipoF.insert(tipoFin);
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -58,7 +60,7 @@ async function post(req, res, next) {
 async function deleteTipoFin(req, res, next) {
     try {
         let id = parseInt(req.params.idTipoFin, 10);
-        const result = await deleteById(id);
+        const result = await tipoF.deleteById(id);
         res.status(201).end('Tipo financiamiento deleted successfully!');
     } catch (err) {
         console.log(err);
@@ -90,7 +92,7 @@ async function put(req, res, next) {
             ppTipo: req.body.ppTipo
         };
         console.log(context);
-        const result = await update(context);
+        const result = await tipoF.update(context);
         res.status(201).end('Tipo financiamiento updated successfully!');
     } catch (err) {
         console.log(err);

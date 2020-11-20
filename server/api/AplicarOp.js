@@ -1,20 +1,20 @@
 const database = require('../services/Database');
 
-const baseQuery = 'SELECT * FROM Concepto';
+const baseQuery = 'SELECT * FROM AplicarOp';
 
-const insertQuery = 'INSERT INTO Concepto (concepto) VALUES(:concepto) RETURNING idConcepto INTO :rid';
+const insertQuery = 'INSERT INTO AplicarOp (dummy) VALUES(:dummy) RETURNING id INTO :rid';
 
-const deleteQuery = 'DELETE FROM Concepto WHERE idConcepto = :idConcepto';
+const deleteQuery = 'DELETE FROM AplicarOp WHERE id = :id';
 
-const updateQuery = 'UPDATE Concepto SET concepto = :concepto WHERE idConcepto = :idConcepto';
+const updateQuery = 'UPDATE AplicarOp SET dummy = :dummy WHERE id = :id';
 
 async function find(context) {
     let query = baseQuery;
     let binds = {};
 
-    if (context.idConcepto) {
-        binds.idConcepto = context.idConcepto;
-        query += '\nWHERE idConcepto = :idConcepto';
+    if (context.id) {
+        binds.id = context.id;
+        query += '\nWHERE id = :id';
     }
 
     const result = await database.queryExecutor(query, binds);
@@ -22,14 +22,14 @@ async function find(context) {
     return result.rows;
 }
 
-async function insert(concepto) {
-    let binds = Object.assign({}, concepto);
+async function insert(aplicarOp) {
+    let binds = Object.assign({}, aplicarOp);
     const result = await database.queryExecutor(insertQuery, binds);
     return result;
 }
 
-async function deleteById(idConcepto) {
-    let binds = { idConcepto };
+async function deleteById(id) {
+    let binds = { id };
     const result = await database.queryExecutor(deleteQuery, binds);
     return result;
 }

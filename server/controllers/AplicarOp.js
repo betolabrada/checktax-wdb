@@ -1,14 +1,14 @@
-const pro = require('../api/Producto');
+const AplOp = require('../api/AplicarOp');
 const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
         const context = {};
-        context.idProducto = parseInt(req.params.idProducto, 10);
+        context.id = parseInt(req.params.id, 10);
 
-        const rows = await pro.find(context);
+        const rows = await AplOp.find(context);
 
-        if (req.params.idProducto) {
+        if (req.params.id) {
             if (rows.length === 1) {
                 console.log(rows[0]);
                 res.status(200).json(rows[0]);
@@ -21,17 +21,18 @@ async function get(req, res, next) {
         }
     } catch (err) {
         console.log(err);
-        res.status(404).end();
+        next(err);
     }
 }
 
 async function post(req, res, next) {
+    let aplicarOp = {
+        dummy: req.body.dummy,
+        rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
+    };
+
     try {
-        let producto = {
-            producto: req.body.producto,
-            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
-        };
-        const result = await pro.insert(producto);
+        const result = await AplOp.insert(aplicarOp);
         res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
@@ -40,12 +41,13 @@ async function post(req, res, next) {
 
 }
 
-async function deleteProducto(req, res, next) {
+async function deleteAplicarOp(req, res, next) {
     try {
-        let idProducto = parseInt(req.params.idProducto, 10);
-        const result = await pro.deleteById(idProducto);
-        res.status(201).end('Producto deleted successfully!');
+        let id = parseInt(req.params.id, 10);
+        const result = await AplOp.deleteById(id);
+        res.status(201).end('AplicarOp deleted successfully!');
     } catch (err) {
+        console.log(err);
         res.status(404).end();
     }
 }
@@ -53,17 +55,18 @@ async function deleteProducto(req, res, next) {
 async function put(req, res, next) {
     try {
         let context = {
-            idProducto: parseInt(req.params.idProducto, 10),
-            producto: req.body.producto
+            id: parseInt(req.params.id, 10),
+            dummy: req.body.dummy
         };
-        const result = await pro.update(context);
-        res.status(201).end('Producto updated successfully!');
+        const result = await AplOp.update(context);
+        res.status(201).end('AplicarOp updated successfully!');
     } catch (err) {
+        console.log(err);
         res.status(404).end();
     }
 }
 
 module.exports.get = get;
 module.exports.post = post;
-module.exports.deleteProducto = deleteProducto;
+module.exports.deleteAplicarOp = deleteAplicarOp;
 module.exports.put = put;

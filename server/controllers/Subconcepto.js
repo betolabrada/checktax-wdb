@@ -1,11 +1,12 @@
-const { find, insert, deleteById, update } = require('../api/Subconcepto');
+const sub = require('../api/Subconcepto');
+const oracledb = require('oracledb');
 
 async function get(req, res, next) {
     try {
         const context = {};
         context.idSubconcepto = parseInt(req.params.idSubconcepto, 10);
 
-        const rows = await find(context);
+        const rows = await sub.find(context);
 
         if (req.params.idSubconcepto) {
             if (rows.length === 1) {
@@ -27,10 +28,11 @@ async function get(req, res, next) {
 async function post(req, res, next) {
     try {
         let subconcepto = {
-            subconcepto: req.body.subconcepto
+            subconcepto: req.body.subconcepto,
+            rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
         };
-        const result = await insert(subconcepto);
-        res.status(201).end('Subconcepto added successfully!');
+        const result = await sub.insert(subconcepto);
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();
@@ -41,7 +43,7 @@ async function post(req, res, next) {
 async function deleteSubconcepto(req, res, next) {
     try {
         let idSubconcepto = parseInt(req.params.idSubconcepto, 10);
-        const result = await deleteById(idSubconcepto);
+        const result = await sub.deleteById(idSubconcepto);
         res.status(201).end('Subconcepto deleted successfully!');
     } catch (err) {
         res.status(404).end();
@@ -54,7 +56,7 @@ async function put(req, res, next) {
             idSubconcepto: parseInt(req.params.idSubconcepto, 10),
             subconcepto: req.body.subconcepto
         };
-        const result = await update(context);
+        const result = await sub.update(context);
         res.status(201).end('Subconcepto updated successfully!');
     } catch (err) {
         res.status(404).end();

@@ -2,7 +2,7 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Comunicacion';
 
-const insertQuery = 'INSERT INTO Comunicacion (telOficina, telOtro, telCelular, mail) VALUES(:telOficina, :telOtro, :telCelular, :mail)';
+const insertQuery = 'INSERT INTO Comunicacion (telOficina, telOtro, telCelular, mail) VALUES(:telOficina, :telOtro, :telCelular, :mail) RETURNING idCom INTO :rid';
 
 const deleteQuery = 'DELETE FROM Comunicacion WHERE idCom = :idCom';
 
@@ -40,4 +40,7 @@ async function update(context) {
     return result;
 }
 
-module.exports = { find, insert, deleteById, update};
+module.exports.insert = insert;
+module.exports.find = find;
+module.exports.deleteById = deleteById;
+module.exports.update = update;
