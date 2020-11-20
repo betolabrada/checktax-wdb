@@ -340,7 +340,6 @@ END;
 
 CREATE TABLE factura(
                         idFactura NUMBER(10) NOT NULL,
-                        idCliente NUMBER(10),
                         ffzc VARCHAR2(50),
                         ffzi VARCHAR2(50),
                         ffzg VARCHAR2(50),
