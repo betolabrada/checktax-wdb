@@ -6,7 +6,6 @@ import { Producto } from '../../models/producto.model';
 import { LoadingService } from '../../services/loading/loading.service';
 import { Subscription } from 'rxjs';
 import { FinanciamientoService } from '../../services/financiamiento/financiamiento.service';
-import { Financiamiento } from '../../models/financiamiento.model';
 
 @Component({
   selector: 'app-main-form',
@@ -15,10 +14,10 @@ import { Financiamiento } from '../../models/financiamiento.model';
 })
 export class MainFormComponent implements OnInit, OnDestroy {
 
-  private operacionSub: Subscription;
-  private financiamientoSub: Subscription;
-  private productoSub: Subscription;
+  private operacionChangedSub: Subscription;
+  index: number;
   numOperacion: string;
+  editMode = false;
   extensionActive = false;
   finding: boolean;
   loading: Subscription;
@@ -34,17 +33,18 @@ export class MainFormComponent implements OnInit, OnDestroy {
     this.loading = this.loadingService.loading$.subscribe((loading) => {
       this.finding = loading;
     });
-    this.operacionSub = this.operacionService.operacionChanged
+    this.operacionChangedSub = this.operacionService.operacionChanged
       .subscribe(
         (operacion: Operacion) => {
           this.operacion = operacion;
           console.log(this.operacion);
+          this.editMode = true;
         }
       );
   }
 
   ngOnDestroy(): void {
-    this.operacionSub.unsubscribe();
+    this.operacionChangedSub.unsubscribe();
   }
 
 

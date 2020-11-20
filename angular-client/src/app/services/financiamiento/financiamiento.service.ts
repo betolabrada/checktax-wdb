@@ -34,7 +34,7 @@ export class FinanciamientoService {
     this.operacionService.modify('financiamiento', fin);
   }
 
-  hasProducto(): boolean {
+  hasSelectedProducto(): boolean {
     return !!this.financiamiento.producto;
   }
 }

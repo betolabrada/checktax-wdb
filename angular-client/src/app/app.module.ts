@@ -36,8 +36,10 @@ import { AlertModule } from './components/alert';
 import { ClickOutsideModule } from 'ng-click-outside';
 import { SavingIconComponent } from './components/nav/main-form-nav/saving-icon/saving-icon.component';
 import { FinanciamientoComponent } from './components/main-form/financiamiento/financiamiento.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OtrosParamComponent } from './components/main-form/otros-param/otros-param.component';
+import { AplicarOpComponent } from './components/main-form/aplicar-op/aplicar-op.component';
+import { LoteAutosComponent } from './components/main-form/lote-autos/lote-autos.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +70,9 @@ import { OtrosParamComponent } from './components/main-form/otros-param/otros-pa
     ConfigLoteAutosComponent,
     SavingIconComponent,
     FinanciamientoComponent,
-    OtrosParamComponent
+    OtrosParamComponent,
+    AplicarOpComponent,
+    LoteAutosComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,8 @@ import { OtrosParamComponent } from './components/main-form/otros-param/otros-pa
     HttpClientModule,
     AlertModule,
     ClickOutsideModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
