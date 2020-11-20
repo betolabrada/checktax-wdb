@@ -1,6 +1,6 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Operacion } from '../../models/operacion.model';
+import { defaultOperacion, Operacion, TipoOperacion } from '../../models/operacion.model';
 import { ApiService } from '../api/api.service';
 import { AlertService } from '../../components/alert';
 import { LoadingService } from '../loading/loading.service';
@@ -10,11 +10,8 @@ import { LoadingService } from '../loading/loading.service';
 })
 export class OperacionService {
   editMode = new Subject<boolean>();
-  private operacion: Operacion = new Operacion('');
-  private operaciones: Operacion[] = [
-    new Operacion('400'),
-    new Operacion('500')
-  ];
+  private operacion: Operacion = Object.assign({}, defaultOperacion);
+  private operaciones: Operacion[] = [];
   operacionChanged = new BehaviorSubject<Operacion>(Object.assign({}, this.operacion));
   listChanged = new Subject<Operacion[]>();
 
@@ -46,7 +43,7 @@ export class OperacionService {
   }
 
   public modify(k: string, v: any): void {
-    this.operacion.update(k, v);
+    this.operacion[k] = v;
     this.operacionChanged.next(Object.assign({}, this.operacion));
   }
 
@@ -70,7 +67,8 @@ export class OperacionService {
   }
 
   createOperacion(numOperacion: string): void {
-    const operacion = new Operacion(numOperacion);
+    const operacion: Operacion = Object.assign({ }, defaultOperacion);
+    operacion.numOperacion = numOperacion;
     this.operaciones.push(operacion);
     this.operacion = operacion;
     this.notifyChange();
@@ -82,7 +80,7 @@ export class OperacionService {
   }
 
   clear(): void {
-    this.operacion = new Operacion('');
+    this.operacion = Object.assign({}, defaultOperacion);
     this.notifyChange();
   }
 }

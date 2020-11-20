@@ -10,7 +10,10 @@ export class AplicarOpService {
   aplicarOp: AplicarOp;
   aplicarOpChanged: Subject<AplicarOp>;
   constructor(private operationService: OperacionService) {
-    this.aplicarOp = new AplicarOp();
+    this.aplicarOp = {
+      chequera: '',
+      sucursal: ''
+    };
     this.aplicarOpChanged = new Subject<AplicarOp>();
     this.notifyChange();
   }

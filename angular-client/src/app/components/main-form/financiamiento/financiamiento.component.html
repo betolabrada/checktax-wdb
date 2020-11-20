@@ -79,61 +79,61 @@
     </div>
     <div class="main-input-group">
       <label for="input-tasaAnual">Tasa Anual</label>
-      <input id="input-tasaAnual" class="text-center" type="text" [value]="tasaAnual"
+      <input id="input-tasaAnual" class="text-center" type="text" [value]="tipoFin?.tasa?.toString() || ''"
              (input)="update('tasaAnual', $event)">
     </div>
     <div style="width: 75px; margin-top: 10px; text-align: center;"><label>Importe</label></div>
     <div class="main-input-group">
       <label for="input-anticipo">Anticipo</label>
-      <input id="input-anticipo" class="text-center" type="text">
+      <input id="input-anticipo" class="text-center" type="text" [value]="tipoFin?.anticipo?.toString() || ''">
       <label class="block-label" for="input-impAnticipo"></label>
       <input disabled id="input-impAnticipo" type="text">
     </div>
     <div class="main-input-group">
       <label for="input-seguroDeuda">SeguroDeuda</label>
-      <input id="input-seguroDeuda" class="text-center" type="text">
+      <input id="input-seguroDeuda" class="text-center" type="text" [value]="tipoFin?.seguroDeuda?.toString() || ''">
       <label for="input-impSeguroDeuda"></label>
       <input disabled id="input-impSeguroDeuda" type="text">
     </div>
     <div class="main-input-group">
       <label for="input-apertura">Apertura</label>
-      <input id="input-apertura" class="text-center" type="text">
+      <input id="input-apertura" class="text-center" type="text" [value]="tipoFin?.apertura?.toString() || ''">
       <label for="input-impApertura"></label>
       <input disabled id="input-impApertura" type="text">
     </div>
     <div class="main-input-group">
       <label for="input-deposito">Depósito</label>
-      <input id="input-deposito" class="text-center" type="text">
+      <input id="input-deposito" class="text-center" type="text" [value]="tipoFin?.deposito?.toString() || ''">
       <label for="input-impDeposito"></label>
       <input disabled id="input-impDeposito" type="text">
     </div>
     <div class="main-input-group">
       <label for="input-admin">Administración</label>
-      <input id="input-admin" class="text-center" type="text">
+      <input id="input-admin" class="text-center" type="text" [value]="tipoFin?.admon?.toString() || ''">
       <label for="input-impAdmin"></label>
       <input disabled id="input-impAdmin" type="text">
     </div>
     <div class="main-input-group">
       <label for="input-gps">GPS</label>
-      <input id="input-gps" class="text-center" type="text">
+      <input id="input-gps" class="text-center" type="text" [value]="tipoFin?.gps?.toString() || ''">
       <label for="input-impGps"></label>
       <input disabled id="input-impGps" type="text">
     </div>
     <div class="main-input-group">
       <label for="input-seguroAuto">SeguroAuto</label>
-      <input id="input-seguroAuto" class="text-center" type="text">
+      <input id="input-seguroAuto" class="text-center" type="text" [value]="tipoFin?.seguroDeuda?.toString() || ''">
       <label for="input-impSeguroAuto"></label>
       <input disabled id="input-impSeguroAuto" type="text">
     </div>
     <div class="main-input-group" style="margin-bottom: 10px;">
       <label for="input-valorRescate">ValorRescate</label>
-      <input id="input-valorRescate" class="text-center" type="text">
+      <input id="input-valorRescate" class="text-center" type="text" [value]="tipoFin?.vRescate?.toString() || ''">
       <label for="input-impValorRescate"></label>
       <input disabled id="input-impValorRescate" type="text">
     </div>
     <div class="main-input-group">
       <label for="input-descuento">Descuento</label>
-      <input id="input-descuento" type="text">
+      <input id="input-descuento" type="text" [value]="tipoFin?.descuento?.toString() || ''">
       <label for="input-impDescuento"></label>
       <input disabled id="input-impDescuento" type="text">
     </div>

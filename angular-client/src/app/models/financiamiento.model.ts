@@ -1,6 +1,6 @@
 import { Producto, TipoFinanciamiento } from './producto.model';
 
-export class Financiamiento {
+export interface Financiamiento {
   producto: Producto;
   tipoFin: TipoFinanciamiento;
   fondeador: string;

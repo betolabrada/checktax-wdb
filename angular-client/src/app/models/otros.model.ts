@@ -1,19 +1,19 @@
-export class Impuesto {
+export interface Impuesto {
   iva: string;
   empresa: string;
   porcentaje: number;
 }
 
-export class SeguroAuto {
+export interface SeguroAuto {
   compania: string;
   primaTotal: number;
   formaPago: string;
   noPoliza: number;
   financiado: boolean;
-  fechaInicio: Date;
-  fechaFinal: Date;
+  fechaInicio: string;
+  fechaFinal: string;
   tipoUnidad: string;
-  fechaPago: Date;
+  fechaPago: string;
   relacionPago: string;
   siniestros: string;
   cantPolizas: string;
@@ -21,7 +21,7 @@ export class SeguroAuto {
   asegurado: string;
 }
 
-export class Factura {
+export interface Factura {
   idFactura: number;
   ffzc: string;
   ffzi: string;

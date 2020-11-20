@@ -1,3 +1,3 @@
-export class Fondeador {
+export interface Fondeador {
 
 }

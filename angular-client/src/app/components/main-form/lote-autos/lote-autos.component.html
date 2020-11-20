@@ -6,7 +6,8 @@
   <div class="section-content d-flex flex-column align-items-end">
     <div class="main-input-group d-block mb-1" style="width: 100%">
       <label for="input-razonSocial">Razón Social</label>
-      <input id="input-razonSocial" type="text">
+      <input id="input-razonSocial" type="text" [value]="loteAuto?.razonSocial || ''"
+             (input)="update('razonSocial', $event)">
     </div>
     <div class="d-flex">
       <div><label class="d-block m-0 mr-2 text-center" style="width: 75px;">Comisión</label></div>
@@ -14,19 +15,24 @@
     </div>
     <div class="main-input-group">
       <label for="input-sinIVA">Sin IVA</label>
-      <input id="input-sinIVA" type="text">
+      <input id="input-sinIVA" type="text" [value]="loteAuto?.comisionSinIva || ''"
+             (input)="update('comisionSinIva', $event)">
       <label for="input-impSinIVA"></label>
-      <input id="input-impSinIVA" type="text">
+      <input id="input-impSinIVA" type="text" [value]="loteAuto?.importeSinIva || ''"
+             (input)="update('importeSinIva', $event)">
     </div>
     <div class="main-input-group mb-1">
       <label for="input-conIVA">Con IVA</label>
-      <input id="input-conIVA" type="text">
+      <input id="input-conIVA" type="text" [value]="loteAuto?.comisionConIva || ''"
+             (input)="update('comisionConIva', $event)">
       <label for="input-impConIVA"></label>
-      <input id="input-impConIVA" type="text">
+      <input id="input-impConIVA" type="text" [value]="loteAuto?.importeConIva || ''"
+             (input)="update('importeConIva', $event)">
     </div>
     <div class="main-input-group">
       <label for="input-lineaVenta">LineaVenta</label>
-      <input id="input-lineaVenta" type="text">
+      <input id="input-lineaVenta" type="text" [value]="loteAuto?.lineaVenta || ''"
+             (input)="update('lineaVenta', $event)">
     </div>
   </div>
 </section>

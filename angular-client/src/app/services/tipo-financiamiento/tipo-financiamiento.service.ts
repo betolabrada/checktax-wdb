@@ -10,9 +10,27 @@ export class TipoFinanciamientoService {
   tipoFin: TipoFinanciamiento;
   tipoFinChanged: Subject<TipoFinanciamiento>;
   private tipoFinanciamientos: TipoFinanciamiento[] = [
-    new TipoFinanciamiento(1, 'GlobalAuto'),
-    new TipoFinanciamiento(2, 'ArrFinanciero'),
-    new TipoFinanciamiento(3, 'Mensualidad'),
+    {
+      idTipoFin: '',
+      tipoFin: 'GlobalAuto',
+      tasa: 100,
+      anticipo: 0,
+      apertura: 0,
+      deposito: 0,
+      vRescate: 0,
+      tfRescate: false,
+      descuento: 0,
+      admon: 0,
+      tfAdmon: false,
+      gps: 0,
+      tfGps: false,
+      seguroAuto: 0,
+      tfSeguroAuto: false,
+      seguroDeuda: 0,
+      tfSeguroDeuda: false,
+      liquidacion: 0,
+      ppTipo: '',
+    }
   ];
   constructor(private productoService: ProductoService) {
     this.tipoFinChanged = new Subject<TipoFinanciamiento>();

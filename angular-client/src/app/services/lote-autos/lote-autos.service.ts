@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { OperacionService } from '../operacion/operacion.service';
-
-class LoteAutos {
-  razonSocial: string;
-  comisionSinIva: number;
-  comisionConIva: number;
-  importeSinIva: number;
-  importeConIva: number;
-  lineaVenta: string;
-}
+import { LoteAuto } from '../../models/otros.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoteAutosService {
-  loteAutos = new LoteAutos();
-  loteAutosChanged = new Subject<LoteAutos>();
+  loteAutos: LoteAuto = {
+    idLoteAuto: null,
+    razonSocial: '',
+    comisionSinIva: 0,
+    comisionConIva: 0,
+    importeSinIva: 0,
+    importeConIva: 0,
+    lineaVenta: '',
+    sucursal: '',
+    domicilio: '',
+    asesor: ''
+  };
+  loteAutosChanged = new BehaviorSubject<LoteAuto>(this.loteAutos);
   constructor(private operacionService: OperacionService) { }
 
   modify(key: string, value: any): void {
@@ -30,8 +33,8 @@ export class LoteAutosService {
   }
 
   notifyChange(): void {
-    const fin = Object.assign({}, this.loteAutos);
-    this.loteAutosChanged.next(fin);
-    this.operacionService.modify('loteAutos', LoteAutos);
+    const lote = Object.assign({}, this.loteAutos);
+    this.loteAutosChanged.next(lote);
+    this.operacionService.modify('loteAutos', lote);
   }
 }

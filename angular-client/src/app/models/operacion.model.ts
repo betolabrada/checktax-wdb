@@ -2,13 +2,13 @@ import { Financiamiento } from './financiamiento.model';
 import { Factura, Impuesto, LoteAuto, SeguroAuto } from './otros.model';
 import { AplicarOp } from './aplicar-operacion.model';
 
-enum TipoOperacion {
+export enum TipoOperacion {
   Normal,
   Cotizacion,
   SinPlan
 }
 
-export class Operacion {
+export interface Operacion {
 
   numOperacion: string;
   tipo: TipoOperacion;
@@ -31,7 +31,7 @@ export class Operacion {
   poliza: string;
   tfSeguroFin: boolean;
   tipoUnidad: string;
-  fechaPago: Date;
+  fechaPago: string;
   relPago: string;
   marca: string;
   version: string;
@@ -41,20 +41,42 @@ export class Operacion {
   estatus: string;
   cancelado: boolean;
   aplicPagos: boolean;
-  fFondeo: Date;
+  fFondeo: string;
   confirmado: boolean;
-
-  constructor(numOperacion: string) {
-    this.numOperacion = numOperacion;
-    this.tipo = TipoOperacion.Normal;
-    this.persona = 'Física';
-  }
-
-  update(key: string, value: any): void {
-    try {
-      this[key] = value;
-    } catch (err) {
-      console.log(err);
-    }
-  }
 }
+
+export const defaultOperacion: Operacion = {
+  numOperacion: '',
+  tipo: TipoOperacion.Normal,
+  fecha: '',
+  folio: '',
+  referenciaPagos: '',
+  cliente: '',
+  persona: '',
+  descripcion: '',
+  asesor: '',
+  financiamiento: null,
+  aplicarOp: null,
+  impuesto: null,
+  loteAutos: null,
+  seguroAuto: null,
+  comentarios: '',
+  tfIva: false,
+  tfSeguro: false,
+  fPago: '',
+  poliza: '',
+  tfSeguroFin: false,
+  tipoUnidad: '',
+  fechaPago: '',
+  relPago: '',
+  marca: '',
+  version: '',
+  importe: 0,
+  idCentroCosto: 0,
+  factura: null,
+  estatus: '',
+  cancelado: false,
+  aplicPagos: false,
+  fFondeo: '',
+  confirmado: false,
+};

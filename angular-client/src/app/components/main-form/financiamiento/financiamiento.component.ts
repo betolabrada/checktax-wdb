@@ -51,6 +51,7 @@ export class FinanciamientoComponent implements OnInit {
     this.tipoFinService.tipoFinChanged
       .subscribe((tipoFin: TipoFinanciamiento) => {
         this.tipoFin = tipoFin;
+        console.log(this.tipoFin);
       });
   }
 
@@ -76,46 +77,6 @@ export class FinanciamientoComponent implements OnInit {
 
   get periodicidad(): string {
     return this.financiamiento.periodicidad ? this.financiamiento.periodicidad : '';
-  }
-
-  get tasaAnual(): string {
-    return this.financiamiento.tasaAnual ? this.financiamiento.tasaAnual : '';
-  }
-
-  get anticipo(): number {
-    return this.tipoFin.anticipo;
-  }
-
-  get apertura(): number {
-    return this.tipoFin.apertura;
-  }
-
-  get deposito(): number {
-    return this.tipoFin.deposito;
-  }
-
-  get admon(): number {
-    return this.tipoFin.admon;
-  }
-
-  get gps(): number {
-    return this.tipoFin.gps;
-  }
-
-  get seguroAuto(): number {
-    return this.tipoFin.seguroAuto;
-  }
-
-  get seguroDeuda(): number {
-    return this.tipoFin.seguroDeuda;
-  }
-
-  get vRescate(): number {
-    return this.tipoFin.vRescate;
-  }
-
-  get descuento(): number {
-    return this.tipoFin.descuento;
   }
 
   fetchProduct($event: NgbTypeaheadSelectItemEvent): void {
@@ -145,7 +106,6 @@ export class FinanciamientoComponent implements OnInit {
 
   onChangeTipoFin($event: Event): void {
     const data = ($event.target as HTMLInputElement).value;
-    console.log(data);
     this.tipoFinService.buscaTipoFin(data);
   }
 }
