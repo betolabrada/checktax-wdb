@@ -46,7 +46,7 @@ async function post(req, res, next) {
 
     try {
         const result = await seg.insert(seguro);
-        res.status(201).end(result.outBinds);
+        res.status(201).json(result.outBinds);
     } catch (err) {
         console.log(err);
         res.status(404).end();

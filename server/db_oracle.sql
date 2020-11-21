@@ -418,7 +418,7 @@ CREATE TABLE operacion(
                           comentarios VARCHAR2(510),
                           tfIva CHAR(1),
                           tfSeguro CHAR(1),
-                          fPago VARCHAR2(20),
+                          tfPago VARCHAR2(20),
                           poliza VARCHAR2(20),
                           tfSeguroFin CHAR(1),
                           tipoUnidad VARCHAR2(20),
