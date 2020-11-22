@@ -10,7 +10,16 @@ export class FinanciamientoService {
   financiamiento: Financiamiento;
   financiamientoChanged: BehaviorSubject<Financiamiento>;
   constructor(private operacionService: OperacionService) {
-    this.financiamiento = new Financiamiento();
+    this.financiamiento = {
+      producto: null,
+      tipoFin: null,
+      fondeador: '',
+      noPagos: '',
+      periodicidad: '',
+      valorOperacion: '',
+      tasaAnual: '',
+      totalPrimerPago: ''
+    };
     this.financiamientoChanged = new BehaviorSubject<Financiamiento>(this.financiamiento);
   }
 
@@ -34,7 +43,7 @@ export class FinanciamientoService {
     this.operacionService.modify('financiamiento', fin);
   }
 
-  hasProducto(): boolean {
+  hasSelectedProducto(): boolean {
     return !!this.financiamiento.producto;
   }
 }

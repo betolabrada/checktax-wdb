@@ -25,11 +25,7 @@ export class MainFormNavComponent implements OnInit {
 
   emitNavEvent(event: string): void {
     if (!this.saving) {
-      if (event === 'save') {
-        this.operacionService.saveOperacion();
-      } else {
-        this.navEvent.emit(event);
-      }
+      this.navEvent.emit(event);
     }
   }
 

@@ -51,71 +51,32 @@ export class FinanciamientoComponent implements OnInit {
     this.tipoFinService.tipoFinChanged
       .subscribe((tipoFin: TipoFinanciamiento) => {
         this.tipoFin = tipoFin;
+        console.log(this.tipoFin);
       });
   }
 
   get producto(): string {
-    if (this.operacionService.hasFinanciamiento() && this.financiamientoService.hasProducto()) {
+    if (this.operacionService.operacionTieneFinanciamiento() && this.financiamientoService.hasSelectedProducto()) {
       return this.financiamiento.producto.producto;
     } else {
       return '';
     }
   }
 
-  get valorOp(): number {
-    return this.financiamiento.valorOperacion ? this.financiamiento.valorOperacion : 0;
+  get valorOp(): string {
+    return this.financiamiento.valorOperacion ? this.financiamiento.valorOperacion : '';
   }
 
   get fondeador(): string {
     return this.financiamiento.fondeador ? this.financiamiento.fondeador : '';
   }
 
-  get noPagos(): number {
-    return this.financiamiento.noPagos ? this.financiamiento.noPagos : 0;
+  get noPagos(): string {
+    return this.financiamiento.noPagos ? this.financiamiento.noPagos : '';
   }
 
   get periodicidad(): string {
     return this.financiamiento.periodicidad ? this.financiamiento.periodicidad : '';
-  }
-
-  get tasaAnual(): number {
-    return this.financiamiento.tasaAnual ? this.financiamiento.tasaAnual : 0;
-  }
-
-  get anticipo(): number {
-    return this.tipoFin.anticipo;
-  }
-
-  get apertura(): number {
-    return this.tipoFin.apertura;
-  }
-
-  get deposito(): number {
-    return this.tipoFin.deposito;
-  }
-
-  get admon(): number {
-    return this.tipoFin.admon;
-  }
-
-  get gps(): number {
-    return this.tipoFin.gps;
-  }
-
-  get seguroAuto(): number {
-    return this.tipoFin.seguroAuto;
-  }
-
-  get seguroDeuda(): number {
-    return this.tipoFin.seguroDeuda;
-  }
-
-  get vRescate(): number {
-    return this.tipoFin.vRescate;
-  }
-
-  get descuento(): number {
-    return this.tipoFin.descuento;
   }
 
   fetchProduct($event: NgbTypeaheadSelectItemEvent): void {
@@ -145,7 +106,6 @@ export class FinanciamientoComponent implements OnInit {
 
   onChangeTipoFin($event: Event): void {
     const data = ($event.target as HTMLInputElement).value;
-    console.log(data);
     this.tipoFinService.buscaTipoFin(data);
   }
 }

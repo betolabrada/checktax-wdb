@@ -1,22 +1,10 @@
-export class Producto {
+export interface Producto {
   idProducto: string | number;
   producto: string;
   tipoFin: TipoFinanciamiento[];
-  selectedTipoFin: TipoFinanciamiento;
-  constructor(idProducto: string | number, producto: string, tipoFin: TipoFinanciamiento[]) {
-    this.idProducto = idProducto;
-    this.producto = producto;
-    this.tipoFin = tipoFin;
-  }
 }
 
-export class ProductoTipoFinanciamiento {
-  id: string;
-  producto: Producto;
-  tipoFin: TipoFinanciamiento;
-}
-
-export class TipoFinanciamiento {
+export interface TipoFinanciamiento {
   idTipoFin: string | number;
   tipoFin: string;
   tasa: number;
@@ -36,10 +24,4 @@ export class TipoFinanciamiento {
   tfSeguroDeuda: boolean;
   liquidacion: number;
   ppTipo: string;
-  constructor(idTipoFin: string | number,
-              tipoFin: string) {
-    this.idTipoFin = idTipoFin;
-    this.tipoFin = tipoFin;
-  }
-
 }

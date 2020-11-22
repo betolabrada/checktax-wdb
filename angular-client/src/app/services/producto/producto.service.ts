@@ -14,17 +14,32 @@ export class ProductoService {
   productoChanged: BehaviorSubject<Producto>;
   constructor(private api: ApiService,
               private financiamientoService: FinanciamientoService) {
-    this.productos = [
-      new Producto(1, 'Auto', [
-        new TipoFinanciamiento(1, 'GlobalAuto'),
-        new TipoFinanciamiento(2, 'ArrFinanciero'),
-        new TipoFinanciamiento(3, 'Mensualidad'),
-      ]),
-      new Producto(2, 'Nomina', []),
-      new Producto(3, 'ArrPuro', []),
-      new Producto(4, 'Motos', [])
-    ];
-    this.producto = null;
+    this.producto = {
+      idProducto: '1',
+      producto: 'Auto',
+      tipoFin: [{
+        idTipoFin: '',
+        tipoFin: 'GlobalAuto',
+        tasa: 0,
+        anticipo: 0,
+        apertura: 0,
+        deposito: 0,
+        vRescate: 0,
+        tfRescate: false,
+        descuento: 0,
+        admon: 0,
+        tfAdmon: false,
+        gps: 0,
+        tfGps: false,
+        seguroAuto: 0,
+        tfSeguroAuto: false,
+        seguroDeuda: 0,
+        tfSeguroDeuda: false,
+        liquidacion: 0,
+        ppTipo: '',
+      }]
+    };
+    this.productos = [this.producto];
     this.productoChanged = new BehaviorSubject<Producto>(this.producto);
   }
 
@@ -67,10 +82,6 @@ export class ProductoService {
   private notifyChange(): void {
     const productoCopy = Object.assign({}, this.producto);
     this.productoChanged.next(productoCopy);
-    this.financiamientoService.modify('producto', {
-      idProducto: productoCopy.idProducto,
-      producto: productoCopy.producto,
-      selectedTipoFin: productoCopy.selectedTipoFin,
-    });
+    this.financiamientoService.modify('producto', productoCopy);
   }
 }

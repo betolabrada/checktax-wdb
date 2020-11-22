@@ -1,14 +1,31 @@
 import { Injectable } from '@angular/core';
-
-interface AplicarOp {
-  chequera: string;
-  sucursal: string;
-}
+import { Subject } from 'rxjs';
+import { OperacionService } from '../operacion/operacion.service';
+import { AplicarOp } from '../../models/aplicar-operacion.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AplicarOpService {
+  aplicarOp: AplicarOp;
+  aplicarOpChanged: Subject<AplicarOp>;
+  constructor(private operationService: OperacionService) {
+    this.aplicarOp = {
+      chequera: '',
+      sucursal: ''
+    };
+    this.aplicarOpChanged = new Subject<AplicarOp>();
+    this.notifyChange();
+  }
 
-  constructor() { }
+  modify(key: string, value: any): void {
+    this.aplicarOp[key] = value;
+    this.notifyChange();
+  }
+
+  notifyChange(): void {
+    const copy = Object.assign({}, this.aplicarOp);
+    this.aplicarOpChanged.next(copy);
+    this.operationService.modify('aplicarOp', copy);
+  }
 }

@@ -17,8 +17,27 @@ export class OtrosService {
   seguroAuto: SeguroAuto;
   otrosChanged: Subject<OtrosParam>;
   constructor(private operacionService: OperacionService) {
-    this.impuesto = new Impuesto();
-    this.seguroAuto = new SeguroAuto();
+    this.impuesto = {
+      iva: '',
+      empresa: '',
+      porcentaje: 0.16
+    };
+    this.seguroAuto = {
+      asegurado: '',
+      cantPolizas: '',
+      compania: '',
+      fechaFinal: '',
+      fechaInicio: '',
+      fechaPago: '',
+      financiado: false,
+      formaPago: '',
+      noPoliza: 0,
+      primaTotal: 0,
+      relacionPago: '',
+      sigVcmto: '',
+      siniestros: '',
+      tipoUnidad: ''
+    };
     this.otrosChanged = new Subject<OtrosParam>();
   }
 

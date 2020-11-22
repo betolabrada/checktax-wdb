@@ -3,20 +3,20 @@ import { Operacion } from '../../../models/operacion.model';
 import { OperacionService } from '../../../services/operacion/operacion.service';
 import { LoadingService } from '../../../services/loading/loading.service';
 import { AlertService } from '../../alert';
-import { FormDataModel } from '../../../models/form-data.model';
 
 @Component({
   selector: 'app-general',
   templateUrl: './general.component.html',
   styleUrls: ['./general.component.scss']
 })
-export class GeneralComponent extends FormDataModel implements OnInit {
+export class GeneralComponent implements OnInit {
 
+  indexOperacion: number;
+  editMode: boolean;
   @Input() operacion: Operacion;
-  constructor(public operacionService: OperacionService,
+  constructor(private operacionService: OperacionService,
               private loadingService: LoadingService,
               private alertService: AlertService) {
-    super(operacionService);
   }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class GeneralComponent extends FormDataModel implements OnInit {
   }
 
   get refPagos(): string {
-    return typeof this.operacion.refPagos === 'string' ? this.operacion.refPagos : '';
+    return typeof this.operacion.referenciaPagos === 'string' ? this.operacion.referenciaPagos : '';
   }
 
   get cliente(): string {
@@ -54,6 +54,16 @@ export class GeneralComponent extends FormDataModel implements OnInit {
     return typeof this.operacion.asesor === 'string' ? this.operacion.asesor : '';
   }
 
+  handleInput($event: Event): void {
+    const inputElValue = ($event.target as HTMLInputElement).value;
+    console.log(this.numOperacion, inputElValue);
+    if (this.checkIfChangedOrBlank(inputElValue)) {
+      this.cleanup();
+    } else {
+      this.findOperacion();
+    }
+  }
+
   findOperacion(): void {
     console.log('finding...');
     this.loadingService.setLoading(true);
@@ -66,9 +76,28 @@ export class GeneralComponent extends FormDataModel implements OnInit {
       (error) => {
         this.loadingService.setLoading(false);
         console.log(error);
-        this.alertService.showAlert('No se encontró operación', 'error');
+        this.alertService.showAlert('No se encontró operación, creando nueva', 'info');
+        this.operacionService.createOperacion(this.numOperacion);
       }
     );
   }
 
+  checkIfChangedOrBlank(value: string): boolean {
+    if (this.operacion.numOperacion !== value) {
+      return true;
+    }
+    if (this.numOperacion.length === 0) {
+      console.log('Changed to empty, cleaning up...');
+      return true;
+    }
+    return false;
+  }
+
+  update(key: string, $event: Event): void {
+    this.operacionService.modify(key, ($event.target as HTMLInputElement).value);
+  }
+
+  cleanup(): void {
+    this.operacionService.clear();
+  }
 }

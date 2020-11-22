@@ -1,6 +1,6 @@
-import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Operacion } from '../../models/operacion.model';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { defaultOperacion, Operacion, TipoOperacion } from '../../models/operacion.model';
 import { ApiService } from '../api/api.service';
 import { AlertService } from '../../components/alert';
 import { LoadingService } from '../loading/loading.service';
@@ -9,20 +9,15 @@ import { LoadingService } from '../loading/loading.service';
   providedIn: 'root'
 })
 export class OperacionService {
-  private operacion: Operacion;
-  private operaciones: Operacion[];
-  operacionChanged: BehaviorSubject<Operacion>;
+  editMode = new Subject<boolean>();
+  private operacion: Operacion = Object.assign({}, defaultOperacion);
+  private operaciones: Operacion[] = [];
+  operacionChanged = new BehaviorSubject<Operacion>(Object.assign({}, this.operacion));
+  listChanged = new Subject<Operacion[]>();
 
   constructor(private api: ApiService,
               private alert: AlertService,
-              private loading: LoadingService) {
-    this.operaciones = [
-      new Operacion('400'),
-      new Operacion('500')
-    ];
-    this.operacion = new Operacion('');
-    this.operacionChanged = new BehaviorSubject<Operacion>(Object.assign({}, this.operacion));
-  }
+              private loading: LoadingService) {}
 
   saveChanges(): void {
     this.saveOperacion();
@@ -31,7 +26,12 @@ export class OperacionService {
 
   changeOperacion(operacion: Operacion): void {
     this.operacion = operacion;
+    this.editMode.next(true);
     this.operacionChanged.next(Object.assign({}, this.operacion));
+  }
+
+  getOperacion(index: number): Operacion {
+    return this.operaciones[index];
   }
 
   getOperaciones(): Operacion[] {
@@ -43,7 +43,7 @@ export class OperacionService {
   }
 
   public modify(k: string, v: any): void {
-    this.operacion.update(k, v);
+    this.operacion[k] = v;
     this.operacionChanged.next(Object.assign({}, this.operacion));
   }
 
@@ -55,14 +55,32 @@ export class OperacionService {
         this.loading.setLoading(false);
       },
       (error) => {
-        this.alert.showAlert('Ocurrió un error al guardar operación');
+        this.alert.showAlert('Ocurrió un error al guardar operación', 'error');
         console.log('Ocurrió un error al guardar operación: ', error);
         this.loading.setLoading(false);
       }
     );
   }
 
-  hasFinanciamiento(): boolean {
+  operacionTieneFinanciamiento(): boolean {
     return !!this.operacion.financiamiento;
+  }
+
+  createOperacion(numOperacion: string): void {
+    const operacion: Operacion = Object.assign({ }, defaultOperacion);
+    operacion.numOperacion = numOperacion;
+    this.operaciones.push(operacion);
+    this.operacion = operacion;
+    this.notifyChange();
+  }
+
+  notifyChange(): void {
+    this.operacionChanged.next(Object.assign({}, this.operacion));
+    this.listChanged.next(this.operaciones.slice());
+  }
+
+  clear(): void {
+    this.operacion = Object.assign({}, defaultOperacion);
+    this.notifyChange();
   }
 }
