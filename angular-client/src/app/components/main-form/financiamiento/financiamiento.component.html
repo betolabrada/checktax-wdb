@@ -17,7 +17,7 @@
           type="text"
           style="width: 100px;"
           [value]="producto"
-          [ngbTypeahead]="typeaheadFunc"
+          [ngbTypeahead]="search"
           (selectItem)="fetchProduct($event)"
         >
         <div class="input-group-append">
@@ -74,7 +74,7 @@
       <label for="input-productoTipo">Producto Tipo</label>
       <select id="input-productoTipo" (change)="onChangeTipoFin($event)">
         <option selected disabled value="0">Seleccione</option>
-        <option *ngFor="let tipo of product.tipoFin" [value]="tipo.tipoFin">{{tipo.tipoFin}}</option>
+        <option *ngFor="let tipo of product.tiposFin" [value]="tipo.tipoFin">{{tipo.tipoFin}}</option>
       </select>
     </div>
     <div class="main-input-group">

@@ -1,12 +1,21 @@
-import { Producto, TipoFinanciamiento } from './producto.model';
 
 export interface Financiamiento {
-  producto: Producto;
-  tipoFin: TipoFinanciamiento;
-  fondeador: string;
-  noPagos: string;
+  idFinanciamiento: number | string;
+  idProducto: number;
+  idConcepto: number;
+  noPagos: number;
   periodicidad: string;
-  valorOperacion: string;
-  tasaAnual: string;
-  totalPrimerPago: string;
+  totalPrimerPago: number;
+  descripcion: string;
 }
+
+export const defaultFinanciamiento: Financiamiento = {
+  idFinanciamiento: '',
+  idProducto: null,
+  idConcepto: null,
+  noPagos: 0,
+  periodicidad: '',
+  totalPrimerPago: 0,
+  descripcion: ''
+};
+

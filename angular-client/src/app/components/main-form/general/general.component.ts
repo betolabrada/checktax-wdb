@@ -27,7 +27,22 @@ export class GeneralComponent implements OnInit {
   }
 
   get fecha(): string {
-    return typeof this.operacion.fecha === 'string' ? this.operacion.fecha : '';
+    if (this.operacion.fecha) {
+      const monthNames = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN',
+        'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DEC'
+      ];
+      const date = new Date(this.operacion.fecha);
+      const year = date.getFullYear();
+      const month: number = date.getMonth();
+      let dt: string | number = date.getDate();
+
+      if (dt < 10) {
+        dt = '0' + dt;
+      }
+
+      return dt + '-' + monthNames[month] + '-' + year.toString().substring(2);
+    }
+    return '';
   }
 
   get folio(): string {
@@ -67,11 +82,13 @@ export class GeneralComponent implements OnInit {
   findOperacion(): void {
     console.log('finding...');
     this.loadingService.setLoading(true);
+    if (this.numOperacion.length === 0) { return; }
     this.operacionService.queryNumOperacion(this.numOperacion).subscribe(
       (value) => {
         console.log(value);
         this.loadingService.setLoading(false);
         this.alertService.showAlert('Found operación!');
+        this.operacionService.changeOperacion(value);
       },
       (error) => {
         this.loadingService.setLoading(false);

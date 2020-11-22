@@ -134,4 +134,7 @@ router.route('/operacion/:numOperacion?')
     .put(operacion.put)
     .delete(operacion.deleteOperacion);
 
+router.route('/productoByName/:producto')
+    .get(productos.getByName);
+
 module.exports = router;

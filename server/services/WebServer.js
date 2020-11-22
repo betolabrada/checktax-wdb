@@ -4,6 +4,7 @@ const router = require('./Router');
 const config = require('../config/WebServer');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cors = require('cors');
 
 let httpServer;
 
@@ -12,6 +13,8 @@ function initialize() {
         const app = express();
         app.use(morgan('combined'));
         app.use(bodyParser.json());
+        app.use(cors());
+        
         httpServer = http.createServer(app);
 
         app.use('/v1/api', router);

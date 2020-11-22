@@ -26,6 +26,6 @@ export class AplicarOpService {
   notifyChange(): void {
     const copy = Object.assign({}, this.aplicarOp);
     this.aplicarOpChanged.next(copy);
-    this.operationService.modify('aplicarOp', copy);
+    // this.operationService.modify('aplicarOp', copy);
   }
 }

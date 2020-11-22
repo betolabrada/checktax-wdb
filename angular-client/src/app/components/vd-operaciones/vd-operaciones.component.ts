@@ -13,11 +13,16 @@ export class VdOperacionesComponent implements OnInit, OnDestroy {
   operacion: Operacion;
   operaciones: Operacion[];
   private operacionesSub: Subscription;
+  private operacionesSubscription: Subscription;
   constructor(private operacionService: OperacionService) { }
 
   ngOnInit(): void {
     this.operaciones = this.operacionService.getOperaciones();
     console.log(this.operaciones);
+    this.operacionesSubscription = this.operacionService.fetchOperaciones()
+      .subscribe((operaciones) => {
+        this.operaciones = operaciones;
+      });
     this.operacionSub = this.operacionService.operacionChanged
       .subscribe(
         (operacion: Operacion) => {
@@ -44,27 +49,27 @@ export class VdOperacionesComponent implements OnInit, OnDestroy {
 
   get noPagos(): string {
     if (this.operacionService.operacionTieneFinanciamiento()) {
-      return this.operacion.financiamiento.noPagos.toString();
+      return '';
     } else {
       return '';
     }
   }
 
   get referencia(): string {
-    return this.operacion.referenciaPagos ? this.operacion.referenciaPagos : '';
+    return '';
   }
 
   get cliente(): string {
-    return this.operacion.cliente ? this.operacion.cliente : '';
+    return '';
   }
 
   get descripcion(): string {
-    return this.operacion.descripcion ? this.operacion.descripcion : '';
+    return '';
   }
 
   get fondeador(): string {
     if (this.operacionService.operacionTieneFinanciamiento()) {
-      return this.operacion.financiamiento.fondeador;
+      return '';
     } else {
       return '';
     }
@@ -72,7 +77,7 @@ export class VdOperacionesComponent implements OnInit, OnDestroy {
 
   get valorOperacion(): string {
     if (this.operacionService.operacionTieneFinanciamiento()) {
-      return this.operacion.financiamiento.valorOperacion.toString();
+      return '';
     } else {
       return '';
     }

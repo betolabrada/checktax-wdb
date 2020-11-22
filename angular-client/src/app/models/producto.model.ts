@@ -1,27 +1,33 @@
 export interface Producto {
-  idProducto: string | number;
+  idProducto: number;
   producto: string;
-  tipoFin: TipoFinanciamiento[];
+  tiposFin: TipoFinanciamiento[];
 }
 
 export interface TipoFinanciamiento {
-  idTipoFin: string | number;
+  idTipoFin: number;
   tipoFin: string;
   tasa: number;
   anticipo: number;
   apertura: number;
   deposito: number;
   vRescate: number;
-  tfRescate: boolean;
+  tfValorRescate: string;
   descuento: number;
   admon: number;
-  tfAdmon: boolean;
+  tfAdmon: null;
   gps: number;
-  tfGps: boolean;
+  tfGps: string;
   seguroAuto: number;
-  tfSeguroAuto: boolean;
+  tfSeguroAuto: string;
   seguroDeuda: number;
-  tfSeguroDeuda: boolean;
+  tfSeguroDeuda: string;
   liquidacion: number;
   ppTipo: string;
 }
+
+export const defaultProducto = {
+  idProducto: 0,
+  producto: '',
+  tiposFin: []
+};

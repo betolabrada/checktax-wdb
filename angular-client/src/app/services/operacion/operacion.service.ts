@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { defaultOperacion, Operacion, TipoOperacion } from '../../models/operacion.model';
+import { defaultOperacion, Operacion } from '../../models/operacion.model';
 import { ApiService } from '../api/api.service';
 import { AlertService } from '../../components/alert';
 import { LoadingService } from '../loading/loading.service';
@@ -38,8 +38,12 @@ export class OperacionService {
     return this.operaciones.slice();
   }
 
-  queryNumOperacion(numOperacion: string): Observable<JSON> {
-    return this.api.get('/operacion', { numOperacion });
+  fetchOperaciones(): Observable<Operacion[]> {
+    return this.api.get<Operacion[]>('/operacion');
+  }
+
+  queryNumOperacion(numOperacion: string): Observable<Operacion> {
+    return this.api.get<Operacion>(`/operacion/${numOperacion}`);
   }
 
   public modify(k: string, v: any): void {
@@ -49,7 +53,8 @@ export class OperacionService {
 
   public saveOperacion(): void {
     this.loading.setLoading(true);
-    this.api.patch('/operacion', this.operacion).subscribe(
+    console.log('saving', JSON.stringify(this.operacion));
+    this.api.put(`/operacion/${this.operacion.numOperacion}`, this.operacion).subscribe(
       (value) => {
         console.log(value);
         this.loading.setLoading(false);
@@ -63,7 +68,7 @@ export class OperacionService {
   }
 
   operacionTieneFinanciamiento(): boolean {
-    return !!this.operacion.financiamiento;
+    return !!this.operacion.idFinanciamiento;
   }
 
   createOperacion(numOperacion: string): void {
@@ -72,6 +77,13 @@ export class OperacionService {
     this.operaciones.push(operacion);
     this.operacion = operacion;
     this.notifyChange();
+    this.api.post('/operacion', operacion)
+      .subscribe((res) => {
+        console.log(res);
+      },
+        (err) => {
+          console.log(err);
+        });
   }
 
   notifyChange(): void {

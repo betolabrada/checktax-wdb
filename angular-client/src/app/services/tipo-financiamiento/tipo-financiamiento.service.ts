@@ -1,39 +1,24 @@
 import { Injectable } from '@angular/core';
-import { TipoFinanciamiento } from '../../models/producto.model';
-import { Subject } from 'rxjs';
+import { Producto, TipoFinanciamiento } from '../../models/producto.model';
+import { Observable, Subject } from 'rxjs';
 import { ProductoService } from '../producto/producto.service';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TipoFinanciamientoService {
+  producto: Producto;
   tipoFin: TipoFinanciamiento;
   tipoFinChanged: Subject<TipoFinanciamiento>;
-  private tipoFinanciamientos: TipoFinanciamiento[] = [
-    {
-      idTipoFin: '',
-      tipoFin: 'GlobalAuto',
-      tasa: 100,
-      anticipo: 0,
-      apertura: 0,
-      deposito: 0,
-      vRescate: 0,
-      tfRescate: false,
-      descuento: 0,
-      admon: 0,
-      tfAdmon: false,
-      gps: 0,
-      tfGps: false,
-      seguroAuto: 0,
-      tfSeguroAuto: false,
-      seguroDeuda: 0,
-      tfSeguroDeuda: false,
-      liquidacion: 0,
-      ppTipo: '',
-    }
-  ];
-  constructor(private productoService: ProductoService) {
+  private tipoFinanciamientos: TipoFinanciamiento[] = [];
+  constructor(private productoService: ProductoService,
+              private api: ApiService) {
     this.tipoFinChanged = new Subject<TipoFinanciamiento>();
+    this.productoService.productoChanged
+      .subscribe((producto) => {
+        this.tipoFinanciamientos = producto.tiposFin;
+      });
   }
 
   buscaTipoFin(nombre: string): void {
@@ -60,5 +45,9 @@ export class TipoFinanciamientoService {
     const tipoFinCopy: TipoFinanciamiento = Object.assign({}, this.tipoFin);
     this.tipoFinChanged.next(tipoFinCopy);
     this.productoService.modify('selectedTipoFin', tipoFinCopy);
+  }
+
+  fetchTipoFinanciamiento(id: string): Observable<TipoFinanciamiento> {
+    return this.api.get<TipoFinanciamiento>(`/tipoFin/${id}`);
   }
 }

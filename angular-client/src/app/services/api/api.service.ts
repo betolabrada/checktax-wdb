@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { retryWhen, mergeMap } from 'rxjs/operators';
 import { Observable, timer, throwError } from 'rxjs';
 
-export const BASEURL      = 'http://localhost:3000/api';
+export const BASEURL      = 'http://localhost:3000/v1/api';
 export const BASEURL_DEV  = 'http://localhost:3000/api';
 const HTTP_HEADERS        = new HttpHeaders({'Content-Type': 'application/json'});
 const RETRY_ATTEMPTS      = 5;

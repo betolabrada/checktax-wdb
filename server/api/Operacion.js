@@ -2,10 +2,10 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Operacion';
 
-const insertQuery = 'INSERT INTO Operacion (tipo, fecha, folio, referenciaPagos, cliente, persona, descripcion, asesor, idFinanciamiento, ' +
+const insertQuery = 'INSERT INTO Operacion (numOperacion, tipo, fecha, folio, referenciaPagos, cliente, persona, descripcion, asesor, idFinanciamiento, ' +
                     'aplicarOp, impuestos, loteAutos, seguroAuto, comentarios, tfIva, tfSeguro, tfPago, poliza, tfSeguroFin, tipoUnidad, ' +
                     'fechaPago, relPago, marca, factura, version, importe, tipoFin, idCentroCosto, idFactura, estatus, cancelado, aplicPagos, ' +
-                    'fFondeo, confirmado) VALUES(:tipo, :fecha, :folio, :referenciaPagos, :cliente, :persona, :descripcion, :asesor, ' +
+                    'fFondeo, confirmado) VALUES(:numOperacion, :tipo, :fecha, :folio, :referenciaPagos, :cliente, :persona, :descripcion, :asesor, ' +
                     ':idFinanciamiento, :aplicarOp, :impuestos, :loteAutos, :seguroAuto, :comentarios, :tfIva, :tfSeguro, :tfPago, :poliza, ' +
                     ':tfSeguroFin, :tipoUnidad, :fechaPago, :relPago, :marca, :factura, :version, :importe, :tipoFin, :idCentroCosto, :idFactura, ' +
                     ':estatus, :cancelado, :aplicPagos, :fFondeo, :confirmado) RETURNING numOperacion INTO :rid';

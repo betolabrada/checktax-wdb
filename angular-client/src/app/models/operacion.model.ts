@@ -1,82 +1,77 @@
-import { Financiamiento } from './financiamiento.model';
-import { Factura, Impuesto, LoteAuto, SeguroAuto } from './otros.model';
-import { AplicarOp } from './aplicar-operacion.model';
 
-export enum TipoOperacion {
-  Normal,
-  Cotizacion,
-  SinPlan
-}
 
 export interface Operacion {
-
   numOperacion: string;
-  tipo: TipoOperacion;
+  tipo: string;
   fecha: string;
   folio: string;
-  referenciaPagos: string;
-  cliente: string;
+  referenciaPagos: number;
+  cliente: number;
   persona: string;
   descripcion: string;
-  asesor: string;
-  financiamiento: Financiamiento;
-  aplicarOp: AplicarOp;
-  impuesto: Impuesto;
-  loteAutos: LoteAuto;
-  seguroAuto: SeguroAuto;
+  asesor: number;
+  idFinanciamiento: number;
+  aplicarOp: number;
+  impuestos: number;
+  loteAutos: number;
+  seguroAuto: number;
   comentarios: string;
-  tfIva: boolean;
-  tfSeguro: boolean;
-  fPago: string;
+  tfIva: string | boolean;
+  tfSeguro: string | boolean;
+  tfPago: string | boolean;
   poliza: string;
-  tfSeguroFin: boolean;
+  tfSeguroFin: string | boolean;
   tipoUnidad: string;
   fechaPago: string;
   relPago: string;
   marca: string;
+  factura: string;
   version: string;
   importe: number;
+  tipoFin: string;
   idCentroCosto: number;
-  factura: Factura;
+  idFactura: number;
   estatus: string;
-  cancelado: boolean;
-  aplicPagos: boolean;
+  cancelado: string | boolean;
+  aplicPagos: string | boolean;
   fFondeo: string;
-  confirmado: boolean;
+  confirmado: string | boolean;
 }
 
 export const defaultOperacion: Operacion = {
   numOperacion: '',
-  tipo: TipoOperacion.Normal,
-  fecha: '',
-  folio: '',
-  referenciaPagos: '',
-  cliente: '',
-  persona: '',
-  descripcion: '',
-  asesor: '',
-  financiamiento: null,
+  tipo: null,
+  fecha: null,
+  folio: null,
+  referenciaPagos: null,
+  cliente: null,
+  persona: null,
+  descripcion: null,
+  asesor: null,
+  idFinanciamiento: null,
   aplicarOp: null,
-  impuesto: null,
+  impuestos: null,
   loteAutos: null,
   seguroAuto: null,
-  comentarios: '',
-  tfIva: false,
-  tfSeguro: false,
-  fPago: '',
-  poliza: '',
-  tfSeguroFin: false,
-  tipoUnidad: '',
-  fechaPago: '',
-  relPago: '',
-  marca: '',
-  version: '',
-  importe: 0,
-  idCentroCosto: 0,
+  comentarios: null,
+  tfIva: null,
+  tfSeguro: null,
+  tfPago: null,
+  poliza: null,
+  tfSeguroFin: null,
+  tipoUnidad: null,
+  fechaPago: null,
+  relPago: null,
+  marca: null,
   factura: null,
-  estatus: '',
-  cancelado: false,
-  aplicPagos: false,
-  fFondeo: '',
-  confirmado: false,
+  version: null,
+  importe: null,
+  tipoFin: null,
+  idCentroCosto: null,
+  idFactura: null,
+  estatus: null,
+  cancelado: null,
+  aplicPagos: null,
+  fFondeo: null,
+  confirmado: null,
 };

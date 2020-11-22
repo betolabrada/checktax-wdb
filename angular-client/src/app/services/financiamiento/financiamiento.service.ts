@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Financiamiento } from '../../models/financiamiento.model';
+import { defaultFinanciamiento, Financiamiento } from '../../models/financiamiento.model';
 import { BehaviorSubject } from 'rxjs';
 import { OperacionService } from '../operacion/operacion.service';
 
@@ -10,16 +10,7 @@ export class FinanciamientoService {
   financiamiento: Financiamiento;
   financiamientoChanged: BehaviorSubject<Financiamiento>;
   constructor(private operacionService: OperacionService) {
-    this.financiamiento = {
-      producto: null,
-      tipoFin: null,
-      fondeador: '',
-      noPagos: '',
-      periodicidad: '',
-      valorOperacion: '',
-      tasaAnual: '',
-      totalPrimerPago: ''
-    };
+    this.financiamiento = defaultFinanciamiento;
     this.financiamientoChanged = new BehaviorSubject<Financiamiento>(this.financiamiento);
   }
 
@@ -44,6 +35,6 @@ export class FinanciamientoService {
   }
 
   hasSelectedProducto(): boolean {
-    return !!this.financiamiento.producto;
+    return !!this.financiamiento;
   }
 }
