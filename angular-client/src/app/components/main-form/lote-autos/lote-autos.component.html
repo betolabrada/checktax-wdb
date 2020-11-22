@@ -6,8 +6,11 @@
   <div class="section-content d-flex flex-column align-items-end">
     <div class="main-input-group d-block mb-1" style="width: 100%">
       <label for="input-razonSocial">Razón Social</label>
-      <input id="input-razonSocial" type="text" [value]="loteAuto?.razonSocial || ''"
-             (input)="update('razonSocial', $event)">
+      <input id="input-razonSocial" type="text"
+             [value]="loteAuto?.razonSocial || ''"
+             [ngbTypeahead]="typeaheadFunc"
+             (selectItem)="fetch($event)"
+      >
     </div>
     <div class="d-flex">
       <div><label class="d-block m-0 mr-2 text-center" style="width: 75px;">Comisión</label></div>
