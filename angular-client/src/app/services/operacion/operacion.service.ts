@@ -54,6 +54,11 @@ export class OperacionService {
   public saveOperacion(): void {
     this.loading.setLoading(true);
     console.log('saving', JSON.stringify(this.operacion));
+    if (this.operacion.numOperacion.length === 0) {
+      this.alert.showAlert('No puedes guardar una operación sin número de operación', 'error');
+      this.loading.setLoading(false);
+      return;
+    }
     this.api.put(`/operacion/${this.operacion.numOperacion}`, this.operacion).subscribe(
       (value) => {
         console.log(value);

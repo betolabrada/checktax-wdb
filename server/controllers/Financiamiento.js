@@ -10,6 +10,7 @@ function renameAllKeys(ptf) {
     renameKeys(ptf, 'NOPAGOS', 'noPagos');
     renameKeys(ptf, 'PERIODICIDAD', 'periodicidad');
     renameKeys(ptf, 'TOTALPRIMERPAGO', 'totalPrimerPago');
+    renameKeys(ptf, 'VALOROPERACION', 'valorOperacion');
 }
 
 async function get(req, res, next) {
@@ -46,6 +47,7 @@ async function post(req, res, next) {
         periodicidad: req.body.periodicidad,
         totalPrimerPago: req.body.totalPrimerPago,
         descripcion: req.body.descripcion,
+        valorOperacion: req.body.valorOperacion,
         rid:   { type: oracledb.STRING, dir: oracledb.BIND_OUT }
     };
 
@@ -79,10 +81,11 @@ async function put(req, res, next) {
             noPagos: req.body.noPagos,
             periodicidad: req.body.periodicidad,
             totalPrimerPago: req.body.totalPrimerPago,
-            descripcion: req.body.descripcion
+            descripcion: req.body.descripcion,
+            valorOperacion: req.body.valorOperacion
         };
         const result = await Fin.update(context);
-        res.status(201).end('Financiamiento updated successfully!');
+        res.status(201).json({ message: 'Financiamiento updated successfully!' });
     } catch (err) {
         console.log(err);
         res.status(404).end();

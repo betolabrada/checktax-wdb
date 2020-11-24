@@ -34,7 +34,8 @@
       <input id="input-fecha"
              type="text"
              [value]="fecha"
-             (input)="update('fecha', $event)"
+             (input)="onInput($event.target.value)"
+             (change)="dateFormat(textFecha)"
       >
     </div>
     <div class="main-input-group">

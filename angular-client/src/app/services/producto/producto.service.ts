@@ -4,6 +4,7 @@ import { defaultProducto, Producto, TipoFinanciamiento } from '../../models/prod
 import { BehaviorSubject, Observable, Subject, of } from 'rxjs';
 import { TipoFinanciamientoService } from '../tipo-financiamiento/tipo-financiamiento.service';
 import { FinanciamientoService } from '../financiamiento/financiamiento.service';
+import { ProductoTipofinService } from '../producto-tipofin.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ProductoService {
   productoChanged = new BehaviorSubject<Producto>(this.producto);
   productosChanged = new Subject<Producto[]>();
   constructor(private api: ApiService,
-              private financiamientoService: FinanciamientoService) {}
+              private productoTipoFinService: ProductoTipofinService) {}
 
   changeProducto(producto: Producto): void {
     this.producto = producto;
@@ -65,7 +66,6 @@ export class ProductoService {
 
   private notifyChange(): void {
     const productoCopy = Object.assign({}, this.producto);
-    this.productoChanged.next(productoCopy);
-    this.financiamientoService.modify('producto', productoCopy);
+    this.productoTipoFinService.productoChanged.next(productoCopy);
   }
 }

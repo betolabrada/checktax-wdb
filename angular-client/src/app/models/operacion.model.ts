@@ -1,3 +1,4 @@
+import { Financiamiento } from './financiamiento.model';
 
 
 export interface Operacion {
@@ -36,6 +37,7 @@ export interface Operacion {
   aplicPagos: string | boolean;
   fFondeo: string;
   confirmado: string | boolean;
+  financiamiento: Financiamiento;
 }
 
 export const defaultOperacion: Operacion = {
@@ -74,4 +76,5 @@ export const defaultOperacion: Operacion = {
   aplicPagos: null,
   fFondeo: null,
   confirmado: null,
+  financiamiento: null
 };
