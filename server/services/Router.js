@@ -19,6 +19,7 @@ const aplicarOp = require('../controllers/AplicarOp');
 const centroCostoConcepto = require('../controllers/CentroCostoConcepto');
 const conceptoSubconcepto = require('../controllers/ConceptoSubconcepto');
 const operacion = require('../controllers/Operacion');
+const users = require('../controllers/Users');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
