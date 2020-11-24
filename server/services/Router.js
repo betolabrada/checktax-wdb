@@ -19,6 +19,7 @@ const aplicarOp = require('../controllers/AplicarOp');
 const centroCostoConcepto = require('../controllers/CentroCostoConcepto');
 const conceptoSubconcepto = require('../controllers/ConceptoSubconcepto');
 const operacion = require('../controllers/Operacion');
+const users = require('../controllers/Users');
 
 router.route('/centroCosto/:idCentroCosto?')
     .get(centroCosto.get)
@@ -136,5 +137,33 @@ router.route('/operacion/:numOperacion?')
 
 router.route('/productoByName/:producto')
     .get(productos.getByName);
+
+router.route('/getUser/:username')
+    .get(users.getUser);
+
+router.route('/verifyPermission/:section/:permission')
+    .get(users.verifyPermission);
+
+router.route('/login/:username/:password')
+    .post(users.login);
+
+router.route('/addUser/:username/:password')
+    .post(users.addUser);
+
+router.route('/addPermission/:username/:section/:permission')
+    .post(users.addPermission);
+
+router.route('/insertSection/:sectionName')
+    .post(users.insertSection);
+
+router.route('/insertPermission/:section/:permission')
+    .post(users.insertPermission);
+
+router.route('/deleteUser/:username')
+    .delete(users.deleteUser);
+
+router.route('/removePermission/:username/:section/:permission')
+    .delete(users.removePermission);
+
 
 module.exports = router;

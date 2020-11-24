@@ -40,6 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OtrosParamComponent } from './components/main-form/otros-param/otros-param.component';
 import { AplicarOpComponent } from './components/main-form/aplicar-op/aplicar-op.component';
 import { LoteAutosComponent } from './components/main-form/lote-autos/lote-autos.component';
+import { LoginComponent } from './pages/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -72,7 +73,8 @@ import { LoteAutosComponent } from './components/main-form/lote-autos/lote-autos
     FinanciamientoComponent,
     OtrosParamComponent,
     AplicarOpComponent,
-    LoteAutosComponent
+    LoteAutosComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

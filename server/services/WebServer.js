@@ -4,6 +4,7 @@ const router = require('./Router');
 const config = require('../config/WebServer');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 let httpServer;
@@ -11,17 +12,18 @@ let httpServer;
 function initialize() {
     return new Promise((resolve, reject) => {
         const app = express();
+        app.use(cookieParser());
         app.use(morgan('combined'));
-        app.use(bodyParser.json());
-        app.use(cors());
         
+        const corsOptions = {
+            origin: true,
+            credentials: true
+        }
+        app.use(cors(corsOptions));
+        app.use(bodyParser.json());
+        app.use('/v1/api', router);
         httpServer = http.createServer(app);
 
-        app.use('/v1/api', router);
-
-        app.get('/', (req, res) => {
-            res.end('Hello World OCI');
-        });
 
         httpServer.listen(config.port)
             .on('listening', () => {
