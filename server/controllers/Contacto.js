@@ -3,6 +3,24 @@ const dom = require('../api/Domicilio');
 const com = require('../api/Comunicacion');
 const datosPer = require('../api/DatosPersonales');
 const oracledb = require('oracledb');
+const { renameKeys } = require('./renameKeys');
+
+function renameAllKeys(op) {
+    renameKeys(op, 'IDCONTACTO', 'idContacto');
+    renameKeys(op, 'NOMBRE', 'nombre');
+    renameKeys(op, 'TIPO', 'tipo');
+    renameKeys(op, 'RAZONSOCIAL', 'razonSocial');
+    renameKeys(op, 'IDPER', 'idPer');
+    renameKeys(op, 'IDCLIENTE', 'idCliente');
+    renameKeys(op, 'IDCOM', 'idCom');
+    renameKeys(op, 'IDDOM', 'idDom');
+    renameKeys(op, 'RECOMENDADO' ,'recomendado');
+    renameKeys(op, 'ASESOR', 'asesor');
+    renameKeys(op, 'TIPOASESOR', 'tipoAsesor');
+    renameKeys(op,'PUESTO', 'puesto');
+    renameKeys(op,'ACTIVO', 'activo');
+    renameKeys(op, 'WEB', 'web');
+}
 
 async function get(req, res, next) {
     try {
@@ -13,13 +31,14 @@ async function get(req, res, next) {
 
         if (req.params.idContacto) {
             if (rows.length === 1) {
-                console.log(rows[0]);
+                renameAllKeys(rows[0]);
                 res.status(200).json(rows[0]);
             } else {
                 res.status(404).end();
             }
         } else {
             console.log(rows);
+            rows.forEach(row => { renameAllKeys(row) });
             res.status(200).json(rows);
         }
     } catch (err) {

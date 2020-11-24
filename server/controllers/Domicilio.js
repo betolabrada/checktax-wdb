@@ -1,5 +1,16 @@
 const domicilio = require('../api/Domicilio');
 const oracledb = require('oracledb');
+const { renameKeys } = require('./renameKeys');
+
+function renameAllKeys(op) {
+    renameKeys(op, 'IDDOM', 'idDom');
+    renameKeys(op, 'CALLE', 'calle');
+    renameKeys(op, 'COLONIA', 'colonia');
+    renameKeys(op, 'NOEXT', 'noExt');
+    renameKeys(op, 'NOINT', 'noInt');
+    renameKeys(op, 'CIUDAD', 'ciudad');
+    renameKeys(op, 'CP', 'cp');
+}
 
 async function get(req, res, next) {
     try {
@@ -10,13 +21,14 @@ async function get(req, res, next) {
 
         if (req.params.idDom) {
             if (rows.length === 1) {
-                console.log(rows[0]);
+                renameAllKeys(rows[0]);
                 res.status(200).json(rows[0]);
             } else {
                 res.status(404).end();
             }
         } else {
             console.log(rows);
+            rows.forEach(row => { renameAllKeys(row); });
             res.status(200).json(rows);
         }
     } catch (err) {

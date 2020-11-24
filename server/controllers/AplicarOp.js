@@ -1,5 +1,12 @@
 const AplOp = require('../api/AplicarOp');
 const oracledb = require('oracledb');
+const { renameKeys } = require('./renameKeys');
+
+function renameAllKeys(op) {
+    renameKeys(op, 'ID', 'id');
+    renameKeys(op, 'CHEQUERA', 'chequera');
+    renameKeys(op, 'SUCURSAL', 'sucursal');
+}
 
 async function get(req, res, next) {
     try {
@@ -10,13 +17,14 @@ async function get(req, res, next) {
 
         if (req.params.id) {
             if (rows.length === 1) {
-                console.log(rows[0]);
+                renameAllKeys(rows[0])
                 res.status(200).json(rows[0]);
             } else {
                 res.status(404).end();
             }
         } else {
             console.log(rows);
+            rows.forEach(row => { renameAllKeys(row); });
             res.status(200).json(rows);
         }
     } catch (err) {
