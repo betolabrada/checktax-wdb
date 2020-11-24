@@ -66,11 +66,12 @@ async function get(req, res, next) {
 
         const rows = await pro.find(context);
 
+        console.log('rows: ', rows);
         if (req.params.idProducto) {
             if (rows.length > 0) {
                 let pl = {};
-                constructPL(pl);
-                res.status(200).json(pl, rows);
+                constructPL(pl, rows);
+                res.status(200).json(pl);
             } else {
                 res.status(404).end();
             }
@@ -79,7 +80,6 @@ async function get(req, res, next) {
                 renameKeys(row, 'IDPRODUCTO', 'idProducto')
                 renameKeys(row, 'PRODUCTO', 'producto')
             });
-            console.log(rows);
             res.status(200).json(rows);
         }
     } catch (err) {

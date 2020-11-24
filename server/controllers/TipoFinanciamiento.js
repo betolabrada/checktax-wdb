@@ -1,5 +1,36 @@
 const tipoF = require('../api/TipoFinanciamiento');
 const oracledb = require('oracledb');
+const { renameKeys } = require('./renameKeys');
+
+function renameAllKeys(ptf) {
+    renameKeys(ptf, 'ADMON', 'idProducto');
+    renameKeys(ptf, 'ANTICIPO', 'idTipoFin');
+    renameKeys(ptf, 'DEPOSITO', 'id');
+    renameKeys(ptf, 'DESCUENTO', 'id');
+    renameKeys(ptf, 'GPS', 'id');
+    renameKeys(ptf, 'IDTIPOFIN', 'id');
+    renameKeys(ptf, 'LIQUIDACION', 'id');
+    renameKeys(ptf, 'PPTIPO', 'id');
+    renameKeys(ptf, 'APERTURA', 'id');
+    renameKeys(ptf, 'APERTURA', 'id');
+    renameKeys(ptf, 'APERTURA', 'id');
+    renameKeys(ptf, 'APERTURA', 'id');
+    renameKeys(ptf, 'APERTURA', 'id');
+    /*
+        PPTIPO: "ppTipo de financiamiento"
+        SEGUROAUTO: 0
+        SEGURODEUDA: 0
+        TASA: 25.98
+        TFADMON: null
+        TFGPS: "N"
+        TFSEGUROAUTO: "N"
+        TFSEGURODEUDA: "N"
+        TFVALORRESCATE: "Y"
+        TIPOFIN: "GlobalAuto"
+        VALOROPERACION: null
+        VRESCATE
+     */
+}
 
 async function get(req, res, next) {
     try {

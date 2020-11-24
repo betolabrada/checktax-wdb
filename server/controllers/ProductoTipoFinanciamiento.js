@@ -1,5 +1,12 @@
 const tipoFin = require('../api/ProductoTipoFinanciamiento');
 const oracledb = require('oracledb');
+const { renameKeys } = require('./renameKeys');
+
+function renameAllKeys(ptf) {
+    renameKeys(ptf, 'IDPRODUCTO', 'idProducto');
+    renameKeys(ptf, 'IDTIPOFIN', 'idTipoFin');
+    renameKeys(ptf, 'ID', 'id');
+}
 
 async function get(req, res, next) {
     try {
@@ -11,12 +18,15 @@ async function get(req, res, next) {
         if (req.params.id) {
             if (rows.length === 1) {
                 console.log(rows[0]);
-                res.status(200).json(rows[0]);
+                const ptf = rows[0];
+                renameAllKeys(ptf);
+                res.status(200).json(ptf);
             } else {
                 res.status(404).end();
             }
         } else {
             console.log(rows);
+            rows.forEach(row => { renameAllKeys(row); });
             res.status(200).json(rows);
         }
     } catch (err) {

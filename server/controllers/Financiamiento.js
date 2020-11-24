@@ -1,5 +1,16 @@
 const Fin = require('../api/Financiamiento');
 const oracledb = require('oracledb');
+const { renameKeys } = require('./renameKeys');
+
+function renameAllKeys(ptf) {
+    renameKeys(ptf, 'DESCRIPCION', 'descripcion');
+    renameKeys(ptf, 'IDCONCEPTO', 'idConcepto');
+    renameKeys(ptf, 'IDFINANCIAMIENTO', 'idFinanciamiento');
+    renameKeys(ptf, 'IDPRODUCTOTIPOFINANCIAMIENTO', 'idProductoTipoFinanciamiento');
+    renameKeys(ptf, 'NOPAGOS', 'noPagos');
+    renameKeys(ptf, 'PERIODICIDAD', 'periodicidad');
+    renameKeys(ptf, 'TOTALPRIMERPAGO', 'totalPrimerPago');
+}
 
 async function get(req, res, next) {
     try {
@@ -11,12 +22,14 @@ async function get(req, res, next) {
         if (req.params.idFinanciamiento) {
             if (rows.length === 1) {
                 console.log(rows[0]);
+                renameAllKeys(rows[0]);
                 res.status(200).json(rows[0]);
             } else {
                 res.status(404).end();
             }
         } else {
             console.log(rows);
+            rows.forEach(row => renameAllKeys(row));
             res.status(200).json(rows);
         }
     } catch (err) {
@@ -27,7 +40,7 @@ async function get(req, res, next) {
 
 async function post(req, res, next) {
     let financimiento = {
-        idProducto: req.body.idProducto,
+        idProductoTipoFinanciamiento: req.body.idProductoTipoFinanciamiento,
         idConcepto: req.body.idConcepto,
         noPagos: req.body.noPagos,
         periodicidad: req.body.periodicidad,
@@ -61,7 +74,7 @@ async function put(req, res, next) {
     try {
         let context = {
             idFinanciamiento: parseInt(req.params.idFinanciamiento, 10),
-            idProducto: req.body.idProducto,
+            idProductoTipoFinanciamiento: req.body.idProductoTipoFinanciamiento,
             idConcepto: req.body.idConcepto,
             noPagos: req.body.noPagos,
             periodicidad: req.body.periodicidad,
