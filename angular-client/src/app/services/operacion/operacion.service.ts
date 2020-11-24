@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { defaultOperacion, Operacion } from '../../models/operacion.model';
 import { ApiService } from '../api/api.service';
 import { AlertService } from '../../components/alert';
 import { LoadingService } from '../loading/loading.service';
+import { count, switchMap, tap } from 'rxjs/operators';
+import { Financiamiento } from '../../models/financiamiento.model';
+import { DateFormatterService } from '../date-formatter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +16,12 @@ export class OperacionService {
   private operacion: Operacion = Object.assign({}, defaultOperacion);
   private operaciones: Operacion[] = [];
   operacionChanged = new BehaviorSubject<Operacion>(Object.assign({}, this.operacion));
-  listChanged = new Subject<Operacion[]>();
+  operacionesChanged = new Subject<Operacion[]>();
 
   constructor(private api: ApiService,
               private alert: AlertService,
-              private loading: LoadingService) {}
+              private loading: LoadingService,
+              private dateFormatter: DateFormatterService) {}
 
   saveChanges(): void {
     this.saveOperacion();
@@ -38,8 +42,32 @@ export class OperacionService {
     return this.operaciones.slice();
   }
 
-  fetchOperaciones(): Observable<Operacion[]> {
-    return this.api.get<Operacion[]>('/operacion');
+  fetchOperaciones(): void {
+    this.api.get<Operacion[]>('/operacion')
+      .pipe(
+        tap((operaciones) => {
+          this.operaciones = operaciones;
+          this.verifyDate();
+          console.log('this.operaciones', this.operaciones);
+          this.operacionesChanged.next(this.operaciones);
+        }),
+        switchMap((operaciones1: Operacion[]) => {
+          const arr = operaciones1.map((operacion) => {
+            if (operacion.idFinanciamiento) {
+              return this.api.get<Financiamiento>(`/financiamiento/${operacion.idFinanciamiento}`);
+            } else {
+              return of([]);
+            }
+          });
+          return forkJoin(arr);
+        }),
+      )
+      .subscribe((value) => {
+        this.operaciones.forEach((operacion, index) => {
+          operacion.financiamiento = value[index];
+        });
+        console.log(this.operaciones);
+      });
   }
 
   queryNumOperacion(numOperacion: string): Observable<Operacion> {
@@ -93,11 +121,22 @@ export class OperacionService {
 
   notifyChange(): void {
     this.operacionChanged.next(Object.assign({}, this.operacion));
-    this.listChanged.next(this.operaciones.slice());
+    this.operacionesChanged.next(this.operaciones.slice());
   }
 
   clear(): void {
     this.operacion = Object.assign({}, defaultOperacion);
     this.notifyChange();
+  }
+
+  private verifyDate() {
+    this.operaciones.forEach((operacion) => {
+      if (operacion.fecha) {
+        const inFormat = this.dateFormatter.isInFormat(operacion.fecha);
+        if (!inFormat) {
+          operacion.fecha = this.dateFormatter.formattedDate(operacion.fecha);
+        }
+      }
+    });
   }
 }

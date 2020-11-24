@@ -29,19 +29,7 @@ export class GeneralComponent implements OnInit {
 
   get fecha(): string {
     if (this.operacion.fecha) {
-      const monthNames = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN',
-        'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DEC'
-      ];
-      const date = new Date(this.operacion.fecha);
-      const year = date.getFullYear();
-      const month: number = date.getMonth();
-      let dt: string | number = date.getDate();
-
-      if (dt < 10) {
-        dt = '0' + dt;
-      }
-
-      return dt + '-' + monthNames[month] + '-' + year.toString().substring(2);
+      return this.operacion.fecha;
     }
     return this.textFecha;
   }
@@ -124,7 +112,7 @@ export class GeneralComponent implements OnInit {
     console.log(array);
     const date = array[0];
     const month = array[1].toLocaleUpperCase();
-    const year = '20' + array[2];
+    const year = array[2];
     this.operacionService.modify('fecha', `${date}-${month}-${year}`);
   }
 

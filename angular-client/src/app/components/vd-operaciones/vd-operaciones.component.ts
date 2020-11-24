@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { OperacionService } from '../../services/operacion/operacion.service';
 import { Operacion } from '../../models/operacion.model';
-import { Subscription } from 'rxjs';
+import { from, of, Subscription } from 'rxjs';
+import { FinanciamientoService } from '../../services/financiamiento/financiamiento.service';
+import { Financiamiento } from '../../models/financiamiento.model';
+import { count, map, pluck, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-vd-operaciones',
@@ -14,22 +17,15 @@ export class VdOperacionesComponent implements OnInit, OnDestroy {
   operaciones: Operacion[];
   private operacionesSub: Subscription;
   private operacionesSubscription: Subscription;
-  constructor(private operacionService: OperacionService) { }
+  private financiamiento: Financiamiento;
+  private financiamientoSubscription: Subscription;
+  constructor(private operacionService: OperacionService,
+              private financiamientoService: FinanciamientoService) { }
 
   ngOnInit(): void {
     this.operaciones = this.operacionService.getOperaciones();
-    console.log(this.operaciones);
-    this.operacionesSubscription = this.operacionService.fetchOperaciones()
-      .subscribe((operaciones) => {
-        this.operaciones = operaciones;
-      });
-    this.operacionSub = this.operacionService.operacionChanged
-      .subscribe(
-        (operacion: Operacion) => {
-          this.operacion = operacion;
-        }
-      );
-    this.operacionesSub = this.operacionService.listChanged
+    this.operacionService.fetchOperaciones();
+    this.operacionesSub = this.operacionService.operacionesChanged
       .subscribe((operaciones) => {
         this.operaciones = operaciones;
       });
