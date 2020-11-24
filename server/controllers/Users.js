@@ -18,15 +18,15 @@ async function getUser(req, res, next) {
 
 async function addUser(req, res, next) {
     let inputUser = {
-        username: req.params.username
+        username: req.body.username
     }
     const existingUser = await users.find(inputUser);
     if(existingUser.length > 0){
         return res.status(401).json({msg: 'Username already exists !', status: 401});
     }
     let user = {
-        username: req.params.username,
-        password: req.params.password
+        username: req.body.username,
+        password: req.body.password
     }
 
     if(user.password.length < 5){
@@ -74,11 +74,13 @@ async function deleteUser(req, res, next) {
 }
 
 async function login(req, res, next){
+    console.log('loginnn');
     let user = {
-        username: req.params.username,
-        password: req.params.password
+        username: req.body.username,
+        password: req.body.password
     }
     const userLogedIn_result = await users.login(user);
+    console.log(userLogedIn_result);
     if(userLogedIn_result.msg != 'User loged in successfully!'){
         return res.status(401).json({msg: userLogedIn_result.msg, status: 401});
     }
@@ -135,7 +137,7 @@ async function verifyPermission(req, res){
 
 async function insertSection(req, res){
     let section = {
-        name: req.params.sectionName
+        name: req.body.sectionName
     }
     const sectionResult = await users.insertSection(section);
     if(sectionResult.msg == 'Section already exists !'){
@@ -146,14 +148,37 @@ async function insertSection(req, res){
 
 async function insertPermission(req, res){
     let permission = {
-        section: req.params.section,
-        name: req.params.permission
+        section: req.body.section,
+        name: req.body.permission
     }
     const permissionResult = await users.insertPermission(permission);
     if(permissionResult.msg != 'Permission inserted successfully !'){
         return res.status(401).json({msg: permissionResult.msg, status: 401});
     }
     return res.status(401).json({msg: permissionResult.msg, status: 200});
+}
+
+async function getSections(req, res, next){
+    try {
+        const context = {};
+        context.id = parseInt(req.params.id, 10);
+
+        const rows = await users.getSections(context);
+
+        if (req.params.id) {
+            if (rows.length === 1) {
+                res.status(200).json(rows[0]);
+            } else {
+                res.status(404).end();
+            }
+        } else {
+            console.log(rows);
+            res.status(200).json(rows);
+        }
+    } catch (err) {
+        console.log(err);
+        next(err);
+    }
 }
 
 module.exports.getUser = getUser;
@@ -165,3 +190,4 @@ module.exports.login = login;
 module.exports.verifyPermission = verifyPermission;
 module.exports.insertSection = insertSection;
 module.exports.insertPermission = insertPermission;
+module.exports.getSections = getSections;

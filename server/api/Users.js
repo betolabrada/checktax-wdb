@@ -4,10 +4,11 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 const selectQuery = 'SELECT id FROM users WHERE LOWER(username) = :username';
-const verifyCredentialsQuery = 'SELECT id FROM users WHERE LOWER(username) = :username AND password = :password';
+    const verifyCredentialsQuery = 'SELECT id FROM users WHERE LOWER(username) = :username AND password = :password';
 const selectSectionPermission = 'SELECT permissions.id "permissionID", permissions_section.id "sectionID" FROM permissions INNER JOIN permissions_section ON permissions.idPermissionSection = permissions_section.id WHERE (PERMISSIONS.permission = :permission AND permissions_section.section = :section)';
 const selectUserPermission = 'SELECT * FROM user_permissions WHERE userID = :userID AND permissionID = :permissionID';
 const selectSection = 'SELECT id FROM permissions_section WHERE section = LOWER(:section)'
+const selectSections = 'SELECT * FROM permissions_section';
 
 const insertUserQuery = 'INSERT INTO users(id, username, password, registered, last_login) VALUES(:id, LOWER(:username), :password, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)';
 const grantPermissionQuery = 'INSERT INTO user_permissions (id, userID, permissionID) VALUES(:id, :userID, :permissionID)';
@@ -117,54 +118,61 @@ async function deleteUser(user){
 }
 
 async function login(user){
-    if(user.username == '' || user.password == ''){
-        return {
-            msg: 'Invalid username or password!'
-        }
-    }
-    let userBinds = {
-        username: user.username
-    }
-    let userIDRedusult = await find(userBinds);
-    if(userIDRedusult.length > 0){
-        let credentialBinds = {
-            username: user.username,
-            password: crypto.createHash('sha256').update(user.password).digest('hex')
-        }
-        const authenticationResult = await database.queryExecutor(verifyCredentialsQuery, credentialBinds);
-        if(authenticationResult.rows.length > 0){
-            const jwtToken = jwt.sign({
-                username: authenticationResult.rows[0].username,
-                userID: authenticationResult.rows[0].ID
-              },
-              process.env.ACCESS_TOKEN_SECRET, {
-                algorithm: 'HS256',
-                expiresIn: '1h'
-              }
-            );
-            let idBinds = {
-                id: userIDRedusult[0].ID
-            }
-            await database.queryExecutor(updateLogIn, idBinds);
+    try {
+        if(user.username == '' || user.password == ''){
             return {
-                msg: 'User loged in successfully!',
-                jwt: jwtToken
+                msg: 'Invalid username or password!'
             }
         }
-        return {
-            msg: 'Wrong password !'
+        let userBinds = {
+            username: user.username
         }
-    }else{
-        return {
-            msg: 'Invalid username. User does not exists !'
+        let userIDRedusult = await find(userBinds);
+        console.log('userresult', userIDRedusult);
+        if(userIDRedusult.length > 0){
+            let credentialBinds = {
+                username: user.username,
+                password: crypto.createHash('sha256').update(user.password).digest('hex')
+            }
+            console.log('credentialbinds', credentialBinds);
+            const authenticationResult = await database.queryExecutor(verifyCredentialsQuery, credentialBinds);
+            console.log('auth result', authenticationResult);
+            if(authenticationResult.rows.length > 0){
+                const jwtToken = jwt.sign({
+                    username: authenticationResult.rows[0].username,
+                    userID: authenticationResult.rows[0].ID
+                  },
+                  process.env.ACCESS_TOKEN_SECRET, {
+                    algorithm: 'HS256',
+                    expiresIn: '1h'
+                  }
+                );
+                let idBinds = {
+                    id: userIDRedusult[0].ID
+                }
+                await database.queryExecutor(updateLogIn, idBinds);
+                return {
+                    msg: 'User loged in successfully!',
+                    jwt: jwtToken
+                }
+            }
+            return {
+                msg: 'Wrong password !'
+            }
+        }else{
+            return {
+                msg: 'Invalid username. User does not exists !'
+            }
         }
+    } catch (e) {
+        console.log('error', e);
     }
 }
 
 async function verifyToken(token){
     try {
         const decoded = jwt.verify(
-            token, 
+            token,
             process.env.ACCESS_TOKEN_SECRET
         );
         return {
@@ -237,6 +245,20 @@ async function insertSection(section){
     return {msg: 'Section inserted successfully !'}
 }
 
+async function getSections(context){
+    let query = selectSections;
+    let binds = {};
+
+    if (context.id) {
+        binds.id = context.id;
+        query += '\nWHERE id = :id';
+    }
+
+    const result = await database.queryExecutor(query, binds);
+
+    return result.rows;
+}
+
 module.exports.find = find;
 module.exports.addUser = addUser;
 module.exports.addPermission = addPermission;
@@ -247,3 +269,4 @@ module.exports.verifyToken = verifyToken;
 module.exports.verifyPermission = verifyPermission;
 module.exports.insertPermission = insertPermission;
 module.exports.insertSection = insertSection;
+module.exports.getSections = getSections;

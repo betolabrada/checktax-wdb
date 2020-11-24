@@ -64,7 +64,7 @@ export class OperacionService {
       )
       .subscribe((value) => {
         this.operaciones.forEach((operacion, index) => {
-          operacion.financiamiento = value[index];
+          operacion.financiamiento = value[index] as Financiamiento;
         });
         console.log(this.operaciones);
       });

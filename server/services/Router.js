@@ -144,19 +144,20 @@ router.route('/getUser/:username')
 router.route('/verifyPermission/:section/:permission')
     .get(users.verifyPermission);
 
-router.route('/login/:username/:password')
+router.route('/login')
     .post(users.login);
 
-router.route('/addUser/:username/:password')
+router.route('/addUser/')
     .post(users.addUser);
 
 router.route('/addPermission/:username/:section/:permission')
     .post(users.addPermission);
 
-router.route('/insertSection/:sectionName')
-    .post(users.insertSection);
+router.route('/section')
+    .post(users.insertSection)
+    .get(users.getSections);
 
-router.route('/insertPermission/:section/:permission')
+router.route('/insertPermission')
     .post(users.insertPermission);
 
 router.route('/deleteUser/:username')
