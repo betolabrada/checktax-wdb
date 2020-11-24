@@ -1,5 +1,14 @@
 const com = require('../api/Comunicacion');
 const oracledb = require('oracledb');
+const { renameKeys } = require('./renameKeys');
+
+function renameAllKeys(op) {
+    renameKeys(op, 'IDCOM', 'idCom');
+    renameKeys(op, 'TELOFICINA', 'telOficina');
+    renameKeys(op,'TELOTRO','telOtro');
+    renameKeys(op, 'TELCELULAR', 'telCelular');
+    renameKeys(op, 'MAIL', 'mail');
+}
 
 async function get(req, res, next) {
     try {
@@ -18,13 +27,14 @@ async function getRefactor(req, res, context, find) {
 
     if (context.idCom) {
         if (rows.length === 1) {
-            console.log(rows[0]);
+            renameAllKeys(rows[0]);
             res.status(200).json(rows[0]);
         } else {
             res.status(404).end();
         }
     } else {
         console.log(rows);
+        rows.forEach(row => {renameAllKeys(row)});
         res.status(200).json(rows);
     }
 }
