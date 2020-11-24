@@ -2,34 +2,27 @@ const tipoF = require('../api/TipoFinanciamiento');
 const oracledb = require('oracledb');
 const { renameKeys } = require('./renameKeys');
 
-function renameAllKeys(ptf) {
-    renameKeys(ptf, 'ADMON', 'idProducto');
-    renameKeys(ptf, 'ANTICIPO', 'idTipoFin');
-    renameKeys(ptf, 'DEPOSITO', 'id');
-    renameKeys(ptf, 'DESCUENTO', 'id');
-    renameKeys(ptf, 'GPS', 'id');
-    renameKeys(ptf, 'IDTIPOFIN', 'id');
-    renameKeys(ptf, 'LIQUIDACION', 'id');
-    renameKeys(ptf, 'PPTIPO', 'id');
-    renameKeys(ptf, 'APERTURA', 'id');
-    renameKeys(ptf, 'APERTURA', 'id');
-    renameKeys(ptf, 'APERTURA', 'id');
-    renameKeys(ptf, 'APERTURA', 'id');
-    renameKeys(ptf, 'APERTURA', 'id');
-    /*
-        PPTIPO: "ppTipo de financiamiento"
-        SEGUROAUTO: 0
-        SEGURODEUDA: 0
-        TASA: 25.98
-        TFADMON: null
-        TFGPS: "N"
-        TFSEGUROAUTO: "N"
-        TFSEGURODEUDA: "N"
-        TFVALORRESCATE: "Y"
-        TIPOFIN: "GlobalAuto"
-        VALOROPERACION: null
-        VRESCATE
-     */
+function renameAllKeys(tf) {
+    renameKeys(tf, 'ADMON', 'admon');
+    renameKeys(tf, 'ANTICIPO', 'anticipo');
+    renameKeys(tf, 'APERTURA', 'apertura');
+    renameKeys(tf, 'DEPOSITO', 'deposito');
+    renameKeys(tf, 'DESCUENTO', 'descuento');
+    renameKeys(tf, 'GPS', 'gps');
+    renameKeys(tf, 'IDTIPOFIN', 'idTipoFin');
+    renameKeys(tf, 'LIQUIDACION', 'liquidacion');
+    renameKeys(tf, 'PPTIPO', 'ppTipo');
+    renameKeys(tf, 'SEGUROAUTO', 'seguroAuto');
+    renameKeys(tf, 'SEGURODEUDA', 'seguroDeuda');
+    renameKeys(tf, 'TASA', 'tasa');
+    renameKeys(tf, 'TFADMON', 'tfAdmon');
+    renameKeys(tf, 'TFGPS', 'tfGps');
+    renameKeys(tf, 'TFSEGUROAUTO', 'tfSeguroAuto');
+    renameKeys(tf, 'TFSEGURODEUDA', 'tfSeguroDeuda');
+    renameKeys(tf, 'TFVALORRESCATE', 'tfValorRescate');
+    renameKeys(tf, 'TIPOFIN', 'tipoFin');
+    renameKeys(tf, 'VALOROPERACION', 'valorOperacion');
+    renameKeys(tf, 'VRESCATE', 'vRescate');
 }
 
 async function get(req, res, next) {
@@ -42,12 +35,14 @@ async function get(req, res, next) {
         if (req.params.idTipoFin) {
             if (rows.length === 1) {
                 console.log(rows[0]);
+                renameAllKeys(rows[0]);
                 res.status(200).json(rows[0]);
             } else {
                 res.status(404).end();
             }
         } else {
             console.log(rows);
+            rows.forEach(row => renameAllKeys(row));
             res.status(200).json(rows);
         }
     } catch (err) {

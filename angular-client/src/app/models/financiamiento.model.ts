@@ -1,8 +1,16 @@
+import { Producto } from './producto.model';
+
+export interface Concepto {
+  concepto: string;
+}
 
 export interface Financiamiento {
   idFinanciamiento: number | string;
-  idProducto: number;
+  idProductoTipoFinanciamiento: number;
+  producto: Producto;
   idConcepto: number;
+  concepto: Concepto;
+  valorOperacion: number;
   noPagos: number;
   periodicidad: string;
   totalPrimerPago: number;
@@ -11,8 +19,11 @@ export interface Financiamiento {
 
 export const defaultFinanciamiento: Financiamiento = {
   idFinanciamiento: '',
-  idProducto: null,
+  idProductoTipoFinanciamiento: null,
+  producto: null,
   idConcepto: null,
+  concepto: null,
+  valorOperacion: 0,
   noPagos: 0,
   periodicidad: '',
   totalPrimerPago: 0,

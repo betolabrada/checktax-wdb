@@ -39,51 +39,6 @@ export class VdOperacionesComponent implements OnInit, OnDestroy {
     this.operacionService.changeOperacion(this.operaciones[index]);
   }
 
-  get numOperacion(): string {
-    return this.operacion.numOperacion ? this.operacion.numOperacion : '';
-  }
-
-  get fecha(): string {
-    return this.operacion.fecha ? this.operacion.fecha : '';
-  }
-
-  get noPagos(): string {
-    if (this.operacionService.operacionTieneFinanciamiento()) {
-      return '';
-    } else {
-      return '';
-    }
-  }
-
-  get referencia(): string {
-    return '';
-  }
-
-  get cliente(): string {
-    return '';
-  }
-
-  get descripcion(): string {
-    return '';
-  }
-
-  get fondeador(): string {
-    if (this.operacionService.operacionTieneFinanciamiento()) {
-      return '';
-    } else {
-      return '';
-    }
-  }
-
-  get valorOperacion(): string {
-    if (this.operacionService.operacionTieneFinanciamiento()) {
-      return '';
-    } else {
-      return '';
-    }
-  }
-
-
   ngOnDestroy(): void {
     this.operacionesSub.unsubscribe();
     this.operacionSub.unsubscribe();

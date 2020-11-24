@@ -14,6 +14,7 @@ export class GeneralComponent implements OnInit {
   indexOperacion: number;
   editMode: boolean;
   @Input() operacion: Operacion;
+  textFecha = '';
   constructor(private operacionService: OperacionService,
               private loadingService: LoadingService,
               private alertService: AlertService) {
@@ -42,7 +43,7 @@ export class GeneralComponent implements OnInit {
 
       return dt + '-' + monthNames[month] + '-' + year.toString().substring(2);
     }
-    return '';
+    return this.textFecha;
   }
 
   get folio(): string {
@@ -116,5 +117,18 @@ export class GeneralComponent implements OnInit {
 
   cleanup(): void {
     this.operacionService.clear();
+  }
+
+  dateFormat(textFecha: string) {
+    const array = textFecha.split('-');
+    console.log(array);
+    const date = array[0];
+    const month = array[1].toLocaleUpperCase();
+    const year = '20' + array[2];
+    this.operacionService.modify('fecha', `${date}-${month}-${year}`);
+  }
+
+  onInput(value: any) {
+    this.textFecha = value;
   }
 }

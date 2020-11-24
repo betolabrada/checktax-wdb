@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Operacion } from '../../../models/operacion.model';
 import { OperacionService } from '../../../services/operacion/operacion.service';
 import { Observable, Subscription } from 'rxjs';
@@ -11,13 +11,14 @@ import { Financiamiento } from '../../../models/financiamiento.model';
 import { FinanciamientoService } from '../../../services/financiamiento/financiamiento.service';
 import { TipoFinanciamientoService } from '../../../services/tipo-financiamiento/tipo-financiamiento.service';
 import { AlertService } from '../../alert';
+import { ProductoTipofinService } from '../../../services/producto-tipofin.service';
 
 @Component({
   selector: 'app-financiamiento',
   templateUrl: './financiamiento.component.html',
   styleUrls: ['./financiamiento.component.scss']
 })
-export class FinanciamientoComponent implements OnInit {
+export class FinanciamientoComponent implements OnInit, OnDestroy {
 
   productStr: string;
   product: Producto;
@@ -29,10 +30,12 @@ export class FinanciamientoComponent implements OnInit {
   typeaheadFunc: ($text: Observable<string>) => Observable<readonly any[]>;
   productos: Producto[];
   private productosSubscription: Subscription;
+  private tipoFinSubscription: Subscription;
   constructor(private operacionService: OperacionService,
               private financiamientoService: FinanciamientoService,
               private productoService: ProductoService,
               private tipoFinService: TipoFinanciamientoService,
+              private productoTipoFinService: ProductoTipofinService,
               private loadingService: LoadingService,
               private alertService: AlertService) {}
 
@@ -41,46 +44,53 @@ export class FinanciamientoComponent implements OnInit {
     this.productosSubscription = this.productoService.fetchProductos()
       .subscribe((productos) => {
         this.productos = productos;
-        console.log('productos en angular:', this.productos);
       });
     this.financiamientoSub = this.financiamientoService.financiamientoChanged
       .subscribe((financiamiento: Financiamiento) => {
         this.financiamiento = financiamiento;
-        console.log(this.financiamiento);
-        if (!this.financiamiento) {
-          this.product = null;
+        console.log('new financiamiento: ', financiamiento);
+        if (this.financiamiento.idProductoTipoFinanciamiento) {
+          this.productoTipoFinService.getProductoTipoFin(this.financiamiento.idProductoTipoFinanciamiento);
         }
       });
-    this.productoSub = this.productoService.productoChanged
+    this.productoSub = this.productoTipoFinService.productoChanged
       .subscribe((producto: Producto) => {
+        console.log('producto changed', producto);
         this.product = producto;
       });
-    this.tipoFinService.tipoFinChanged
+    this.tipoFinSubscription = this.productoTipoFinService.tipoFinChanged
       .subscribe((tipoFin: TipoFinanciamiento) => {
+        console.log('tipoFin changed', tipoFin);
         this.tipoFin = tipoFin;
-        console.log(this.tipoFin);
       });
+  }
+
+  ngOnDestroy() {
+    this.financiamientoSub.unsubscribe();
+    this.productoSub.unsubscribe();
+    this.productosSubscription.unsubscribe();
+    this.tipoFinSubscription.unsubscribe();
   }
 
   get producto(): string {
-    return '';
+    return this.product?.producto || '';
   }
 
-  // get valorOp(): string {
-  //   return this.financiamiento.valorOperacion ? this.financiamiento.valorOperacion : '';
-  // }
-  //
-  // get fondeador(): string {
-  //   return this.financiamiento.fondeador ? this.financiamiento.fondeador : '';
-  // }
-  //
-  // get noPagos(): string {
-  //   return this.financiamiento.noPagos ? this.financiamiento.noPagos : '';
-  // }
-  //
-  // get periodicidad(): string {
-  //   return this.financiamiento.periodicidad ? this.financiamiento.periodicidad : '';
-  // }
+  get valorOp(): number {
+    return this.financiamiento?.valorOperacion || 0;
+  }
+
+  get fondeador(): number {
+    return this.financiamiento?.idConcepto || 0;
+  }
+
+  get noPagos(): number {
+    return this.financiamiento?.noPagos ? this.financiamiento.noPagos : 0;
+  }
+
+  get periodicidad(): string {
+    return this.financiamiento?.periodicidad ? this.financiamiento.periodicidad : '';
+  }
 
   fetchProduct($event: NgbTypeaheadSelectItemEvent): void {
     this.loadingService.setLoading(true);
@@ -89,13 +99,14 @@ export class FinanciamientoComponent implements OnInit {
         this.loadingService.setLoading(false);
         this.product = value;
         this.productoService.changeProducto(this.product);
-        this.operacionService.modify('producto', value);
+        this.financiamientoService.modify('idProducto', this.product.idProducto);
+        this.financiamientoService.modify('producto', value);
       },
       (error) => {
         this.loadingService.setLoading(false);
         this.alertService.showAlert('Error al obtener datos del producto', 'error');
         this.product = null;
-        this.operacionService.modify('producto', this.product);
+        this.financiamientoService.modify('producto', this.product);
       }
     );
   }

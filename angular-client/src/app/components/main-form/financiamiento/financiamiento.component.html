@@ -34,18 +34,18 @@
     </div><!--d-flex flex-column mr-2-->
     <div class="main-input-group">
       <label for="input-fondeador">Fondeador</label>
-      <select id="input-fondeador" [value]="fondeador" (change)="update('fondeador', $event)">
-        <option selected disabled value="">Seleccione</option>
-        <option value="RP">RP</option>
-        <option value="ICM">ICM</option>
-        <option value="GDA">GDA</option>
-        <option value="CR">CR</option>
+      <select id="input-fondeador" [value]="fondeador" (change)="update('idConcepto', $event)">
+        <option selected disabled value="0">Seleccione</option>
+        <option value="1">RP</option>
+        <option value="2">ICM</option>
+        <option value="3">GDA</option>
+        <option value="4">CR</option>
       </select>
     </div>
     <div class="main-input-group">
       <label for="input-noPagos">No. Pagos</label>
       <select id="input-noPagos" [value]="noPagos" (change)="update('noPagos', $event)">
-        <option selected disabled value="">Seleccione</option>
+        <option selected disabled value="0">Seleccione</option>
         <option value="12">12</option>
         <option value="24">24</option>
         <option value="36">36</option>
@@ -67,14 +67,16 @@
              id="input-valorOperacion"
              type="text"
              [value]="valorOp"
-             (input)="update('valorOp', $event)"
+             (change)="update('valorOperacion', $event)"
       >
     </div>
     <div class="main-input-group" *ngIf="product">
       <label for="input-productoTipo">Producto Tipo</label>
-      <select id="input-productoTipo" (change)="onChangeTipoFin($event)">
+      <select id="input-productoTipo" [value]="this.tipoFin?.idTipoFin || 0" (change)="onChangeTipoFin($event)">
         <option selected disabled value="0">Seleccione</option>
-        <option *ngFor="let tipo of product.tiposFin" [value]="tipo.tipoFin">{{tipo.tipoFin}}</option>
+        <option *ngFor="let tipo of product.tiposFin" [value]="tipo.idTipoFin"
+          [selected]="this.tipoFin?.idTipoFin && this.tipoFin?.idTipoFin === tipo.idTipoFin"
+        >{{tipo.tipoFin}}</option>
       </select>
     </div>
     <div class="main-input-group">

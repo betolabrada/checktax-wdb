@@ -22,7 +22,7 @@
         <td class="text-center">{{ operacion.referenciaPagos }}</td>
         <td>{{operacion.cliente}}</td>
         <td>{{operacion.descripcion}}</td>
-        <td class="text-center">{{operacion.financiamiento?.fondeador || ''}}</td>
+        <td class="text-center">{{operacion.financiamiento?.concepto?.concepto || ''}}</td>
         <td class="text-right">{{operacion.financiamiento?.valorOperacion || ''}}</td>
       </tr>
       </tbody>

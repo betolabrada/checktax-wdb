@@ -2,13 +2,13 @@ const database = require('../services/Database');
 
 const baseQuery = 'SELECT * FROM Financiamiento';
 
-const insertQuery = 'INSERT INTO Financiamiento (idProducto, idConcepto, noPagos, periodicidad, totalPrimerPago, descripcion) ' +
-                    'VALUES(:idProducto, :idConcepto, :noPagos, :periodicidad, :totalPrimerPago, :descripcion) RETURNING idFinanciamiento INTO :rid';
+const insertQuery = 'INSERT INTO Financiamiento (idProductoTipoFinanciamiento, idConcepto, noPagos, periodicidad, totalPrimerPago, descripcion, valorOperacion) ' +
+                    'VALUES(:idProductoTipoFinanciamiento, :idConcepto, :noPagos, :periodicidad, :totalPrimerPago, :descripcion, :valorOperacion) RETURNING idFinanciamiento INTO :rid';
 
 const deleteQuery = 'DELETE FROM Financiamiento WHERE idFinanciamiento = :idFinanciamiento';
 
-const updateQuery = 'UPDATE Financiamiento SET idProducto = :idProducto, idConcepto = :idConcepto, noPagos = :noPagos, ' +
-                    'periodicidad = :periodicidad, totalPrimerPago = :totalPrimerPago, descripcion = :descripcion WHERE idFinanciamiento = :idFinanciamiento';
+const updateQuery = 'UPDATE Financiamiento SET idProductoTipoFinanciamiento = :idProductoTipoFinanciamiento, idConcepto = :idConcepto, noPagos = :noPagos, ' +
+                    'periodicidad = :periodicidad, totalPrimerPago = :totalPrimerPago, descripcion = :descripcion, valorOperacion = :valorOperacion WHERE idFinanciamiento = :idFinanciamiento';
 
 async function find(context) {
     let query = baseQuery;

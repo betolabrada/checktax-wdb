@@ -2,10 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Operacion } from '../../models/operacion.model';
 import { OperacionService } from '../../services/operacion/operacion.service';
 import { AlertService } from '../alert';
-import { Producto } from '../../models/producto.model';
+import { Producto, TipoFinanciamiento } from '../../models/producto.model';
 import { LoadingService } from '../../services/loading/loading.service';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { FinanciamientoService } from '../../services/financiamiento/financiamiento.service';
+import { defaultFinanciamiento, Financiamiento } from '../../models/financiamiento.model';
+import { ATPResponse } from '../../models/atp-response.model';
+import { switchMap, tap } from 'rxjs/operators';
+import { ProductoTipofinService } from '../../services/producto-tipofin.service';
+import { ProductoService } from '../../services/producto/producto.service';
+import { TipoFinanciamientoService } from '../../services/tipo-financiamiento/tipo-financiamiento.service';
 
 @Component({
   selector: 'app-main-form',
@@ -22,10 +28,17 @@ export class MainFormComponent implements OnInit, OnDestroy {
   finding: boolean;
   loading: Subscription;
   operacion: Operacion;
+  financiamiento: Financiamiento;
   productos: Producto[];
+  producto: Producto;
+  tipoFin: TipoFinanciamiento;
+  private financiamientoSubscription: Subscription;
 
   constructor(private operacionService: OperacionService,
               private financiamientoService: FinanciamientoService,
+              private productoService: ProductoService,
+              private tipoFinService: TipoFinanciamientoService,
+              private productoTipoFinService: ProductoTipofinService,
               private alertService: AlertService,
               private loadingService: LoadingService) {}
 
@@ -34,11 +47,39 @@ export class MainFormComponent implements OnInit, OnDestroy {
       this.finding = loading;
     });
     this.operacionChangedSub = this.operacionService.operacionChanged
-      .subscribe(
-        (operacion: Operacion) => {
+      .pipe(
+        tap((operacion) => {
+          console.log('operacion', operacion);
           this.operacion = operacion;
-          console.log(this.operacion);
-          this.editMode = true;
+        }),
+        switchMap((operacion) => {
+          if (operacion.idFinanciamiento) {
+            return this.financiamientoService.getFinanciamiento(operacion.idFinanciamiento);
+          }
+          return of(null);
+        }),
+        tap((financiamiento) => {
+          if (financiamiento) {
+            this.financiamiento = financiamiento;
+            this.financiamientoService.changeFinanciamiento(this.financiamiento);
+          }
+        }),
+        switchMap((fin) => {
+          if (fin && fin.idProductoTipoFinanciamiento) {
+            console.log('ptf', fin.idProductoTipoFinanciamiento);
+            return this.productoTipoFinService.getProductoTipoFin(fin.idProductoTipoFinanciamiento);
+          } else {
+            return of(null);
+          }
+        }),
+      )
+      .subscribe(
+        (value) => {
+          if (value) {
+            this.productoService.changeProducto(value[0]);
+            this.tipoFinService.changeTipoFin(value[1]);
+            console.log(value);
+          }
         }
       );
   }
@@ -60,7 +101,15 @@ export class MainFormComponent implements OnInit, OnDestroy {
     this.operacionService.modify(key, ($event.target as HTMLInputElement).value);
   }
 
-  public saveChanges(): void {
+  public async saveChanges(): Promise<void> {
+    let res: ATPResponse;
+    if (this.operacion.idFinanciamiento) {
+      res = await this.financiamientoService.saveChanges(this.operacion.idFinanciamiento);
+    } else {
+      res = await this.financiamientoService.saveChanges();
+      console.log(res);
+      this.operacionService.modify('idFinanciamiento', res.rid[0]);
+    }
     this.operacionService.saveChanges();
   }
 
