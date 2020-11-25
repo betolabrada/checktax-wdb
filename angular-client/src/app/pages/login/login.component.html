@@ -8,25 +8,24 @@
   <div class="p-5 row">
     <div class="col"></div>
     <div class="col">
-      <form>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="email">Usuario</label>
-          <input type="email" class="form-control" id="email" />
+          <input type="email" class="form-control" id="email" formControlName="username" />
+          <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+            <div *ngIf="f.username.errors.required">Username is required</div>
+          </div>
         </div>
         <div class="form-group">
           <label for="password">Contraseña</label>
-          <input type="password" class="form-control" id="password" />
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" id="remember" />
-          <label class="form-check-label" for="remember"
-          >Manten mi sesión inciada</label
-          >
+          <input type="password" class="form-control" id="password" formControlName="password" />
         </div>
         <div class="text-center">
-          <button (click)="login()" type="submit" class="btn btn-success" id="submit">
+          <button [disabled]="loading" type="submit" class="btn btn-success" id="submit">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Iniciar sesión
           </button>
+          <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
         </div>
       </form>
     </div>
