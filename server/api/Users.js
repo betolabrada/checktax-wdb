@@ -34,62 +34,44 @@ async function addUser(user) {
 }
 
 async function addPermission(user){
-    let userBinds = {
-        username: user.username
+    let permissionBinds = {
+        permission: user.permission,
+        section: user.section
     }
-    let userIDRedusult = await find(userBinds);
-    if(userIDRedusult.length > 0){
-        let permissionBinds = {
-            permission: user.permission,
-            section: user.section
-        }
-        const permission_section_result = await database.queryExecutor(selectSectionPermission, permissionBinds);
-        let userPermissionBinds = {
+    const permission_section_result = await database.queryExecutor(selectSectionPermission, permissionBinds);
+    let userPermissionBinds = {
+        userID: userIDRedusult[0].ID,
+        permissionID: permission_section_result.rows[0].permissionID
+    }
+    const userPermissionVerification = await database.queryExecutor(selectUserPermission, userPermissionBinds);
+    if(userPermissionVerification.rows.length > 0){
+        return 'already granted !';
+    }else{
+        let newPermissionBinds = {
+            id: uuid.v4(),
             userID: userIDRedusult[0].ID,
             permissionID: permission_section_result.rows[0].permissionID
         }
-        const userPermissionVerification = await database.queryExecutor(selectUserPermission, userPermissionBinds);
-        if(userPermissionVerification.rows.length > 0){
-            return 'Permission already granted !';
-        }else{
-            let newPermissionBinds = {
-                id: uuid.v4(),
-                userID: userIDRedusult[0].ID,
-                permissionID: permission_section_result.rows[0].permissionID
-            }
-            const permissionGranted = await database.queryExecutor(grantPermissionQuery, newPermissionBinds);
-            return 'Permission granted successfully !';
-        }
-
-    }else{
-        return 'User does not exists !';
+        const permissionGranted = await database.queryExecutor(grantPermissionQuery, newPermissionBinds);
+        return 'granted successfully !';
     }
 }
 
 async function removePermission(user){
-    let userBinds = {
-        username: user.username
+    let permissionBinds = {
+        permission: user.permission,
+        section: user.section
     }
-    let userIDRedusult = await find(userBinds);
-    if(userIDRedusult.length > 0){
-        let permissionBinds = {
-            permission: user.permission,
-            section: user.section
-        }
-        const permission_section_result = await database.queryExecutor(selectSectionPermission, permissionBinds);
-        let userPermissionBinds = {
-            userID: userIDRedusult[0].ID,
-            permissionID: permission_section_result.rows[0].permissionID
-        }
-        const permissionRemovedResult = await database.queryExecutor(deletePermission, userPermissionBinds);
-        if(permissionRemovedResult.rowsAffected > 0){
-            return 'Permission removed successfully !';
-        }else{
-            return 'No modifications on user permissions';
-        }
-
+    const permission_section_result = await database.queryExecutor(selectSectionPermission, permissionBinds);
+    let userPermissionBinds = {
+        userID: userIDRedusult[0].ID,
+        permissionID: permission_section_result.rows[0].permissionID
+    }
+    const permissionRemovedResult = await database.queryExecutor(deletePermission, userPermissionBinds);
+    if(permissionRemovedResult.rowsAffected > 0){
+        return 'removed successfully !';
     }else{
-        return 'User does not exists !';
+        return 'got no modifications !';
     }
 }
 

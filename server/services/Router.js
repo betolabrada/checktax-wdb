@@ -14,7 +14,7 @@ router.route('/login/:username/:password')
 router.route('/addUser/:username/:password')
     .post(users.addUser);
 
-router.route('/addPermission/:username/:section/:permission')
+router.route('/addPermission/:username/:permissions')
     .post(users.addPermission);
 
 router.route('/insertSection/:sectionName')
@@ -26,7 +26,7 @@ router.route('/insertPermission/:section/:permission')
 router.route('/deleteUser/:username')
     .delete(users.deleteUser);
 
-router.route('/removePermission/:username/:section/:permission')
+router.route('/removePermission/:username/:permissions')
     .delete(users.removePermission);
 
 

@@ -39,27 +39,49 @@ async function addUser(req, res, next) {
 async function addPermission(req, res, next){
     let user = {
         username: req.params.username,
-        section: req.params.section,
-        permission: req.params.permission
+        permissions: req.params.permissions
     }
-    const msgResult = await users.addPermission(user);
-    if(msgResult != 'Permission granted successfully !'){
-        return res.status(401).json({msg: msgResult, status: 401});
+    const userFound = await users.find({username: user.username});
+    if(userFound.length == 0){
+        return res.status(401).json({msg: 'Impossible to add permissions. User not found !', status: 400});
     }
-    return res.status(200).json({msg: msgResult, status: 200});
+    let strRes ='';
+    for(tmpSection in user.permissions){
+        for(tmpPermission in section){
+            let userPermission = {
+                username: user.username,
+                section: tmpSection,
+                permission: tmpPermission
+            }
+            const msgResult = await users.addPermission(userPermission);
+            strRes = 'Permission: ' + tmpPermission + ' ' + msgResult + '\n'; 
+        }
+    }
+    return res.status(200).json({msg: strRes, status: 200});
 }
 
 async function removePermission(req, res, next){
     let user = {
         username: req.params.username,
-        section: req.params.section,
-        permission: req.params.permission
+        permissions: req.params.permissions
     }
-    const msgResult = await users.removePermission(user);
-    if(msgResult != 'Permission removed successfully !'){
-        return res.status(401).json({msg: msgResult, status: 401});
+    const userFound = await users.find({username: user.username});
+    if(userFound.length == 0){
+        return res.status(401).json({msg: 'Impossible to remove permissions. User not found !', status: 400});
     }
-    return res.status(200).json({msg: msgResult, status: 200});
+    let strRes ='';
+    for(tmpSection in user.permissions){
+        for(tmpPermission in section){
+            let userPermission = {
+                username: user.username,
+                section: tmpSection,
+                permission: tmpPermission
+            }
+            const msgResult = await users.removePermission(userPermission);
+            strRes = 'Permission: ' + tmpPermission + ' ' + msgResult + '\n'; 
+        }
+    }
+    return res.status(200).json({msg: strRes, status: 200});
 }
 
 async function deleteUser(req, res, next) {
