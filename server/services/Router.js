@@ -150,7 +150,7 @@ router.route('/login')
 router.route('/addUser/')
     .post(users.addUser);
 
-router.route('/addPermission/:username/:section/:permission')
+router.route('/addPermission/:username/:permissions')
     .post(users.addPermission);
 
 router.route('/section')
@@ -163,7 +163,7 @@ router.route('/insertPermission')
 router.route('/deleteUser/:username')
     .delete(users.deleteUser);
 
-router.route('/removePermission/:username/:section/:permission')
+router.route('/removePermission/:username/:permissions')
     .delete(users.removePermission);
 
 
