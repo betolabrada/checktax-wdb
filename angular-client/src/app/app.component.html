@@ -1,5 +1,5 @@
 <div id="app">
-  <div id="nav">
+  <div id="nav" *ngIf="loggedIn">
     <a routerLink="home" routerLinkActive="router-link-exact-active">Home</a> |
     <a routerLink="config" routerLinkActive="router-link-exact-active">Configuración</a> |
     <button type="button" class="btn btn-link px-0" (click)="onLogout()">Cerrar Sesión</button>
