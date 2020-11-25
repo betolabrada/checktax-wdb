@@ -12,6 +12,7 @@ import { FinanciamientoService } from '../../../services/financiamiento/financia
 import { TipoFinanciamientoService } from '../../../services/tipo-financiamiento/tipo-financiamiento.service';
 import { AlertService } from '../../alert';
 import { ProductoTipofinService } from '../../../services/producto-tipofin.service';
+import { NumberFormatterService } from '../../../services/number-formatter.service';
 
 @Component({
   selector: 'app-financiamiento',
@@ -37,7 +38,8 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
               private tipoFinService: TipoFinanciamientoService,
               private productoTipoFinService: ProductoTipofinService,
               private loadingService: LoadingService,
-              private alertService: AlertService) {}
+              private alertService: AlertService,
+              private numberFormat: NumberFormatterService) {}
 
   ngOnInit(): void {
     this.productos = this.productoService.getProductos();
@@ -76,8 +78,8 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
     return this.product?.producto || '';
   }
 
-  get valorOp(): number {
-    return this.financiamiento?.valorOperacion || 0;
+  get valorOp(): string {
+    return this.numberFormat.format(this.financiamiento?.valorOperacion);
   }
 
   get fondeador(): number {
@@ -90,6 +92,42 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
 
   get periodicidad(): string {
     return this.financiamiento?.periodicidad ? this.financiamiento.periodicidad : '';
+  }
+
+  get anticipo(): string {
+    return this.numberFormat.format(this.tipoFin?.anticipo);
+  }
+
+  get apertura(): string {
+    return this.numberFormat.format(this.tipoFin?.apertura);
+  }
+
+  get seguroDeuda(): string {
+    return this.numberFormat.format(this.tipoFin?.seguroDeuda);
+  }
+
+  get seguroAuto(): string {
+    return this.numberFormat.format(this.tipoFin?.seguroAuto);
+  }
+
+  get deposito(): string {
+    return this.numberFormat.format(this.tipoFin?.deposito);
+  }
+
+  get admon(): string {
+    return this.numberFormat.format(this.tipoFin?.admon);
+  }
+
+  get gps(): string {
+    return this.numberFormat.format(this.tipoFin?.gps);
+  }
+
+  get vRescate(): string {
+    return this.numberFormat.format(this.tipoFin?.vRescate);
+  }
+
+  get descuento(): string {
+    return this.numberFormat.format(this.tipoFin?.descuento);
   }
 
   fetchProduct($event: NgbTypeaheadSelectItemEvent): void {

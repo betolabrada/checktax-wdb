@@ -37,6 +37,5 @@ export class VdOperacionesComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.operacionesSub.unsubscribe();
-    this.operacionSub.unsubscribe();
   }
 }
