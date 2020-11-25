@@ -2,9 +2,9 @@ const users = require('../api/Users');
 
 async function getUser(req, res, next) {
     try {
-        const user = {};
+        const context = {};
         context.username = req.params.username;
-        const rows = await users.find(user);
+        const rows = await users.find(context);
 
         if (rows.length > 0) {
             return res.status(200).json({msg: 'User succesffully found !', data: rows[0]});
@@ -74,7 +74,6 @@ async function deleteUser(req, res, next) {
 }
 
 async function login(req, res, next){
-    console.log('loginnn');
     let user = {
         username: req.body.username,
         password: req.body.password
