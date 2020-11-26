@@ -4,12 +4,13 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 
 const selectQuery = 'SELECT id FROM users WHERE LOWER(username) = :username';
+const userPermissionsQuery = 'SELECT * FROM users JOIN user_permissions ON users.id = user_permissions.userID JOIN permissions ON user_permissions.permissionID = permissions.id WHERE LOWER(username) = :username';
     const verifyCredentialsQuery = 'SELECT id FROM users WHERE LOWER(username) = :username AND password = :password';
 const selectSectionPermission = 'SELECT permissions.id "permissionID", permissions_section.id "sectionID" FROM permissions INNER JOIN permissions_section ON permissions.idPermissionSection = permissions_section.id WHERE (PERMISSIONS.permission = :permission AND permissions_section.section = :section)';
 const selectUserPermission = 'SELECT * FROM user_permissions WHERE userID = :userID AND permissionID = :permissionID';
 const selectSection = 'SELECT id FROM permissions_section WHERE section = LOWER(:section)'
 const selectSections = 'SELECT * FROM permissions_section';
-
+const selectPermissionsQuery = 'SELECT * FROM permissions';
 const insertUserQuery = 'INSERT INTO users(id, username, password, registered, last_login) VALUES(:id, LOWER(:username), :password, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)';
 const grantPermissionQuery = 'INSERT INTO user_permissions (id, userID, permissionID) VALUES(:id, :userID, :permissionID)';
 const deleteUserQuery = 'DELETE FROM users WHERE id = :id';
@@ -26,6 +27,13 @@ async function find(user) {
     return result.rows;
 }
 
+async function getPermissions(user) {
+    let binds = Object.assign({}, user);
+    const result = await database.queryExecutor(selectPermissionsQuery, binds);
+    console.log(result);
+    return result.rows;
+}
+
 async function addUser(user) {
     let binds = Object.assign({}, user);
     binds.id = uuid.v4();
@@ -34,14 +42,14 @@ async function addUser(user) {
     return result;
 }
 
-async function addPermission(user){
+async function addPermission(context){
     let permissionBinds = {
-        permission: user.permission,
-        section: user.section
+        permission: context.permission,
+        section: context.section
     }
     const permission_section_result = await database.queryExecutor(selectSectionPermission, permissionBinds);
     let userPermissionBinds = {
-        userID: userIDRedusult[0].ID,
+        userID: context.user.ID,
         permissionID: permission_section_result.rows[0].permissionID
     }
     const userPermissionVerification = await database.queryExecutor(selectUserPermission, userPermissionBinds);
@@ -252,3 +260,4 @@ module.exports.verifyPermission = verifyPermission;
 module.exports.insertPermission = insertPermission;
 module.exports.insertSection = insertSection;
 module.exports.getSections = getSections;
+module.exports.getPermissions = getPermissions;

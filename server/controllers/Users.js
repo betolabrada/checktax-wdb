@@ -7,9 +7,25 @@ async function getUser(req, res, next) {
         const rows = await users.find(context);
 
         if (rows.length > 0) {
-            return res.status(200).json({msg: 'User succesffully found !', data: rows[0]});
+            return res.status(200).json({msg: 'User successfully found !', data: rows[0]});
         } else {
             return res.status(404).json({msg: 'User not found !', data: rows});
+        }
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function getPermissions(req, res, next) {
+    try {
+        const context = {};
+        context.username = req.params.username;
+        const rows = await users.getPermissions(context);
+
+        if (rows.length > 0) {
+            return res.status(200).json({msg: 'Permissions found !', data: rows});
+        } else {
+            return res.status(404).json({msg: 'Permissions not found !', data: rows});
         }
     } catch (err) {
         next(err);
@@ -39,22 +55,28 @@ async function addUser(req, res, next) {
 async function addPermission(req, res, next){
     let user = {
         username: req.params.username,
-        permissions: req.params.permissions
+        permissions: req.body.permissions
     }
     const userFound = await users.find({username: user.username});
     if(userFound.length == 0){
         return res.status(401).json({msg: 'Impossible to add permissions. User not found !', status: 400});
     }
     let strRes ='';
-    for(tmpSection in user.permissions){
-        for(tmpPermission in section){
-            let userPermission = {
-                username: user.username,
-                section: tmpSection,
-                permission: tmpPermission
+    for(let tmpSection of Object.keys(user.permissions)){
+        console.log('tmpSection', tmpSection);
+        for(let tmpPermission of Object.keys(user.permissions[tmpSection])){
+            if (user.permissions[tmpSection][tmpPermission]) {
+                let userPermission = {
+                    user: userFound,
+                    username: user.username,
+                    section: tmpSection,
+                    permission: tmpPermission
+                }
+                console.log('userPermission', userPermission);
+                const msgResult = await users.addPermission(userPermission);
+                strRes += 'Permission: ' + tmpPermission + ' ' + msgResult + '\n';
+
             }
-            const msgResult = await users.addPermission(userPermission);
-            strRes = 'Permission: ' + tmpPermission + ' ' + msgResult + '\n'; 
         }
     }
     return res.status(200).json({msg: strRes, status: 200});
@@ -78,7 +100,7 @@ async function removePermission(req, res, next){
                 permission: tmpPermission
             }
             const msgResult = await users.removePermission(userPermission);
-            strRes = 'Permission: ' + tmpPermission + ' ' + msgResult + '\n'; 
+            strRes = 'Permission: ' + tmpPermission + ' ' + msgResult + '\n';
         }
     }
     return res.status(200).json({msg: strRes, status: 200});
@@ -212,3 +234,4 @@ module.exports.verifyPermission = verifyPermission;
 module.exports.insertSection = insertSection;
 module.exports.insertPermission = insertPermission;
 module.exports.getSections = getSections;
+module.exports.getPermissions = getPermissions;
