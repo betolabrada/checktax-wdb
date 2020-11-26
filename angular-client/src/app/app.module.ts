@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,7 +34,13 @@ import { ConfigLoteAutosComponent } from './components/config-form/config-lote-a
 import { CommonModule } from '@angular/common';
 import { AlertModule } from './components/alert';
 import { ClickOutsideModule } from 'ng-click-outside';
-
+import { SavingIconComponent } from './components/nav/main-form-nav/saving-icon/saving-icon.component';
+import { FinanciamientoComponent } from './components/main-form/financiamiento/financiamiento.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OtrosParamComponent } from './components/main-form/otros-param/otros-param.component';
+import { AplicarOpComponent } from './components/main-form/aplicar-op/aplicar-op.component';
+import { LoteAutosComponent } from './components/main-form/lote-autos/lote-autos.component';
+import { LoginComponent } from './pages/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,15 +68,24 @@ import { ClickOutsideModule } from 'ng-click-outside';
     LiquidacionesComponent,
     SegurosAutosComponent,
     CalifBuroComponent,
-    ConfigLoteAutosComponent
+    ConfigLoteAutosComponent,
+    SavingIconComponent,
+    FinanciamientoComponent,
+    OtrosParamComponent,
+    AplicarOpComponent,
+    LoteAutosComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     CommonModule,
+    HttpClientModule,
     AlertModule,
-    ClickOutsideModule
+    ClickOutsideModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

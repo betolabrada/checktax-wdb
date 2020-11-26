@@ -24,6 +24,9 @@
 .main-nav-item:hover {
   cursor: pointer;
   filter: opacity(1 );
+  &.disabled:hover {
+    filter: opacity(0.7);
+  }
 }
 .main-nav-link {
   display: flex;

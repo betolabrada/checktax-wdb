@@ -15,15 +15,15 @@
       </tr>
       </thead>
       <tbody>
-      <tr>
-        <td class="text-center">00000000</td>
-        <td class="text-center">12-Sept-15</td>
-        <td class="text-center">30</td>
-        <td class="text-center">123413241234</td>
-        <td>MERCADEO SSBC SA DE SV Y SU SEÑOR DE LOS CIELOS SBSC ATENDIENDO</td>
-        <td>PRESTAMO AUTO</td>
-        <td class="text-center">RP</td>
-        <td class="text-right">$431,000</td>
+      <tr *ngFor="let operacion of operaciones; index as i;">
+        <td class="text-center" (click)="onSelected(i)">{{operacion.numOperacion}}</td>
+        <td class="text-center">{{ operacion.fecha }}</td>
+        <td class="text-center">{{ operacion.financiamiento?.noPagos || '' }}</td>
+        <td class="text-center">{{ operacion.referenciaPagos }}</td>
+        <td>{{operacion.cliente}}</td>
+        <td>{{operacion.descripcion}}</td>
+        <td class="text-center">{{operacion.financiamiento?.concepto?.concepto || ''}}</td>
+        <td class="text-right">{{operacion.financiamiento?.valorOperacion || ''}}</td>
       </tr>
       </tbody>
     </table>

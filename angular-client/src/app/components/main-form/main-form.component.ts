@@ -1,23 +1,91 @@
-import { Component, OnInit } from '@angular/core';
-import { OperacionModel } from '../../models/operacion.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Operacion } from '../../models/operacion.model';
 import { OperacionService } from '../../services/operacion/operacion.service';
 import { AlertService } from '../alert';
+import { Producto, TipoFinanciamiento } from '../../models/producto.model';
+import { LoadingService } from '../../services/loading/loading.service';
+import { of, Subscription } from 'rxjs';
+import { FinanciamientoService } from '../../services/financiamiento/financiamiento.service';
+import { defaultFinanciamiento, Financiamiento } from '../../models/financiamiento.model';
+import { ATPResponse } from '../../models/atp-response.model';
+import { switchMap, tap } from 'rxjs/operators';
+import { ProductoTipofinService } from '../../services/producto-tipofin.service';
+import { ProductoService } from '../../services/producto/producto.service';
+import { TipoFinanciamientoService } from '../../services/tipo-financiamiento/tipo-financiamiento.service';
 
 @Component({
   selector: 'app-main-form',
   templateUrl: './main-form.component.html',
   styleUrls: ['./main-form.component.scss']
 })
-export class MainFormComponent implements OnInit {
+export class MainFormComponent implements OnInit, OnDestroy {
 
+  private operacionChangedSub: Subscription;
+  index: number;
+  numOperacion: string;
+  editMode = false;
   extensionActive = false;
-  operacion: OperacionModel;
+  finding: boolean;
+  loading: Subscription;
+  operacion: Operacion;
+  financiamiento: Financiamiento;
+  productos: Producto[];
+  producto: Producto;
+  tipoFin: TipoFinanciamiento;
+  private financiamientoSubscription: Subscription;
 
   constructor(private operacionService: OperacionService,
-              private alertService: AlertService) {}
+              private financiamientoService: FinanciamientoService,
+              private productoService: ProductoService,
+              private tipoFinService: TipoFinanciamientoService,
+              private productoTipoFinService: ProductoTipofinService,
+              private alertService: AlertService,
+              private loadingService: LoadingService) {}
 
   ngOnInit(): void {
-    this.operacion = new OperacionModel('');
+    this.loading = this.loadingService.loading$.subscribe((loading) => {
+      this.finding = loading;
+    });
+    this.operacionChangedSub = this.operacionService.operacionChanged
+      .pipe(
+        tap((operacion) => {
+          console.log('operacion', operacion);
+          this.operacion = operacion;
+        }),
+        switchMap((operacion) => {
+          if (operacion.idFinanciamiento) {
+            return this.financiamientoService.getFinanciamiento(operacion.idFinanciamiento);
+          }
+          return of(null);
+        }),
+        tap((financiamiento) => {
+          if (financiamiento) {
+            this.financiamiento = financiamiento;
+            this.financiamientoService.changeFinanciamiento(this.financiamiento);
+          }
+        }),
+        switchMap((fin) => {
+          if (fin && fin.idProductoTipoFinanciamiento) {
+            console.log('ptf', fin.idProductoTipoFinanciamiento);
+            return this.productoTipoFinService.getProductoTipoFin(fin.idProductoTipoFinanciamiento);
+          } else {
+            return of(null);
+          }
+        }),
+      )
+      .subscribe(
+        (value) => {
+          if (value) {
+            this.productoService.changeProducto(value[0]);
+            this.tipoFinService.changeTipoFin(value[1]);
+            console.log(value);
+          }
+        }
+      );
+  }
+
+  ngOnDestroy(): void {
+    this.operacionChangedSub.unsubscribe();
   }
 
 
@@ -30,48 +98,34 @@ export class MainFormComponent implements OnInit {
   }
 
   update(key: string, $event: Event): void {
-    this.operacion.update(key, ($event.target as HTMLInputElement).value);
+    this.operacionService.modify(key, ($event.target as HTMLInputElement).value);
   }
 
-  public saveChanges(): void {
-    this.operacionService.update(this.operacion);
-  }
-
-  get numOperacion(): string {
-    return this.operacion.numOperacion;
-  }
-
-  get fecha(): string {
-    return typeof this.operacion.fecha === 'string' ? this.operacion.fecha : '';
-  }
-
-  get folio(): string {
-    return typeof this.operacion.folio === 'string' ? this.operacion.folio : '';
-  }
-
-  get refPagos(): string {
-    return typeof this.operacion.refPagos === 'string' ? this.operacion.refPagos : '';
-  }
-
-  get cliente(): string {
-    return typeof this.operacion.cliente === 'string' ? this.operacion.cliente : '';
-  }
-
-  get persona(): string {
-    return typeof this.operacion.persona === 'string' ? this.operacion.persona : '';
-  }
-
-  get descripcion(): string {
-    return typeof this.operacion.descripcion === 'string' ? this.operacion.descripcion : '';
-  }
-
-  get asesor(): string {
-    return typeof this.operacion.asesor === 'string' ? this.operacion.asesor : '';
+  public async saveChanges(): Promise<void> {
+    let res: ATPResponse;
+    if (this.operacion.idFinanciamiento) {
+      res = await this.financiamientoService.saveChanges(this.operacion.idFinanciamiento);
+    } else {
+      res = await this.financiamientoService.saveChanges();
+      console.log(res);
+      this.operacionService.modify('idFinanciamiento', res.rid[0]);
+    }
+    this.operacionService.saveChanges();
   }
 
 
-  showAlert(msg: string): void {
-    console.log('Showing Alert...');
-    this.alertService.success(msg);
+  showAlert(msg: string, type?: string): void {
+    if (!type) {
+      console.log('Showing Alert...');
+      this.alertService.showAlert(msg);
+      return;
+    } else {
+      switch (type) {
+        case 'error': {
+          this.alertService.showAlert(msg);
+          break;
+        }
+      }
+    }
   }
 }

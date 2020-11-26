@@ -205,7 +205,7 @@ CREATE TABLE seguroAuto(
    siniestros VARCHAR2(50),
    cantPolizas VARCHAR2(50),
    sigVcmto VARCHAR2(50),
-   asegueado VARCHAR2(50),
+   asegurado VARCHAR2(50),
    PRIMARY KEY(id)
 );
 
@@ -340,7 +340,6 @@ END;
 
 CREATE TABLE factura(
                         idFactura NUMBER(10) NOT NULL,
-                        idCliente NUMBER(10),
                         ffzc VARCHAR2(50),
                         ffzi VARCHAR2(50),
                         ffzg VARCHAR2(50),
@@ -386,6 +385,7 @@ END;
 
 CREATE TABLE aplicarOp(
                           id NUMBER(10) NOT NULL,
+                          dummy NUMBER(10),
                           PRIMARY KEY(id)
 );
 
@@ -418,7 +418,7 @@ CREATE TABLE operacion(
                           comentarios VARCHAR2(510),
                           tfIva CHAR(1),
                           tfSeguro CHAR(1),
-                          fPago VARCHAR2(20),
+                          tfPago VARCHAR2(20),
                           poliza VARCHAR2(20),
                           tfSeguroFin CHAR(1),
                           tipoUnidad VARCHAR2(20),
@@ -459,7 +459,6 @@ BEGIN
 END;
 /
 
--- ORA-00955: name is already used by an existing object
 CREATE TABLE users (
                        id varchar2(128) PRIMARY KEY,
                        username varchar2(255) NOT NULL,
@@ -480,7 +479,6 @@ create table permissions (
                              foreign key (idPermissionSection) references permissions_section(id)
 );
 
--- ORA-02267: column type incompatible with referenced column type
 create table user_permissions(
                                  id varchar2(128) primary key,
                                  userID varchar2(128),
