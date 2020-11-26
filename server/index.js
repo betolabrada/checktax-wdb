@@ -1,32 +1,70 @@
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const cors = require('cors');
+require('dotenv').config();
 
-app.use(cors());
+const dbConfig = require('./config/Database');
+const webServer = require('./services/WebServer');
+const db = require('./services/Database');
 
-//Import routes
-const authRoute = require('./routes/auth');
-const finanzasRoute = require('./routes/finanzas')
-const clientsRoute = require('./routes/clients.js')
 
-dotenv.config();
+process.env.UV_THREADPOOL_SIZE = dbConfig.pool.poolMax + 4; // 4 default numThreads nodejs
 
-//Connect to DB
-mongoose.connect(
-    process.env.DB_CONNECT,
-    { useUnifiedTopology: true,  useNewUrlParser: true },
-    () => console.log('Connected to db')
-);
-mongoose.set('useFindAndModify', false);
+async function startup() {
+    console.log('Initializing database connection...');
+    try {
+        await db.initialize();
+        console.log('Database connected succesfully !');
+    } catch (err) {
+        console.log('Failed to connect: ', err);
+        process.exit(1);
+    }
 
-//Middleware
-app.use(express.json());
+    console.log('Initializing web server...');
+    try {
+        await webServer.initialize();
+    } catch (err) {
+        console.log(err);
 
-//Route middleware
-app.use('/api/user', authRoute);
-app.use('/api/finanzas', finanzasRoute);
-app.use('/api/clients', clientsRoute);
+        process.exit(1);
+    }
+}
 
-app.listen(3000, () => console.log("Server up and running at port 3000"));
+async function shutdown(e) {
+    let err = e;
+
+    console.log('Shutting down the db connection...');
+    try {
+        await db.close();
+    } catch (e) {
+        err = err || e;
+        console.log('Failed to close the db connection', e);
+    }
+
+    console.log('Shutting down the server...');
+    try {
+        await webServer.close();
+    } catch (err2) {
+        console.log('Fail to shutdown', err2);
+        err = err || err2
+    }
+
+    console.log('Exiting process');
+    if (err) {
+        process.exit(1);
+    } else {
+        process.exit(0);
+    }
+}
+
+process.on('SIGTERM', () => {
+    shutdown();
+});
+
+process.on('SIGINT', () => {
+    shutdown();
+});
+
+process.on('uncaughtException', (err) => {
+    console.log('Uncaught Exception: ', err);
+    shutdown();
+});
+
+startup();

@@ -1,0 +1,18 @@
+<!-- Aplicar Operación -->
+<section>
+  <div class="section-header">
+    Aplicar Operación
+  </div>
+  <div class="section-content d-flex flex-column align-items-end">
+    <div class="main-input-group">
+      <label for="input-chequera">Chequera</label>
+      <input id="input-chequera" type="text" [value]="aplicarOp?.chequera || ''"
+        (input)="update('chequera', $event)"
+      >
+    </div>
+    <div class="main-input-group">
+      <label for="input-sucursal">Sucursal</label>
+      <input id="input-sucursal" type="text" [value]="aplicarOp?.sucursal || ''" (input)="update('chequera', $event)">
+    </div>
+  </div>
+</section>
