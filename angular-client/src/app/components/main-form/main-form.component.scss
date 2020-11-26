@@ -1,0 +1,20 @@
+.main-form {
+  width: 400px;
+  height: 750px;
+  background: #e5e5e5;
+  margin: 16px 0 16px 16px;
+  overflow: hidden;
+
+}
+
+.main-input-group {
+  flex-wrap: nowrap;
+}
+
+.general-form-group .main-input-group:not(:last-child) {
+  margin-right: 4px;
+}
+
+.ext-form-wrapper {
+
+}
