@@ -141,6 +141,9 @@ router.route('/productoByName/:producto')
 router.route('/getUser/:username')
     .get(users.getUser);
 
+router.route('/getUser/:username/permissions')
+    .get(users.getPermissions);
+
 router.route('/verifyPermission/:section/:permission')
     .get(users.verifyPermission);
 
@@ -150,7 +153,7 @@ router.route('/login')
 router.route('/addUser/')
     .post(users.addUser);
 
-router.route('/addPermission/:username/:permissions')
+router.route('/:username/permissions')
     .post(users.addPermission);
 
 router.route('/section')

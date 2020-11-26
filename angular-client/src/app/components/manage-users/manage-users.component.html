@@ -3,84 +3,96 @@
     <div class="windowTitle section-header">
       <i class="fa fa-unlock-alt" id="windowLock"></i> Permisos de Operación
     </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+    <form [formGroup]="manageForm">
     <div class="section-content">
-      <div class="search">
-        <label class="sectionLabel"> Usuario</label><br>
-        <input type="text" id="userField">
+      <div class="row">
+        <div class="search">
+          <label for="userField" class="sectionLabel"> Usuario</label><br>
+          <input type="text" id="userField" formControlName="username">
+        </div>
+        <div class="search-button align-self-end">
+          <button type="submit" class="btn btn-primary"
+            (click)="onSubmit('buscar')"
+          >Buscar</button>
+        </div>
+        <div class="search-button align-self-end">
+          <button type="submit" class="btn btn-secondary" (click)="onSubmit('aplicar')">Aplicar Filtros</button>
+        </div>
       </div>
-      <div class="d-flex">
-        <div class="col-sm section-content">
+      <div class="d-flex" formGroupName="permissions">
+        <div class="col-sm section-content" formGroupName="financiamiento">
           <div class="sectionTitle">
             <h5 class="sectionLabel"><i class="fa fa-credit-card sectionIcon"></i> Financiamiento</h5>
           </div>
           <div class="sectionPrivilages">
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="AltaOperaciones">
+              <input type="checkbox" id="AltaOperaciones" formControlName="altaOperaciones">
               <label for="AltaOperaciones" class="privilageLabel">Alta Operaciones</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="guardarCambios">
+              <input type="checkbox" id="guardarCambios" formControlName="guardarCambios">
               <label for="guardarCambios" class="privilageLabel">Guardar Cambios</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="datosGenerales">
+              <input type="checkbox" id="datosGenerales" formControlName="datosGenerales">
               <label for="datosGenerales" class="privilageLabel">Datos Generales</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="Financiamiento">
+              <input type="checkbox" id="Financiamiento" formControlName="financiamiento_value">
               <label for="Financiamiento" class="privilageLabel">Financiamiento</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="seguros">
+              <input type="checkbox" id="seguros" formControlName="seguros">
               <label for="seguros" class="privilageLabel">Seguros</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="lotesAutos">
+              <input type="checkbox" id="lotesAutos" formControlName="lotesAutos">
               <label for="lotesAutos" class="privilageLabel">Lotes Autos</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="referenciasBancos">
+              <input type="checkbox" id="referenciasBancos" formControlName="referenciasBancos">
               <label for="referenciasBancos" class="privilageLabel">Referencias Bancos</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="garantia">
+              <input type="checkbox" id="garantia" formControlName="garantia">
               <label for="garantia" class="privilageLabel">Garantía</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="credito">
+              <input type="checkbox" id="credito" formControlName="credito">
               <label for="credito" class="privilageLabel">Crédito</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="cobranza">
+              <input type="checkbox" id="cobranza" formControlName="cobranza">
               <label for="cobranza" class="privilageLabel">Cobranza</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="otros">
+              <input type="checkbox" id="otros" formControlName="otros">
               <label for="otros" class="privilageLabel">Otros</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="generarPlanPagos">
+              <input type="checkbox" id="generarPlanPagos" formControlName="generarPlanPagos">
               <label for="generarPlanPagos" class="privilageLabel">Generar Plan Pagos</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="cambiarNombres">
+              <input type="checkbox" id="cambiarNombres" formControlName="cambiarNombres">
               <label for="cambiarNombres" class="privilageLabel">Cambiar Nombres</label>
             </div>
 
             <div class="main-input-group d-flex">
-              <input type="checkbox" id="cambiarReferencias">
+              <input type="checkbox" id="cambiarReferencias" formControlName="cambiarReferencias">
               <label for="cambiarReferencias" class="privilageLabel">Cambiar Referencias</label>
             </div>
           </div>
@@ -232,5 +244,6 @@
         </div><!--.col-sm.section-content-->
       </div><!--.row.d-flex-->
     </div><!--.section-content-->
+    </form>
   </section>
 </section>
