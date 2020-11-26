@@ -155,7 +155,7 @@ async function login(user){
             }
         }
     } catch (e) {
-        console.log('error', e);
+        return(e);
     }
 }
 
