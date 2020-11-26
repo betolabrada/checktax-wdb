@@ -1,0 +1,151 @@
+<!-- Financiamiento -->
+<section>
+  <div class="section-header">
+    Financiamiento
+  </div>
+  <div class="section-content d-flex flex-column align-items-end">
+    <div class="d-flex flex-column mb-3 text-center">
+      <label for="input-producto">Producto
+        <span class="fas fa-info-circle"
+              placement="top"
+              ngbTooltip="Escriba nombre del producto"
+        ></span>
+      </label>
+      <div class="main-input-group input-group input-group-sm">
+        <input
+          id="input-producto"
+          type="text"
+          style="width: 100px;"
+          [value]="producto"
+          [ngbTypeahead]="search"
+          (selectItem)="fetchProduct($event)"
+        >
+        <div class="input-group-append">
+          <button
+            class="icon-btn btn btn-secondary"
+            type="button"
+            id="button-search-product"
+            style="height: 1.5rem;"
+          >
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div><!--d-flex flex-column mr-2-->
+    <div class="main-input-group">
+      <label for="input-fondeador">Fondeador</label>
+      <select id="input-fondeador" [value]="fondeador" (change)="update('idConcepto', $event)">
+        <option selected disabled value="0">Seleccione</option>
+        <option value="1">RP</option>
+        <option value="2">ICM</option>
+        <option value="3">GDA</option>
+        <option value="4">CR</option>
+      </select>
+    </div>
+    <div class="main-input-group">
+      <label for="input-noPagos">No. Pagos</label>
+      <select id="input-noPagos" [value]="noPagos" (change)="update('noPagos', $event)">
+        <option selected disabled value="0">Seleccione</option>
+        <option value="12">12</option>
+        <option value="24">24</option>
+        <option value="36">36</option>
+        <option value="48">48</option>
+      </select>
+    </div>
+    <div class="main-input-group">
+      <label for="input-periodicidad">Periodicidad</label>
+      <select id="input-periodicidad" [value]="periodicidad" (change)="update('periodicidad', $event)">
+        <option selected disabled value="">Seleccione</option>
+        <option value="Quincenal">Quincenal</option>
+        <option value="Mensual">Mensual</option>
+        <option value="Anual">Anual</option>
+      </select>
+    </div>
+    <div class="main-input-group">
+      <label for="input-valorOperacion">Valor Operación</label>
+      <input class="text-right"
+             id="input-valorOperacion"
+             type="number"
+             [value]="valorOp"
+             (change)="update('valorOperacion', $event)"
+      >
+    </div>
+    <div class="main-input-group" *ngIf="product">
+      <label for="input-productoTipo">Producto Tipo</label>
+      <select id="input-productoTipo" [value]="this.tipoFin?.idTipoFin || 0" (change)="onChangeTipoFin($event)">
+        <option selected disabled value="0">Seleccione</option>
+        <option *ngFor="let tipo of product.tiposFin" [value]="tipo.idTipoFin"
+          [selected]="this.tipoFin?.idTipoFin && this.tipoFin?.idTipoFin === tipo.idTipoFin"
+        >{{tipo.tipoFin}}</option>
+      </select>
+    </div>
+    <div class="main-input-group">
+      <label for="input-tasaAnual">Tasa Anual</label>
+      <input id="input-tasaAnual" class="text-center" type="text" [value]="tipoFin?.tasa?.toString() || ''"
+             (input)="update('tasaAnual', $event)">
+    </div>
+    <div class="d-flex">
+      <div style="width: 75px; margin-top: 10px; text-align: center;"><label>%</label></div>
+      <div style="width: 75px; margin-top: 10px; margin-left: 8px; text-align: center;"><label>Importe</label></div>
+    </div>
+    <div class="main-input-group">
+      <label for="input-anticipo">Anticipo</label>
+      <input disabled id="input-anticipo" class="text-center" type="text" [value]="anticipo">
+      <label class="block-label" for="input-impAnticipo"></label>
+      <input disabled id="input-impAnticipo" type="text">
+    </div>
+    <div class="main-input-group">
+      <label for="input-seguroDeuda">SeguroDeuda</label>
+      <input disabled id="input-seguroDeuda" class="text-center" type="text" [value]="seguroDeuda">
+      <label for="input-impSeguroDeuda"></label>
+      <input disabled id="input-impSeguroDeuda" type="text">
+    </div>
+    <div class="main-input-group">
+      <label for="input-apertura">Apertura</label>
+      <input disabled id="input-apertura" class="text-center" type="text" [value]="apertura">
+      <label for="input-impApertura"></label>
+      <input disabled id="input-impApertura" type="text">
+    </div>
+    <div class="main-input-group">
+      <label for="input-deposito">Depósito</label>
+      <input disabled id="input-deposito" class="text-center" type="text" [value]="deposito">
+      <label for="input-impDeposito"></label>
+      <input disabled id="input-impDeposito" type="text">
+    </div>
+    <div class="main-input-group">
+      <label for="input-admin">Administración</label>
+      <input disabled id="input-admin" class="text-center" type="text" [value]="admon">
+      <label for="input-impAdmin"></label>
+      <input disabled id="input-impAdmin" type="text">
+    </div>
+    <div class="main-input-group">
+      <label for="input-gps">GPS</label>
+      <input disabled id="input-gps" class="text-center" type="text" [value]="gps">
+      <label for="input-impGps"></label>
+      <input disabled id="input-impGps" type="text">
+    </div>
+    <div class="main-input-group">
+      <label for="input-seguroAuto">SeguroAuto</label>
+      <input disabled id="input-seguroAuto" class="text-center" type="text" [value]="seguroAuto">
+      <label for="input-impSeguroAuto"></label>
+      <input disabled id="input-impSeguroAuto" type="text">
+    </div>
+    <div class="main-input-group" style="margin-bottom: 10px;">
+      <label for="input-valorRescate">ValorRescate</label>
+      <input disabled id="input-valorRescate" class="text-center" type="text" [value]="vRescate">
+      <label for="input-impValorRescate"></label>
+      <input disabled id="input-impValorRescate" type="text">
+    </div>
+    <div class="main-input-group">
+      <label for="input-descuento">Descuento</label>
+      <input disabled id="input-descuento" class="text-center" type="text" [value]="descuento">
+      <label for="input-impDescuento"></label>
+      <input disabled id="input-impDescuento" type="text">
+    </div>
+    <div style="text-align: right;"><hr style="border-top: #000000 solid 1px; width: 75px"></div>
+    <div class="main-input-group">
+      <label for="input-total">Total Primer Pago</label>
+      <input disabled id="input-total" type="text">
+    </div>
+  </div><!-- section-content -->
+</section>
