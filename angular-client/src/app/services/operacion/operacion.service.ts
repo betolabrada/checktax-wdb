@@ -137,6 +137,18 @@ export class OperacionService {
           operacion.fecha = this.dateFormatter.formattedDate(operacion.fecha);
         }
       }
+      if (operacion.fechaPago) {
+        const inFormat = this.dateFormatter.isInFormat(operacion.fechaPago);
+        if (!inFormat) {
+          operacion.fechaPago = this.dateFormatter.formattedDate(operacion.fechaPago);
+        }
+      }
+      if (operacion.fFondeo) {
+        const inFormat = this.dateFormatter.isInFormat(operacion.fFondeo);
+        if (!inFormat) {
+          operacion.fFondeo = this.dateFormatter.formattedDate(operacion.fFondeo);
+        }
+      }
     });
   }
 }

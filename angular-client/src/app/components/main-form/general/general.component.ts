@@ -3,6 +3,7 @@ import { Operacion } from '../../../models/operacion.model';
 import { OperacionService } from '../../../services/operacion/operacion.service';
 import { LoadingService } from '../../../services/loading/loading.service';
 import { AlertService } from '../../alert';
+import { DateFormatterService } from '../../../services/date-formatter.service';
 
 @Component({
   selector: 'app-general',
@@ -17,7 +18,8 @@ export class GeneralComponent implements OnInit {
   textFecha = '';
   constructor(private operacionService: OperacionService,
               private loadingService: LoadingService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private dateFormatter: DateFormatterService) {
   }
 
   ngOnInit(): void {
@@ -108,12 +110,10 @@ export class GeneralComponent implements OnInit {
   }
 
   dateFormat(textFecha: string) {
-    const array = textFecha.split('-');
-    console.log(array);
-    const date = array[0];
-    const month = array[1].toLocaleUpperCase();
-    const year = array[2];
-    this.operacionService.modify('fecha', `${date}-${month}-${year}`);
+    console.log(textFecha);
+    const dateStr = this.dateFormatter.formatInput(textFecha);
+    this.operacionService.modify('fecha', dateStr);
+
   }
 
   onInput(value: any) {

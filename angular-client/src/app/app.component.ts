@@ -11,22 +11,14 @@ import { NumberFormatterService } from './services/number-formatter.service';
 })
 export class AppComponent implements OnInit {
   title = 'angular-client';
-
-  loggedIn = false;
-  loggedInSubscription: Subscription;
   constructor(private authService: AuthService,
-              private router: Router,
-              private numberFormatter: NumberFormatterService) {}
+              private router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.numberFormatter.format(169393939));
-    this.loggedIn = this.authService.loggedIn;
-    this.loggedInSubscription = this.authService.loggedInChanged
-      .subscribe(
-        (loggedIn) => {
-          this.loggedIn = loggedIn;
-        }
-      );
+  }
+
+  get loggedIn(): boolean {
+    return !!this.authService.currentUserValue;
   }
 
   async onLogout() {
