@@ -46,4 +46,9 @@ export class ProductoTipofinService {
     return this.productosTipoFin.find((ptf) => idP === ptf.idProducto &&
       idTf === ptf.idTipoFin);
   }
+
+  clear() {
+    this.productoChanged.next(null);
+    this.tipoFinChanged.next(null);
+  }
 }

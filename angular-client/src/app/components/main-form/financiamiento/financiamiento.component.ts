@@ -13,6 +13,17 @@ import { TipoFinanciamientoService } from '../../../services/tipo-financiamiento
 import { AlertService } from '../../alert';
 import { ProductoTipofinService } from '../../../services/producto-tipofin.service';
 import { NumberFormatterService } from '../../../services/number-formatter.service';
+import { CalculationsService } from '../../../services/calculations.service';
+import { DateFormatterService } from '../../../services/date-formatter.service';
+
+interface Pago {
+  pago: number;
+  fecha: Date;
+  capital: number;
+  intereses: number;
+  iva: number;
+  total: number;
+}
 
 @Component({
   selector: 'app-financiamiento',
@@ -30,6 +41,8 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
   @Input() operacion: Operacion;
   typeaheadFunc: ($text: Observable<string>) => Observable<readonly any[]>;
   productos: Producto[];
+  calcResult: Pago[] = [];
+  private calculationsService: CalculationsService;
   private productosSubscription: Subscription;
   private tipoFinSubscription: Subscription;
   constructor(private operacionService: OperacionService,
@@ -39,7 +52,8 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
               private productoTipoFinService: ProductoTipofinService,
               private loadingService: LoadingService,
               private alertService: AlertService,
-              private numberFormat: NumberFormatterService) {}
+              private numberFormat: NumberFormatterService,
+              private dateFormatter: DateFormatterService) {}
 
   ngOnInit(): void {
     this.productos = this.productoService.getProductos();
@@ -130,6 +144,54 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
     return this.numberFormat.format(this.tipoFin?.descuento);
   }
 
+  get tipoFinValue(): number {
+    return this.tipoFin?.idTipoFin || 0;
+  }
+
+  get importeAnticipo(): string {
+    if (this.financiamiento?.valorOperacion && this.tipoFin?.anticipo) {
+      return this.numberFormat.format (this.financiamiento.valorOperacion * (this.tipoFin.anticipo / 100));
+    } else {
+      return '';
+    }
+  }
+
+  get importeApertura(): string {
+    if (this.financiamiento?.valorOperacion && this.tipoFin?.apertura) {
+      return this.numberFormat.format (this.financiamiento.valorOperacion * (this.tipoFin.apertura / 100));
+    } else {
+      return '';
+    }
+  }
+
+  get importeDescuento(): string {
+    if (this.calcResult[0]?.pago && this.tipoFin?.descuento) {
+      return this.numberFormat.format(this.calcResult[0].pago * (this.tipoFin.descuento / 100));
+    } else {
+      return '';
+    }
+  }
+
+  get primerPago(): string {
+    if (this.calcResult[0]?.pago) {
+
+      return this.numberFormat.format(
+        this.numberFormat.formatToNumber(this.importeApertura) +
+        this.numberFormat.formatToNumber(this.importeAnticipo) -
+        this.numberFormat.formatToNumber(this.importeDescuento) +
+        this.numberFormat.formatToNumber(this.vRescate) +
+        this.numberFormat.formatToNumber(this.gps) +
+        this.numberFormat.formatToNumber(this.admon) +
+        this.numberFormat.formatToNumber(this.deposito) +
+        this.numberFormat.formatToNumber(this.seguroAuto) +
+        this.numberFormat.formatToNumber(this.seguroDeuda) +
+        this.calcResult[0].pago
+      );
+    } else {
+      return '';
+    }
+  }
+
   fetchProduct($event: NgbTypeaheadSelectItemEvent): void {
     this.loadingService.setLoading(true);
     this.productoService.productoByName($event.item).subscribe(
@@ -156,6 +218,27 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
   onChangeTipoFin($event: Event): void {
     const data = ($event.target as HTMLInputElement).value;
     this.tipoFinService.buscaTipoFin(data);
+    if (this.financiamiento?.valorOperacion && this.financiamiento.valorOperacion > 0) {
+      const valorAFinanciar = .70 * this.financiamiento.valorOperacion;
+      const date = this.dateFormatter.isInFormat(this.operacion.fecha) ?
+        this.operacion.fecha : this.dateFormatter.formattedDate(this.operacion.fecha);
+      console.log('this.financiamiento.periodicidad', this.financiamiento.periodicidad);
+      // Servicio
+      this.calculationsService = new CalculationsService(
+        valorAFinanciar,
+        this.financiamiento.noPagos,
+        0.24,
+        new Date(date),
+        0.16,
+        this.financiamiento.periodicidad === 'Mensual'
+      );
+
+      console.log('calc service', this.calculationsService);
+      console.log('tipoFin', this.tipoFin);
+      const result = this.calculationsService.calcularPagosGlobal();
+      this.calcResult = result;
+      console.log('result ', result);
+    }
   }
 
   search = (text$: Observable<string>) =>

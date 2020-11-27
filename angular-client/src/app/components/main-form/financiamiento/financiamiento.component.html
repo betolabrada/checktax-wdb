@@ -72,7 +72,7 @@
     </div>
     <div class="main-input-group" *ngIf="product">
       <label for="input-productoTipo">Producto Tipo</label>
-      <select id="input-productoTipo" [value]="this.tipoFin?.idTipoFin || 0" (change)="onChangeTipoFin($event)">
+      <select id="input-productoTipo" [value]="tipoFinValue" (change)="onChangeTipoFin($event)">
         <option selected disabled value="0">Seleccione</option>
         <option *ngFor="let tipo of product.tiposFin" [value]="tipo.idTipoFin"
           [selected]="this.tipoFin?.idTipoFin && this.tipoFin?.idTipoFin === tipo.idTipoFin"
@@ -92,60 +92,60 @@
       <label for="input-anticipo">Anticipo</label>
       <input disabled id="input-anticipo" class="text-center" type="text" [value]="anticipo">
       <label class="block-label" for="input-impAnticipo"></label>
-      <input disabled id="input-impAnticipo" type="text">
+      <input disabled id="input-impAnticipo" type="text" class="text-center" [value]="importeAnticipo">
     </div>
     <div class="main-input-group">
       <label for="input-seguroDeuda">SeguroDeuda</label>
       <input disabled id="input-seguroDeuda" class="text-center" type="text" [value]="seguroDeuda">
       <label for="input-impSeguroDeuda"></label>
-      <input disabled id="input-impSeguroDeuda" type="text">
+      <input disabled id="input-impSeguroDeuda" type="text" class="text-center" [value]="seguroDeuda">
     </div>
     <div class="main-input-group">
       <label for="input-apertura">Apertura</label>
       <input disabled id="input-apertura" class="text-center" type="text" [value]="apertura">
       <label for="input-impApertura"></label>
-      <input disabled id="input-impApertura" type="text">
+      <input disabled id="input-impApertura" type="text" class="text-center" [value]="importeApertura">
     </div>
     <div class="main-input-group">
       <label for="input-deposito">Depósito</label>
       <input disabled id="input-deposito" class="text-center" type="text" [value]="deposito">
       <label for="input-impDeposito"></label>
-      <input disabled id="input-impDeposito" type="text">
+      <input disabled id="input-impDeposito" type="text" class="text-center" [value]="deposito">
     </div>
     <div class="main-input-group">
       <label for="input-admin">Administración</label>
       <input disabled id="input-admin" class="text-center" type="text" [value]="admon">
       <label for="input-impAdmin"></label>
-      <input disabled id="input-impAdmin" type="text">
+      <input disabled id="input-impAdmin" type="text" class="text-center" [value]="admon">
     </div>
     <div class="main-input-group">
       <label for="input-gps">GPS</label>
       <input disabled id="input-gps" class="text-center" type="text" [value]="gps">
       <label for="input-impGps"></label>
-      <input disabled id="input-impGps" type="text">
+      <input disabled id="input-impGps" class="text-center" type="text" [value]="gps">
     </div>
     <div class="main-input-group">
       <label for="input-seguroAuto">SeguroAuto</label>
       <input disabled id="input-seguroAuto" class="text-center" type="text" [value]="seguroAuto">
       <label for="input-impSeguroAuto"></label>
-      <input disabled id="input-impSeguroAuto" type="text">
+      <input disabled id="input-impSeguroAuto"  class="text-center" type="text" [value]="seguroAuto">
     </div>
     <div class="main-input-group" style="margin-bottom: 10px;">
       <label for="input-valorRescate">ValorRescate</label>
       <input disabled id="input-valorRescate" class="text-center" type="text" [value]="vRescate">
       <label for="input-impValorRescate"></label>
-      <input disabled id="input-impValorRescate" type="text">
+      <input disabled id="input-impValorRescate" class="text-center" type="text" [value]="vRescate">
     </div>
     <div class="main-input-group">
       <label for="input-descuento">Descuento</label>
       <input disabled id="input-descuento" class="text-center" type="text" [value]="descuento">
       <label for="input-impDescuento"></label>
-      <input disabled id="input-impDescuento" type="text">
+      <input disabled id="input-impDescuento" type="text" class="text-center" [value]="importeDescuento">
     </div>
     <div style="text-align: right;"><hr style="border-top: #000000 solid 1px; width: 75px"></div>
     <div class="main-input-group">
       <label for="input-total">Total Primer Pago</label>
-      <input disabled id="input-total" type="text">
+      <input disabled id="input-total" type="text" class="text-center" [value]="primerPago">
     </div>
   </div><!-- section-content -->
 </section>

@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
 export class CalculationsService {
 
   capital: number;
@@ -21,11 +18,11 @@ export class CalculationsService {
     this.mensual = mensual;
   }
 
-  addMonthToDate(date: Date){
-    return new Date(date.setMonth(date.getMonth()+8));
+  private addMonthToDate(date: Date){
+    return new Date(date.setMonth(date.getMonth() + 1));
   }
 
-  addFifteenDaysToDate(date: Date){
+  private addFifteenDaysToDate(date: Date){
     if(date.getDay()==15){
       let result = new Date(date);
       result.setDate(result.getDate() + 15);
@@ -38,7 +35,7 @@ export class CalculationsService {
     }
   }
 
-  calcularPagoMenSaldosInsolutos(pago: number, capital: number, mensual: boolean, fecha: Date){
+  private calcularPagoMenSaldosInsolutos(pago: number, capital: number, mensual: boolean, fecha: Date){
     let actCapital = capital-pago;
     let intereses = (capital*this.intereses)/12;
     let iva = intereses*this.iva;
@@ -52,11 +49,12 @@ export class CalculationsService {
     }
 
     let pagoMen = {
+      pago,
       fecha: actFecha,
       capital: actCapital,
-      intereses: intereses,
-      iva: iva,
-      total: total
+      intereses,
+      iva,
+      total
     };
 
     return pagoMen;
@@ -78,7 +76,7 @@ export class CalculationsService {
     return pagosMen;
   }
 
-  calcularPagoMenGlobal(pago: number, capital: number, mensual: boolean, fecha: Date){
+  private calcularPagoMenGlobal(pago: number, capital: number, mensual: boolean, fecha: Date){
     let actCapital = capital-pago;
     let intereses = (this.capital*this.intereses)/12;
     let iva = intereses*this.iva;
@@ -92,11 +90,12 @@ export class CalculationsService {
     }
 
     let pagoMen = {
+      pago,
       fecha: actFecha,
       capital: actCapital,
       intereses: intereses,
-      iva: iva,
-      total: total
+      iva,
+      total
     };
 
     return pagoMen;
@@ -108,6 +107,7 @@ export class CalculationsService {
     let actDate = this.fecha;
     const pago = this.capital/this.plazo;
 
+    console.log('this.plazo', this.plazo);
     for(let i = 0; i < this.plazo; i++){
       let men = this.calcularPagoMenGlobal(pago, actCapital, this.mensual, actDate);
       pagosMen.push(men);

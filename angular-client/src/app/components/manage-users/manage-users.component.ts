@@ -24,7 +24,7 @@ export class ManageUsersComponent implements OnInit {
           altaOperaciones: [false],
           guardarCambios: [false],
           datosGenerales: [false],
-          financiamiento_value: [false],
+          financiamiento: [false],
           seguros: [false],
           lotesAutos: [false],
           referenciasBancos: [false],
