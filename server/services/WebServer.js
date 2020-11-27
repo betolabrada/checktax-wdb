@@ -14,14 +14,19 @@ function initialize() {
         const app = express();
         app.use(cookieParser());
         app.use(morgan('combined'));
-        
-        const corsOptions = {
-            origin: true,
-            credentials: true
-        }
-        app.use(cors(corsOptions));
+        app.use(express.static(process.cwd() + '../../angular-client/dist/angular-client'));
+
+        app.use(cors({ origin: "*" }));
         app.use(bodyParser.json());
         app.use('/v1/api', router);
+
+        app.get('/', (req, res) => {
+            res.sendFile(process.cwd() + '../../angular-client/dist/angular-client/index.html');
+        });
+
+        app.get('/login', (req, res) => {
+            res.redirect('/');
+        });
         httpServer = http.createServer(app);
 
 
