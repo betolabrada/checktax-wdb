@@ -9,6 +9,7 @@
       </label>
       <div class="main-input-group input-group input-group-sm">
         <input
+          autocomplete="off"
           id="input-operacion"
           type="text"
           [value]="numOperacion"
@@ -30,7 +31,8 @@
     </div>
     <div class="main-input-group">
       <label for="input-fecha">Fecha</label>
-      <input id="input-fecha"
+      <input autocomplete="off"
+             id="input-fecha"
              placeholder="DD-MMM-AA"
              type="text"
              [value]="fecha"
@@ -40,7 +42,8 @@
     </div>
     <div class="main-input-group">
       <label for="input-folio">Folio Com.</label>
-      <input id="input-folio"
+      <input autocomplete="off"
+             id="input-folio"
              type="text"
              [value]="folio"
              (input)="update('folio', $event)"
@@ -48,7 +51,8 @@
     </div>
     <div class="main-input-group d-block">
       <label for="input-refPagos">Referencia Pagos</label>
-      <input id="input-refPagos"
+      <input autocomplete="off"
+             id="input-refPagos"
              type="text"
              [value]="refPagos"
              (input)="update('refPagos', $event)"
@@ -58,7 +62,8 @@
   <div class="d-flex">
     <div class="main-input-group d-block">
       <label for="input-cliente">Cliente</label>
-      <input id="input-cliente"
+      <input autocomplete="off"
+             id="input-cliente"
              type="text"
              [value]="cliente"
              (input)="update('cliente', $event)"
@@ -85,6 +90,7 @@
              type="text"
              [value]="descripcion"
              (input)="update('descripcion', $event)"
+             autocomplete="off"
       >
     </div>
   </div>
@@ -95,6 +101,7 @@
              type="text"
              [value]="asesor"
              (input)="update('asesor', $event)"
+             autocomplete="off"
       >
     </div>
   </div>

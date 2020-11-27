@@ -13,6 +13,7 @@
       </label>
       <div class="main-input-group input-group input-group-sm">
         <input
+          autocomplete="off"
           id="input-producto"
           type="text"
           style="width: 100px;"
@@ -68,6 +69,7 @@
              type="text"
              [value]="valorOp"
              (change)="update('valorOperacion', $event)"
+             autocomplete="off"
       >
     </div>
     <div class="main-input-group" *ngIf="product">
@@ -82,7 +84,7 @@
     <div class="main-input-group">
       <label for="input-tasaAnual">Tasa Anual</label>
       <input id="input-tasaAnual" class="text-center" type="text" [value]="tipoFin?.tasa?.toString() || ''"
-             (input)="update('tasaAnual', $event)">
+             (input)="update('tasaAnual', $event)" autocomplete="off">
     </div>
     <div class="d-flex">
       <div style="width: 75px; margin-top: 10px; text-align: center;"><label>%</label></div>
