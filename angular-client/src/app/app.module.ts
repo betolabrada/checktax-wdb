@@ -41,6 +41,7 @@ import { OtrosParamComponent } from './components/main-form/otros-param/otros-pa
 import { AplicarOpComponent } from './components/main-form/aplicar-op/aplicar-op.component';
 import { LoteAutosComponent } from './components/main-form/lote-autos/lote-autos.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AuthGuard } from './helpers/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,

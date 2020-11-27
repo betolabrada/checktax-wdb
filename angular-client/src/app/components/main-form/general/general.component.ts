@@ -4,6 +4,7 @@ import { OperacionService } from '../../../services/operacion/operacion.service'
 import { LoadingService } from '../../../services/loading/loading.service';
 import { AlertService } from '../../alert';
 import { DateFormatterService } from '../../../services/date-formatter.service';
+import { ClearService } from '../../../services/clear.service';
 
 @Component({
   selector: 'app-general',
@@ -12,21 +13,22 @@ import { DateFormatterService } from '../../../services/date-formatter.service';
 })
 export class GeneralComponent implements OnInit {
 
-  indexOperacion: number;
+  inputNumOperacion = '';
   editMode: boolean;
   @Input() operacion: Operacion;
   textFecha = '';
   constructor(private operacionService: OperacionService,
               private loadingService: LoadingService,
               private alertService: AlertService,
-              private dateFormatter: DateFormatterService) {
+              private dateFormatter: DateFormatterService,
+              private clearService: ClearService) {
   }
 
   ngOnInit(): void {
   }
 
   get numOperacion(): string {
-    return this.operacion.numOperacion ? this.operacion.numOperacion : '';
+    return this.operacion.numOperacion ? this.operacion.numOperacion : this.inputNumOperacion;
   }
 
   get fecha(): string {
@@ -73,8 +75,12 @@ export class GeneralComponent implements OnInit {
   findOperacion(): void {
     console.log('finding...');
     this.loadingService.setLoading(true);
-    if (this.numOperacion.length === 0) { return; }
-    this.operacionService.queryNumOperacion(this.numOperacion).subscribe(
+    if (this.inputNumOperacion.length === 0) {
+      this.loadingService.setLoading(false);
+      this.cleanup();
+      return;
+    }
+    this.operacionService.queryNumOperacion(this.inputNumOperacion).subscribe(
       (value) => {
         console.log(value);
         this.loadingService.setLoading(false);
@@ -106,7 +112,7 @@ export class GeneralComponent implements OnInit {
   }
 
   cleanup(): void {
-    this.operacionService.clear();
+    this.clearService.clear();
   }
 
   dateFormat(textFecha: string) {

@@ -11,10 +11,9 @@
         <input
           id="input-operacion"
           type="text"
-          value="numOperacion"
           [value]="numOperacion"
-          (input)="update('numOperacion', $event)"
-          (keyup.enter)="findOperacion()"
+          (input)="inputNumOperacion = $event.target.value"
+          (change)="findOperacion()"
         >
         <div class="input-group-append">
           <button

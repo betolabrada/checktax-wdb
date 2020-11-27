@@ -45,4 +45,9 @@ export class AuthService {
   public get currentUserValue(): User {
     return this.currentUserSubject.value;
   }
+
+  changeLoggedIn(b: boolean) {
+    this.loggedIn = b;
+    this.loggedInChanged.next(this.loggedIn);
+  }
 }

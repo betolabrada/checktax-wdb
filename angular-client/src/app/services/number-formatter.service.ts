@@ -41,4 +41,12 @@ export class NumberFormatterService {
     }
     return res;
   }
+
+  formatToNumber(num: string) {
+    let str = num;
+    while (str.includes(',')) {
+      str = num.replace(',', '');
+    }
+    return parseFloat(str);
+  }
 }
