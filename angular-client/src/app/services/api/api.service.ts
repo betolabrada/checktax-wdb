@@ -4,12 +4,14 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { retryWhen, mergeMap } from 'rxjs/operators';
 import { Observable, timer, throwError } from 'rxjs';
 
-export const BASEURL      = 'http://localhost:3000/v1/api';
-export const BASEURL_DEV  = 'http://localhost:3000/api';
-const HTTP_HEADERS        = new HttpHeaders({'Content-Type': 'application/json'});
-const RETRY_ATTEMPTS      = 5;
-const RETRY_STATUS_CODES  = [ 408, 429, 504];
-const RETRY_MILLISECONDS  = 10000;
+//export const BASEURL = 'http://localhost:80/v1/api';
+//export const BASEURL_DEV = 'http://localhost:80/api';
+export const BASEURL = 'http://chektax.ninja/v1/api';
+export const BASEURL_DEV = 'http://chektax.ninja/api';
+const HTTP_HEADERS = new HttpHeaders({ 'Content-Type': 'application/json' });
+const RETRY_ATTEMPTS = 5;
+const RETRY_STATUS_CODES = [408, 429, 504];
+const RETRY_MILLISECONDS = 10000;
 
 
 
@@ -18,7 +20,7 @@ const RETRY_MILLISECONDS  = 10000;
 })
 export class ApiService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   public get baseURL(): string {
     return this.debugMode ? BASEURL_DEV : BASEURL;
@@ -32,22 +34,22 @@ export class ApiService {
     return this.processHttpRequest(this.http.get<T>(link, { headers: HTTP_HEADERS, params }), displayErrors);
   }
 
-  public post<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
+  public post<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T> {
     const link: string = this.genLink(endPoint, useToken);
     return this.processHttpRequest(this.http.post<T>(link, body, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  public patch<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
+  public patch<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T> {
     const link: string = this.genLink(endPoint, useToken);
     return this.processHttpRequest(this.http.patch<T>(link, body, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  public put<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
+  public put<T>(endPoint: string, body: object, useToken: boolean = true, displayErrors: boolean = true): Observable<T> {
     const link: string = this.genLink(endPoint, useToken);
     return this.processHttpRequest(this.http.put<T>(link, body, { headers: HTTP_HEADERS }), displayErrors);
   }
 
-  public delete<T>(endPoint: string, useToken: boolean = true, displayErrors: boolean = true): Observable<T>{
+  public delete<T>(endPoint: string, useToken: boolean = true, displayErrors: boolean = true): Observable<T> {
     const link: string = this.genLink(endPoint, useToken);
     return this.processHttpRequest(this.http.delete<T>(link, { headers: HTTP_HEADERS }), displayErrors);
   }
@@ -61,14 +63,14 @@ export class ApiService {
   private genLink(endPoint: string, useToken: boolean, getVars: object = {}): string {
     useToken = useToken && this.token && this.token.length > 0;
 
-    const baseURL = (this.debugMode ? BASEURL_DEV : BASEURL) + endPoint ;
+    const baseURL = (this.debugMode ? BASEURL_DEV : BASEURL) + endPoint;
 
     return useToken ? baseURL + 'access_token=' + this.token : baseURL;
   }
 
   private retryOnConnectionError(errorResponse: Observable<any>, displayErrors): Observable<any> {
     return errorResponse.pipe(
-      mergeMap( (error, retryAttempts) => {
+      mergeMap((error, retryAttempts) => {
         if (retryAttempts >= RETRY_ATTEMPTS || !RETRY_STATUS_CODES.find(code => error.status === code)) {
           return throwError(error);
         }

@@ -9,7 +9,7 @@ async function getUser(req, res, next) {
         if (rows.length > 0) {
             return res.status(200).json({msg: 'User successfully found !', data: rows[0]});
         } else {
-            return res.status(404).json({msg: 'User not found !', data: rows});
+            return res.status(404).json({ msg: 'User not found !', data: rows });
         }
     } catch (err) {
         next(err);
@@ -133,7 +133,7 @@ async function deleteUser(req, res, next) {
     }
 }
 
-async function login(req, res, next){
+async function login(req, res, next) {
     try {
         let user = {
             username: req.body.username,
@@ -141,38 +141,39 @@ async function login(req, res, next){
         }
         const userLogedIn_result = await users.login(user);
         console.log(userLogedIn_result);
-        if(userLogedIn_result.msg != 'User loged in successfully!'){
-            return res.status(401).json({msg: userLogedIn_result.msg, status: 401});
+        if (userLogedIn_result.msg != 'User loged in successfully!') {
+            return res.status(401).json({ msg: userLogedIn_result.msg, status: 401 });
         }
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-        res.header('Access-Control-Allow-Credentials', true);
-        res.cookie('jwtToken', userLogedIn_result.jwt, {httpOnly: true});
-        return res.status(200).json({msg: userLogedIn_result.msg, data: userLogedIn_result.jwt, status: 200});
+        res.header('Access-Control-Allow-Credentials', "*");
+        res.header('Access-Control-Allow-Origin', "*");
+        res.cookie('jwtToken', userLogedIn_result.jwt, { httpOnly: true });
+        return res.status(200).json({ msg: userLogedIn_result.msg, data: userLogedIn_result.jwt, status: 200 });
     } catch (e) {
-        return res.status(401).json({msg: e, status: 400});
+        return res.status(400).json({ msg: e });
     }
 }
 
-async function getToken(req, res, next){
+async function getToken(req, res, next) {
     let token;
-    if(req.headers['authorization']){
+    if (req.headers['authorization']) {
         token = req.headers['authorization'].split(' ')[1];
-    }else if(req.cookies['jwtToken'] && req.cookies.jwtToken != ''){
+    } else if (req.cookies['jwtToken'] && req.cookies.jwtToken != '') {
         token = req.cookies.jwtToken;
     }
-    else{
+    else {
         return -1;
     }
     return token;
 }
 
-async function verifyToken(req, res){
+async function verifyToken(req, res) {
     const tokenResult = await getToken(req, res);
-    if(tokenResult == -1){
+    if (tokenResult == -1) {
         return ['No token provided !'];
     }
     const verificationResult = await users.verifyToken(tokenResult);
-    if(verificationResult.msg == 'Invalid session !'){
+    if (verificationResult.msg == 'Invalid session !') {
         return [verificationResult.msg];
     }
     return [verificationResult.token.username, verificationResult.token.userID];
@@ -233,7 +234,7 @@ async function insertPermission(req, res){
     }
 }
 
-async function getSections(req, res, next){
+async function getSections(req, res, next) {
     try {
         const context = {};
         context.id = parseInt(req.params.id, 10);
