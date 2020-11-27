@@ -1,6 +1,7 @@
 import { Producto } from './producto.model';
 
 export interface Concepto {
+  idConcepto: number;
   concepto: string;
 }
 

@@ -12,6 +12,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { ProductoTipofinService } from '../../services/producto-tipofin.service';
 import { ProductoService } from '../../services/producto/producto.service';
 import { TipoFinanciamientoService } from '../../services/tipo-financiamiento/tipo-financiamiento.service';
+import { CalculationsService } from '../../services/calculations.service';
 
 @Component({
   selector: 'app-main-form',
@@ -40,7 +41,8 @@ export class MainFormComponent implements OnInit, OnDestroy {
               private tipoFinService: TipoFinanciamientoService,
               private productoTipoFinService: ProductoTipofinService,
               private alertService: AlertService,
-              private loadingService: LoadingService) {}
+              private loadingService: LoadingService,
+              private calculationsService: CalculationsService) {}
 
   ngOnInit(): void {
     this.loading = this.loadingService.loading$.subscribe((loading) => {
@@ -51,6 +53,10 @@ export class MainFormComponent implements OnInit, OnDestroy {
         tap((operacion) => {
           console.log('operacion', operacion);
           this.operacion = operacion;
+          if (operacion.fecha) {
+            this.calculationsService.fecha = new Date(operacion.fecha);
+            this.calculationsService.verifyIfCanCalculate();
+          }
         }),
         switchMap((operacion) => {
           if (operacion.idFinanciamiento) {

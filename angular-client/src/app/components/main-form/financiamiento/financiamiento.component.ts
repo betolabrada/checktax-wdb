@@ -3,11 +3,11 @@ import { Operacion } from '../../../models/operacion.model';
 import { OperacionService } from '../../../services/operacion/operacion.service';
 import { Observable, Subscription } from 'rxjs';
 import { Producto, TipoFinanciamiento } from '../../../models/producto.model';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, first, map } from 'rxjs/operators';
 import { NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { ProductoService } from '../../../services/producto/producto.service';
 import { LoadingService } from '../../../services/loading/loading.service';
-import { Financiamiento } from '../../../models/financiamiento.model';
+import { Concepto, Financiamiento } from '../../../models/financiamiento.model';
 import { FinanciamientoService } from '../../../services/financiamiento/financiamiento.service';
 import { TipoFinanciamientoService } from '../../../services/tipo-financiamiento/tipo-financiamiento.service';
 import { AlertService } from '../../alert';
@@ -15,15 +15,8 @@ import { ProductoTipofinService } from '../../../services/producto-tipofin.servi
 import { NumberFormatterService } from '../../../services/number-formatter.service';
 import { CalculationsService } from '../../../services/calculations.service';
 import { DateFormatterService } from '../../../services/date-formatter.service';
-
-interface Pago {
-  pago: number;
-  fecha: Date;
-  capital: number;
-  intereses: number;
-  iva: number;
-  total: number;
-}
+import { ConceptoService } from '../../../services/concepto.service';
+import { Pago } from '../../../models/pago.model';
 
 @Component({
   selector: 'app-financiamiento',
@@ -42,7 +35,7 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
   typeaheadFunc: ($text: Observable<string>) => Observable<readonly any[]>;
   productos: Producto[];
   calcResult: Pago[] = [];
-  private calculationsService: CalculationsService;
+  conceptos: Concepto[];
   private productosSubscription: Subscription;
   private tipoFinSubscription: Subscription;
   constructor(private operacionService: OperacionService,
@@ -53,7 +46,9 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
               private loadingService: LoadingService,
               private alertService: AlertService,
               private numberFormat: NumberFormatterService,
-              private dateFormatter: DateFormatterService) {}
+              private dateFormatter: DateFormatterService,
+              private conceptoService: ConceptoService,
+              private calculationsService: CalculationsService) {}
 
   ngOnInit(): void {
     this.productos = this.productoService.getProductos();
@@ -63,6 +58,7 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
       });
     this.financiamientoSub = this.financiamientoService.financiamientoChanged
       .subscribe((financiamiento: Financiamiento) => {
+        this.verifyChangeInCalculation(financiamiento);
         this.financiamiento = financiamiento;
         console.log('new financiamiento: ', financiamiento);
         if (this.financiamiento.idProductoTipoFinanciamiento) {
@@ -78,6 +74,19 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
       .subscribe((tipoFin: TipoFinanciamiento) => {
         console.log('tipoFin changed', tipoFin);
         this.tipoFin = tipoFin;
+        if (tipoFin.tasa) {
+          this.calculationsService.intereses = tipoFin.tasa;
+          this.calculationsService.verifyIfCanCalculate();
+        }
+      });
+    this.conceptoService.getConceptos()
+      .pipe(first())
+      .subscribe((conceptos) => {
+        this.conceptos = conceptos;
+      });
+    this.calculationsService.calcResult$
+      .subscribe((calcResult) => {
+        this.calcResult = calcResult;
       });
   }
 
@@ -218,27 +227,6 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
   onChangeTipoFin($event: Event): void {
     const data = ($event.target as HTMLInputElement).value;
     this.tipoFinService.buscaTipoFin(data);
-    if (this.financiamiento?.valorOperacion && this.financiamiento.valorOperacion > 0) {
-      const valorAFinanciar = .70 * this.financiamiento.valorOperacion;
-      const date = this.dateFormatter.isInFormat(this.operacion.fecha) ?
-        this.operacion.fecha : this.dateFormatter.formattedDate(this.operacion.fecha);
-      console.log('this.financiamiento.periodicidad', this.financiamiento.periodicidad);
-      // Servicio
-      this.calculationsService = new CalculationsService(
-        valorAFinanciar,
-        this.financiamiento.noPagos,
-        0.24,
-        new Date(date),
-        0.16,
-        this.financiamiento.periodicidad === 'Mensual'
-      );
-
-      console.log('calc service', this.calculationsService);
-      console.log('tipoFin', this.tipoFin);
-      const result = this.calculationsService.calcularPagosGlobal();
-      this.calcResult = result;
-      console.log('result ', result);
-    }
   }
 
   search = (text$: Observable<string>) =>
@@ -250,4 +238,28 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
           .map((producto) => producto.producto)
           .filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10))
     )
+
+  updateNum(key: string, $event: Event) {
+    let value: any = ($event.target as HTMLInputElement).value;
+    value = parseFloat(value);
+    if (isNaN(value)) {
+      value = 0;
+    }
+    this.financiamientoService.modify(key, value);
+  }
+
+  private verifyChangeInCalculation(financiamiento: Financiamiento) {
+    if (!!financiamiento) {
+      if (financiamiento.valorOperacion) {
+        this.calculationsService.capital = financiamiento.valorOperacion;
+      }
+      if (financiamiento.periodicidad) {
+        this.calculationsService.mensual = financiamiento.periodicidad === 'Mensual';
+      }
+      if (financiamiento.noPagos) {
+        this.calculationsService.plazo = financiamiento.noPagos;
+      }
+    }
+    this.calculationsService.verifyIfCanCalculate();
+  }
 }

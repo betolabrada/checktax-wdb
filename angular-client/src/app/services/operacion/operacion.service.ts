@@ -28,6 +28,10 @@ export class OperacionService {
     this.operacionChanged.next(Object.assign({}, this.operacion));
   }
 
+  public get currentOperacionValue(): Operacion {
+    return this.operacionChanged.value;
+  }
+
   changeOperacion(operacion: Operacion): void {
     this.operacion = operacion;
     this.editMode.next(true);

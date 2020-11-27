@@ -16,7 +16,7 @@ export class NumberFormatterService {
     let res = '';
     if (decimalPlace >= 0) {
       if (decimalPlace + 2 < str.length - 1) {
-        res += str.substring(decimalPlace, decimalPlace + 2);
+        res += str.substring(decimalPlace, decimalPlace + 3);
       } else {
         res += str.substring(decimalPlace);
       }
