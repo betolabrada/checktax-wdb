@@ -36,6 +36,43 @@ export class ManageUsersComponent implements OnInit {
           cambiarNombres: [false],
           cambiarReferencias: [false],
         }),
+        pagosIndividuales: this.fb.group({
+          ventanaLiquidaciones: [false],
+          ventanaPagos: [false],
+          aplicarAdjudicacion: [false],
+          ventanaAdjudicaciones: [false],
+          aplicarLiquidaciones: [false],
+          aplicarPagos: [false],
+        }),
+        chequera: this.fb.group({
+          altaMovimientos: [false],
+          sincronizar: [false],
+          guardarArchivoTemporal: [false],
+          guardarCambios: [false],
+          bajaMovimientos: [false],
+          cambiosMovimientos: [false],
+        }),
+        cobranza: this.fb.group({
+          aplicarPagosCobranza: [false],
+        }),
+        configuracion: this.fb.group({
+          fondeadores: [false],
+          calificacionBuro: [false],
+          estatusCarteraAct: [false],
+          permisosOperacion: [false],
+          adjudicaciones: [false],
+          referenciasBancarias: [false],
+          lotesAutos: [false],
+          segurosAutos: [false],
+          prePago: [false],
+          baseMoratorios: [false],
+          valoresDefault: [false],
+          aplicacionPagos: [false],
+        }),
+        inventarioAdjudicacion: this.fb.group({
+          desplegar: [false],
+          guardarCambios: [false],
+        })
       }),
     });
   }
@@ -80,5 +117,23 @@ export class ManageUsersComponent implements OnInit {
         });
     }
 
+  }
+
+  setAllInGroup(group: FormGroup, b: boolean) {
+    const payload = {};
+    for (const key of Object.keys(group.value)) {
+      payload[key] = b;
+    }
+    group.setValue(payload);
+  }
+
+  onCheckedAll(groupPath: string, $event: Event) {
+    console.log(($event.target as HTMLInputElement).checked);
+    const group = this.manageForm.get(groupPath) as FormGroup;
+    if (($event.target as HTMLInputElement).checked) {
+      this.setAllInGroup(group, true);
+    } else {
+      this.setAllInGroup(group, false);
+    }
   }
 }

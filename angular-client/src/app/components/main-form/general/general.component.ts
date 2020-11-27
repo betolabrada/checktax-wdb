@@ -25,8 +25,7 @@ export class GeneralComponent implements OnInit {
               private loadingService: LoadingService,
               private alertService: AlertService,
               private dateFormatter: DateFormatterService,
-              private clearService: ClearService,
-              private calculationsService: CalculationsService) {
+              private clearService: ClearService) {
   }
 
   ngOnInit(): void {
