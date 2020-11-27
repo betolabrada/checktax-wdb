@@ -3,7 +3,8 @@ import { ApiService } from './api/api.service';
 import { ProductoTipoFinanciamiento } from '../models/producto-tipofinanciamiento.model';
 import { Producto, TipoFinanciamiento } from '../models/producto.model';
 import { combineLatest, Observable, Subject } from 'rxjs';
-import { concat, map, mergeMap, switchMap } from 'rxjs/operators';
+import { concat, map, mergeMap, switchMap, tap } from 'rxjs/operators';
+import { LoadingService } from './loading/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class ProductoTipofinService {
   tipoFin: TipoFinanciamiento;
   tipoFinChanged = new Subject<TipoFinanciamiento>();
   productosTipoFin: ProductoTipoFinanciamiento[];
-  constructor(private api: ApiService) {
+  constructor(private api: ApiService,
+              private loadingService: LoadingService) {
     this.api.get<ProductoTipoFinanciamiento[]>(`/productoTipoFin`)
       .subscribe((ptfs) => {
         this.productosTipoFin = ptfs;
@@ -25,12 +27,14 @@ export class ProductoTipofinService {
   getProductoTipoFin(id): Observable<any> {
     return this.api.get<ProductoTipoFinanciamiento>(`/productoTipoFin/${id}`)
       .pipe(
+        tap(() => { this.loadingService.setLoading(true); }),
         switchMap((ptf) => {
           return combineLatest([
             this.getProducto(ptf.idProducto),
             this.getTipoFin(ptf.idTipoFin)
           ]);
-        })
+        }),
+        tap(() => { this.loadingService.setLoading(false); }),
       );
   }
 

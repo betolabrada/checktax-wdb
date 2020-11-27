@@ -34,6 +34,7 @@ export class OperacionService {
 
   changeOperacion(operacion: Operacion): void {
     this.operacion = operacion;
+    this.verifySingleDate();
     this.editMode.next(true);
     this.operacionChanged.next(Object.assign({}, this.operacion));
   }
@@ -130,8 +131,18 @@ export class OperacionService {
   }
 
   clear(): void {
+    console.log(defaultOperacion);
     this.operacion = Object.assign({}, defaultOperacion);
     this.notifyChange();
+  }
+
+  private verifySingleDate() {
+    if (this.operacion.fecha) {
+      const inFormat = this.dateFormatter.isInFormat(this.operacion.fecha);
+      if (!inFormat) {
+        this.operacion.fecha = this.dateFormatter.formattedDate(this.operacion.fecha);
+      }
+    }
   }
 
   private verifyDate() {

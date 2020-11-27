@@ -23,8 +23,10 @@ export class TipoFinanciamientoService {
     this.tipoFinChanged = new Subject<TipoFinanciamiento>();
     this.productoTipoFinService.productoChanged
       .subscribe((producto) => {
-        this.producto = producto;
-        this.tipoFinanciamientos = producto.tiposFin;
+        if (producto) {
+          this.producto = producto;
+          this.tipoFinanciamientos = producto.tiposFin;
+        }
       });
     this.fetchTiposFin();
   }

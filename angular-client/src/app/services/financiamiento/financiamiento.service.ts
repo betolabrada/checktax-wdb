@@ -33,7 +33,7 @@ export class FinanciamientoService {
   }
 
   clear(): void {
-    this.financiamiento = null;
+    this.financiamiento = defaultFinanciamiento;
     this.notifyChange();
   }
 

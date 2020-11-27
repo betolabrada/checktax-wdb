@@ -62,21 +62,27 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
         this.financiamiento = financiamiento;
         console.log('new financiamiento: ', financiamiento);
         if (this.financiamiento.idProductoTipoFinanciamiento) {
+          this.loadingService.setLoading(true);
           this.productoTipoFinService.getProductoTipoFin(this.financiamiento.idProductoTipoFinanciamiento);
+          this.loadingService.setLoading(false);
         }
       });
     this.productoSub = this.productoTipoFinService.productoChanged
       .subscribe((producto: Producto) => {
-        console.log('producto changed', producto);
-        this.product = producto;
+        if (producto) {
+          console.log('producto changed', producto);
+          this.product = producto;
+        }
       });
     this.tipoFinSubscription = this.productoTipoFinService.tipoFinChanged
       .subscribe((tipoFin: TipoFinanciamiento) => {
-        console.log('tipoFin changed', tipoFin);
-        this.tipoFin = tipoFin;
-        if (tipoFin.tasa) {
-          this.calculationsService.intereses = tipoFin.tasa;
-          this.calculationsService.verifyIfCanCalculate();
+        if (tipoFin) {
+          console.log('tipoFin changed', tipoFin);
+          this.tipoFin = tipoFin;
+          if (tipoFin.tasa) {
+            this.calculationsService.intereses = tipoFin.tasa;
+            this.calculationsService.verifyIfCanCalculate();
+          }
         }
       });
     this.conceptoService.getConceptos()
@@ -158,7 +164,7 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
   }
 
   get importeAnticipo(): string {
-    if (this.financiamiento?.valorOperacion && this.tipoFin?.anticipo) {
+    if (typeof this.financiamiento?.valorOperacion === 'number' && typeof this.tipoFin?.anticipo === 'number') {
       return this.numberFormat.format (this.financiamiento.valorOperacion * (this.tipoFin.anticipo / 100));
     } else {
       return '';
@@ -166,7 +172,7 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
   }
 
   get importeApertura(): string {
-    if (this.financiamiento?.valorOperacion && this.tipoFin?.apertura) {
+    if (typeof this.financiamiento?.valorOperacion === 'number' && typeof this.tipoFin?.apertura === 'number') {
       return this.numberFormat.format (this.financiamiento.valorOperacion * (this.tipoFin.apertura / 100));
     } else {
       return '';
@@ -174,7 +180,7 @@ export class FinanciamientoComponent implements OnInit, OnDestroy {
   }
 
   get importeDescuento(): string {
-    if (this.calcResult[0]?.pago && this.tipoFin?.descuento) {
+    if (typeof this.calcResult[0]?.pago === 'number' && typeof this.tipoFin?.descuento === 'number') {
       return this.numberFormat.format(this.calcResult[0].pago * (this.tipoFin.descuento / 100));
     } else {
       return '';

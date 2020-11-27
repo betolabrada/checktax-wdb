@@ -60,7 +60,7 @@ export class ProductoService {
   }
 
   clear(): void {
-    this.producto = null;
+    this.producto = defaultProducto;
     this.notifyChange();
   }
 

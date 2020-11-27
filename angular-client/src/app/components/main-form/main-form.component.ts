@@ -13,6 +13,7 @@ import { ProductoTipofinService } from '../../services/producto-tipofin.service'
 import { ProductoService } from '../../services/producto/producto.service';
 import { TipoFinanciamientoService } from '../../services/tipo-financiamiento/tipo-financiamiento.service';
 import { CalculationsService } from '../../services/calculations.service';
+import { ClearService } from '../../services/clear.service';
 
 @Component({
   selector: 'app-main-form',
@@ -42,7 +43,8 @@ export class MainFormComponent implements OnInit, OnDestroy {
               private productoTipoFinService: ProductoTipofinService,
               private alertService: AlertService,
               private loadingService: LoadingService,
-              private calculationsService: CalculationsService) {}
+              private calculationsService: CalculationsService,
+              private clearService: ClearService) {}
 
   ngOnInit(): void {
     this.loading = this.loadingService.loading$.subscribe((loading) => {
@@ -51,7 +53,6 @@ export class MainFormComponent implements OnInit, OnDestroy {
     this.operacionChangedSub = this.operacionService.operacionChanged
       .pipe(
         tap((operacion) => {
-          console.log('operacion', operacion);
           this.operacion = operacion;
           if (operacion.fecha) {
             this.calculationsService.fecha = new Date(operacion.fecha);
@@ -59,12 +60,14 @@ export class MainFormComponent implements OnInit, OnDestroy {
           }
         }),
         switchMap((operacion) => {
+          this.loadingService.setLoading(true);
           if (operacion.idFinanciamiento) {
             return this.financiamientoService.getFinanciamiento(operacion.idFinanciamiento);
           }
           return of(null);
         }),
         tap((financiamiento) => {
+          this.loadingService.setLoading(false);
           if (financiamiento) {
             this.financiamiento = financiamiento;
             this.financiamientoService.changeFinanciamiento(this.financiamiento);

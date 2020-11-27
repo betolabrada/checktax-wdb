@@ -173,7 +173,6 @@ export class CalculationsService {
     let actDate = this._fecha;
     const pago = this._capital/this._plazo;
 
-    console.log('this.plazo', this._plazo);
     for(let i = 0; i < this._plazo; i++){
       let men = this.calcularPagoMenGlobal(pago, actCapital, this._mensual, actDate);
       pagosMen.push(men);
@@ -182,5 +181,13 @@ export class CalculationsService {
     }
 
     return pagosMen;
+  }
+
+  clear() {
+    this._calcResult = [];
+    this._fecha = null;
+    this._mensual = false;
+    this._plazo = 0;
+    this._capital = 0;
   }
 }
