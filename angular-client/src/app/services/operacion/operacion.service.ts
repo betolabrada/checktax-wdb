@@ -94,6 +94,7 @@ export class OperacionService {
     this.api.put(`/operacion/${this.operacion.numOperacion}`, this.operacion).subscribe(
       (value) => {
         console.log(value);
+        this.alert.showAlert('Operación guardada exitosamente', 'success');
         this.loading.setLoading(false);
       },
       (error) => {
