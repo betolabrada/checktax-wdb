@@ -5,7 +5,7 @@ import { ApiService } from '../api/api.service';
 import { AlertService } from '../../components/alert';
 import { LoadingService } from '../loading/loading.service';
 import { count, switchMap, tap } from 'rxjs/operators';
-import { Financiamiento } from '../../models/financiamiento.model';
+import { Concepto, Financiamiento } from '../../models/financiamiento.model';
 import { DateFormatterService } from '../date-formatter.service';
 
 @Injectable({
