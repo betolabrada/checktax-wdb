@@ -1,5 +1,5 @@
 ﻿# CheckTax WDB Sistemas
-Setup ATP OCI connection:
+Setup ATP OCI connection (WINDOWS):
   1. Install the instant client of Oracle https://www.oracle.com/database/technologies/instant-client/winx64-64-downloads.html
   2. Create an "oracle" directory on your hard drive and unzipp the client there, your path directory should look like this: C:\oracle\instantclient_19_8
   3. Add this path tou your PATH system (enviroment variable).
