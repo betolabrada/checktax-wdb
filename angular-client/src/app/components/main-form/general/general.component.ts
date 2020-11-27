@@ -5,6 +5,9 @@ import { LoadingService } from '../../../services/loading/loading.service';
 import { AlertService } from '../../alert';
 import { DateFormatterService } from '../../../services/date-formatter.service';
 import { ClearService } from '../../../services/clear.service';
+import { CalculationsService } from '../../../services/calculations.service';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-general',
@@ -17,11 +20,13 @@ export class GeneralComponent implements OnInit {
   editMode: boolean;
   @Input() operacion: Operacion;
   textFecha = '';
+  isChangeEvent = false;
   constructor(private operacionService: OperacionService,
               private loadingService: LoadingService,
               private alertService: AlertService,
               private dateFormatter: DateFormatterService,
-              private clearService: ClearService) {
+              private clearService: ClearService,
+              private calculationsService: CalculationsService) {
   }
 
   ngOnInit(): void {
@@ -108,7 +113,12 @@ export class GeneralComponent implements OnInit {
   }
 
   update(key: string, $event: Event): void {
-    this.operacionService.modify(key, ($event.target as HTMLInputElement).value);
+    if (key === 'cliente' || key === 'asesor') {
+      // Id de contacto fijo = 81
+      this.operacionService.modify(key, 81);
+    } else {
+      this.operacionService.modify(key, ($event.target as HTMLInputElement).value);
+    }
   }
 
   cleanup(): void {
@@ -116,10 +126,8 @@ export class GeneralComponent implements OnInit {
   }
 
   dateFormat(textFecha: string) {
-    console.log(textFecha);
     const dateStr = this.dateFormatter.formatInput(textFecha);
     this.operacionService.modify('fecha', dateStr);
-
   }
 
   onInput(value: any) {

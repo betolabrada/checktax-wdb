@@ -35,17 +35,15 @@
     </div><!--d-flex flex-column mr-2-->
     <div class="main-input-group">
       <label for="input-fondeador">Fondeador</label>
-      <select id="input-fondeador" [value]="fondeador" (change)="update('idConcepto', $event)">
+      <select id="input-fondeador" [value]="fondeador" (change)="updateNum('idConcepto', $event)">
         <option selected disabled value="0">Seleccione</option>
-        <option value="1">RP</option>
-        <option value="2">ICM</option>
-        <option value="3">GDA</option>
-        <option value="4">CR</option>
+        <option *ngFor="let concepto of conceptos" [value]="concepto.idConcepto">{{ concepto.concepto }}</option>
+
       </select>
     </div>
     <div class="main-input-group">
       <label for="input-noPagos">No. Pagos</label>
-      <select id="input-noPagos" [value]="noPagos" (change)="update('noPagos', $event)">
+      <select id="input-noPagos" [value]="noPagos" (change)="updateNum('noPagos', $event)">
         <option selected disabled value="0">Seleccione</option>
         <option value="12">12</option>
         <option value="24">24</option>
@@ -68,7 +66,7 @@
              id="input-valorOperacion"
              type="text"
              [value]="valorOp"
-             (change)="update('valorOperacion', $event)"
+             (change)="updateNum('valorOperacion', $event)"
              autocomplete="off"
       >
     </div>
