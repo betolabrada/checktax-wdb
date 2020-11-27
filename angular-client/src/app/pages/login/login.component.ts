@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
+import { AlertService } from '../../components/alert';
 
 @Component({
   selector: 'app-login',
@@ -21,9 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     // redirect to home if already logged in
-    console.log(this.authService.currentUserValue);
     if (this.authService.currentUserValue) {
-      console.log('aqui ?');
       this.authService.changeLoggedIn(true);
       this.router.navigate(['/home']);
     }

@@ -10,22 +10,30 @@ import { Alert, AlertType } from './alert.model';
 export class AlertService {
   private subject = new Subject<Alert>();
   private defaultId = 'default-alert';
+  options = {
+    autoClose: true,
+    keepAfterRouteChange: false,
+  };
 
   showAlert(msg: string, type: string = ''): void {
     if (!type.length) {
-      this.success(msg);
+      this.success(msg, this.options);
     } else {
       switch (type) {
         case 'error': {
-          this.error(msg);
+          this.error(msg, this.options);
           break;
         }
         case 'info': {
-          this.info(msg);
+          this.info(msg, this.options);
           break;
         }
         case 'success': {
-          this.success(msg);
+          this.success(msg, this.options);
+          break;
+        }
+        case 'warn': {
+          this.warn(msg, this.options);
           break;
         }
       }
